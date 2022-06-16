@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>tags | Rainjai Blog</title>
+  <title>C语言运算符 | Rainjai Blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="tags | Rainjai Blog">
+  <meta name="description" content="C语言运算符 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -388,19 +388,27 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-C语言运算符" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">tags</h1>
+        <h1 class="article-title">C语言运算符</h1>
     
     <div class="article-meta">
         
         
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="C语言">C语言</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-06-16 17:44:34'>2022-06-16 17:44</time>
+            Created At : <time class="date" title='Updated At: 2022-06-16 22:27:01'>2022-06-15 16:46</time>
         
     </div>
     <div class="article-meta">
@@ -422,7 +430,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">C语言运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">算数运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">关系运算符</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -438,7 +446,90 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="C语言运算符"><a href="#C语言运算符" class="headerlink" title="C语言运算符"></a>C语言运算符</h1><ul>
+<li>算数运算符</li>
+<li>关系运算符</li>
+<li>逻辑运算符</li>
+<li>位运算符</li>
+<li>赋值运算符</li>
+<li>杂项运算符</li>
+</ul>
+<h2 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h2><p>假设变量A的值为10,变量B的值为20,则：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>运算符</td>
+<td>描述</td>
+<td>实例</td>
+</tr>
+<tr>
+<td>+</td>
+<td>两数相加</td>
+<td>A+B 将得到30</td>
+</tr>
+<tr>
+<td>-</td>
+<td>两数相减</td>
+<td>A-B 将得到-10</td>
+</tr>
+<tr>
+<td>*</td>
+<td>两数相乘</td>
+<td>A*B 将得到200</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>分子除以分母</td>
+<td>B&#x2F;A 将得到2</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模运算符，整数后的余数</td>
+<td>B%A 将得到0</td>
+</tr>
+<tr>
+<td>++</td>
+<td>自增运算符，整数值加1</td>
+<td>A++将得到11</td>
+</tr>
+<tr>
+<td>–</td>
+<td>自减运算符，整数值减1</td>
+<td>A–将得到9</td>
+</tr>
+</tbody></table>
+<p><strong>实例</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> a = <span class="number">21</span>;</span><br><span class="line">   <span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line">   <span class="type">int</span> c ;</span><br><span class="line"> </span><br><span class="line">   c = a + b;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 1 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line">   c = a - b;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 2 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line">   c = a * b;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 3 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line">   c = a / b;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 4 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line">   c = a % b;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 5 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line">   c = a++;  <span class="comment">// 赋值后再加 1 ，c 为 21，a 为 22</span></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 6 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line">   c = a--;  <span class="comment">// 赋值后再减 1 ，c 为 22 ，a 为 21</span></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;Line 7 - c 的值是 %d\n&quot;</span>, c );</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面代码编译，执行后，产生以下结果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Line <span class="number">1</span> - c 的值是 <span class="number">31</span></span><br><span class="line">Line <span class="number">2</span> - c 的值是 <span class="number">11</span></span><br><span class="line">Line <span class="number">3</span> - c 的值是 <span class="number">210</span></span><br><span class="line">Line <span class="number">4</span> - c 的值是 <span class="number">2</span></span><br><span class="line">Line <span class="number">5</span> - c 的值是 <span class="number">1</span></span><br><span class="line">Line <span class="number">6</span> - c 的值是 <span class="number">21</span></span><br><span class="line">Line <span class="number">7</span> - c 的值是 <span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><p>运算符描述实例&#x3D;&#x3D;检查两个操作数的值是否相等，如果相等则条件为真。(A &#x3D;&#x3D; B)为真！&#x3D;检查两个操作数的值是否相等，如果不相等则条件为真。(A !&#x3D; B)为真&gt;检查左操作数的值是否大于右操作数的值，如果是则条件为真。(A &gt; B)为真&lt;</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检查左操作数的值是否小于右操作数的值，如果是则条件为真。</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>(A &lt; B)为真&gt;&#x3D;检查左操作数的值是否大于或等于右操作数的值，如果是则条件为真。(A &gt;&#x3D; B)为真&lt;&#x3D;检查左操作数的值是否小于或等于右操作数的值，如果是则条件为真。(A &lt;&#x3D; B)为真</p>
+<p><strong>实例</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> a = <span class="number">21</span>;</span><br><span class="line">   <span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line">   <span class="type">int</span> c ;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">if</span>( a == b ) <span class="built_in">printf</span>(<span class="string">&quot;Line 1 - a 等于 b\n&quot;</span> );</span><br><span class="line">   <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Line 1 - a 不等于 b\n&quot;</span> );</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> ( a &lt; b ) <span class="built_in">printf</span>(<span class="string">&quot;Line 2 - a 小于 b\n&quot;</span> );</span><br><span class="line">   <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Line 2 - a 不小于 b\n&quot;</span> );</span><br><span class="line">	</span><br><span class="line">   <span class="keyword">if</span> ( a &gt; b ) <span class="built_in">printf</span>(<span class="string">&quot;Line 3 - a 大于 b\n&quot;</span> );</span><br><span class="line">   <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Line 3 - a 不大于 b\n&quot;</span> );</span><br><span class="line">	</span><br><span class="line">   <span class="comment">/* 改变 a 和 b 的值 */</span></span><br><span class="line">   a = <span class="number">5</span>;</span><br><span class="line">   b = <span class="number">20</span>;</span><br><span class="line">   <span class="keyword">if</span> ( a &lt;= b ) <span class="built_in">printf</span>(<span class="string">&quot;Line 4 - a 小于或等于 b\n&quot;</span> );</span><br><span class="line">   <span class="keyword">if</span> ( b &gt;= a ) <span class="built_in">printf</span>(<span class="string">&quot;Line 5 - b 大于或等于 a\n&quot;</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码编译，执行后，产生以下结果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Line <span class="number">1</span> - a 不等于 b</span><br><span class="line">Line <span class="number">2</span> - a 不小于 b</span><br><span class="line">Line <span class="number">3</span> - a 大于 b</span><br><span class="line">Line <span class="number">4</span> - a 小于或等于 b</span><br><span class="line">Line <span class="number">5</span> - b 大于或等于 a</span><br></pre></td></tr></table></figure>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
