@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AD检测——笔记1 | Rainjai Blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="AD检测——笔记1 | Rainjai Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http://example.com/tags/index.html">
+<meta property="og:site_name" content="Rainjai Blog">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-06-16T09:44:15.000Z">
+<meta property="article:modified_time" content="2022-06-16T09:44:34.032Z">
+<meta property="article:author" content="Rainjai">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>Rainjai</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/chenborong"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="reddit"
+               href="https://www.reddit.com/user/yelog/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-reddit"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="weibo"
+               href="http://weibo.com/rainjai94"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-weibo"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="zhihu"
+               href="https://www.zhihu.com/people/jaytp/activities"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-zhihu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:chenborong123@live.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=740917027&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="全部文章">全部文章
+            
+                <small>(8)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="HEXO">
+                        
+                        HEXO
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="单片机函数">
+                        
+                        单片机函数
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="电磁炉">
+                        
+                        电磁炉
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C语言">
+                        
+                        C语言
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="工作">
+                        
+                        工作
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">关于</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">友链</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="8">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="全部文章 单片机函数 "
+           href="/2022/06/23/AD%E6%A3%80%E6%B5%8B%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B01/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="AD检测——笔记1">AD检测——笔记1</span>
+            <span class="post-date" title="2022-06-23 14:29:00">2022/06/23</span>
+        </a>
+        
+        <a  class="全部文章 HEXO "
+           href="/2022/06/18/PicGo%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="PicGo安装">PicGo安装</span>
+            <span class="post-date" title="2022-06-18 15:03:14">2022/06/18</span>
+        </a>
+        
+        <a  class="全部文章 单片机函数 "
+           href="/2022/06/18/%E7%BC%96%E7%A0%81%E5%99%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="编码器">编码器</span>
+            <span class="post-date" title="2022-06-18 10:00:28">2022/06/18</span>
+        </a>
+        
+        <a  class="全部文章 单片机函数 "
+           href="/2022/06/17/%E8%9C%82%E9%B8%A3%E5%99%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="蜂鸣器">蜂鸣器</span>
+            <span class="post-date" title="2022-06-17 23:28:25">2022/06/17</span>
+        </a>
+        
+        <a  class="全部文章 电磁炉 "
+           href="/2022/06/17/%E7%94%B5%E7%A3%81%E7%82%89%E6%B3%A2%E5%BD%A2%E8%A7%A3%E6%9E%90/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="电磁炉波形解析">电磁炉波形解析</span>
+            <span class="post-date" title="2022-06-17 16:31:20">2022/06/17</span>
+        </a>
+        
+        <a  class="全部文章 C语言 "
+           href="/2022/06/17/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="C语言运算符">C语言运算符</span>
+            <span class="post-date" title="2022-06-17 16:06:06">2022/06/17</span>
+        </a>
+        
+        <a  class="全部文章 工作 "
+           href="/2022/06/15/HelloRainjai/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HelloRainjai">HelloRainjai</span>
+            <span class="post-date" title="2022-06-15 16:46:00">2022/06/15</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2022/06/15/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2022-06-15 16:46:00">2022/06/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-AD检测——笔记1" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">AD检测——笔记1</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="单片机函数">单片机函数</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2022-06-23 15:55:17'>2022-06-23 14:29</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AD%E6%A3%80%E6%B5%8B%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B01"><span class="toc-text">AD检测——笔记1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%B5%E8%B7%AF%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.电路介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-text">3.真值表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AF%E4%BB%B6%E9%83%A8%E5%88%86"><span class="toc-text">4.软件部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1%E5%9C%A8adc-h%E6%96%87%E4%BB%B6%E5%87%BA%EF%BC%8C%E5%AE%9A%E4%B9%89%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">4.1在adc.h文件出，定义所需要的的寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%EF%BC%8C%E4%BB%A5%E5%8F%8AAD%E8%A1%A8%E6%A0%BC"><span class="toc-text">4.2函数定义，以及AD表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3AD%E8%BD%AC%E6%8D%A2%EF%BC%8C%E5%BE%97%E5%88%B012%E4%BD%8DAD"><span class="toc-text">4.3AD转换，得到12位AD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4%E5%89%8A%E6%8A%96%EF%BC%8C%E6%BB%A4%E6%B3%A2"><span class="toc-text">4.4削抖，滤波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5%E4%B8%BB%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-text">4.5主函数调用</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AD检测——笔记1"><a href="#AD检测——笔记1" class="headerlink" title="AD检测——笔记1"></a>AD检测——笔记1</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><p>本次AD检测，采用常规的AD检测电路，使用单电阻分压，优点是电路和程序相对简单，缺点是对于个别的温度段分辨率不高，因此只适合对温度显示要求不高的场合。</p>
+<h2 id="2-电路介绍"><a href="#2-电路介绍" class="headerlink" title="2.电路介绍"></a>2.电路介绍</h2><img src="https://raw.githubusercontent.com/chenborong/image/master/img/AD%E6%A3%80%E6%B5%8B_%E5%9B%BE1.jpg" alt="" width="314" height="439" class="jop-noMdConv">
+
+<p>如图所示，电路采用2.7K下拉，分压后使用104电容滤波储能，之所以使用2.7K，因为本次AD读取要求的从0~460F华氏度，范围较广，因此使用2.7K电阻</p>
+<h2 id="3-真值表"><a href="#3-真值表" class="headerlink" title="3.真值表"></a>3.真值表</h2><p>在写程序之前，还需要通过传感器的真值表，结合下来2.7K电阻，计算出各个温度的AD值，结合使用的单片机，选择8位AD或者12位AD，这里使用的是12位AD。</p>
+<p>以3950为例，在excel中，先列出每个温度点的电阻值，12位的AD计算公式为：1023&#x2F;(R(temp)+2.7)*2.7 而8位的AD计算公式为：255&#x2F;(R(temp)+2.7)*2.7</p>
+<p>得到没一个华氏度对应的AD之后，则可以开始准备写程序</p>
+<h2 id="4-软件部分"><a href="#4-软件部分" class="headerlink" title="4.软件部分"></a>4.软件部分</h2><h3 id="4-1在adc-h文件出，定义所需要的的寄存器"><a href="#4-1在adc-h文件出，定义所需要的的寄存器" class="headerlink" title="4.1在adc.h文件出，定义所需要的的寄存器"></a>4.1在adc.h文件出，定义所需要的的寄存器</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uint TEMP_MAIN2,Temper;</span><br><span class="line">uint Loop_Arr;</span><br><span class="line">uchar adc_cnt;</span><br><span class="line"><span class="type">static</span> bit b_Adc;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2函数定义，以及AD表格"><a href="#4-2函数定义，以及AD表格" class="headerlink" title="4.2函数定义，以及AD表格"></a>4.2函数定义，以及AD表格</h3><p>在adc.c文件中，函数定义以及2.7K下拉电阻的AD表格(在3.真值表)中已有介绍</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">ADC_CONVERSION</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">uint <span class="title function_">AD_Conbert</span><span class="params">(uchar ch_way)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Get_Temper</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//0~460F的AD表格</span></span><br><span class="line"><span class="type">const</span> <span class="type">unsigned</span> <span class="type">int</span> Tab_temp_array[]=&#123;</span><br><span class="line">    <span class="number">13</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">15</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">17</span>,	<span class="comment">//0~9F</span></span><br><span class="line">    <span class="number">18</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">22</span>,	<span class="comment">//10~19F</span></span><br><span class="line">    <span class="number">23</span>,<span class="number">24</span>,<span class="number">25</span>,<span class="number">26</span>,<span class="number">27</span>,<span class="number">28</span>,<span class="number">29</span>,<span class="number">29</span>,<span class="number">30</span>,<span class="number">31</span>,	<span class="comment">//20F~29F	</span></span><br><span class="line">    <span class="number">32</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>,<span class="number">35</span>,<span class="number">36</span>,<span class="number">37</span>,<span class="number">38</span>,<span class="number">39</span>,<span class="number">40</span>,	<span class="comment">//30~39F</span></span><br><span class="line">    <span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>,<span class="number">45</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">48</span>,<span class="number">50</span>,<span class="number">52</span>,<span class="number">53</span>,	<span class="comment">//40~49F</span></span><br><span class="line">    <span class="number">55</span>,<span class="number">56</span>,<span class="number">57</span>,<span class="number">59</span>,<span class="number">61</span>,<span class="number">63</span>,<span class="number">65</span>,<span class="number">67</span>,<span class="number">69</span>,<span class="number">71</span>,	<span class="comment">//50F~59F</span></span><br><span class="line">    <span class="number">72</span>,<span class="number">73</span>,<span class="number">74</span>,<span class="number">76</span>,<span class="number">78</span>,<span class="number">81</span>,<span class="number">83</span>,<span class="number">85</span>,<span class="number">87</span>,<span class="number">89</span>,	<span class="comment">//60~69F</span></span><br><span class="line">    <span class="number">92</span>,<span class="number">95</span>,<span class="number">97</span>,<span class="number">99</span>,<span class="number">101</span>,<span class="number">103</span>,<span class="number">105</span>,<span class="number">108</span>,<span class="number">111</span>,<span class="number">114</span>,	<span class="comment">//70~79F</span></span><br><span class="line">    <span class="number">117</span>,<span class="number">119</span>,<span class="number">122</span>,<span class="number">125</span>,<span class="number">127</span>,<span class="number">130</span>,<span class="number">135</span>,<span class="number">138</span>,<span class="number">141</span>,<span class="number">144</span>,	<span class="comment">//80~89F</span></span><br><span class="line">    <span class="number">147</span>,<span class="number">150</span>,<span class="number">153</span>,<span class="number">156</span>,<span class="number">160</span>,<span class="number">163</span>,<span class="number">166</span>,<span class="number">170</span>,<span class="number">173</span>,<span class="number">179</span>,	<span class="comment">//90~99F</span></span><br><span class="line">    <span class="number">181</span>,<span class="number">183</span>,<span class="number">190</span>,<span class="number">195</span>,<span class="number">198</span>,<span class="number">201</span>,<span class="number">206</span>,<span class="number">210</span>,<span class="number">214</span>,<span class="number">222</span>,	<span class="comment">//100~109F</span></span><br><span class="line">    <span class="number">227</span>,<span class="number">230</span>,<span class="number">234</span>,<span class="number">239</span>,<span class="number">244</span>,<span class="number">248</span>,<span class="number">252</span>,<span class="number">257</span>,<span class="number">267</span>,<span class="number">271</span>,	<span class="comment">//110~119F</span></span><br><span class="line">    <span class="number">276</span>,<span class="number">280</span>,<span class="number">287</span>,<span class="number">292</span>,<span class="number">297</span>,<span class="number">303</span>,<span class="number">308</span>,<span class="number">318</span>,<span class="number">324</span>,<span class="number">330</span>,	<span class="comment">//120~129F</span></span><br><span class="line">    <span class="number">336</span>,<span class="number">341</span>,<span class="number">347</span>,<span class="number">353</span>,<span class="number">358</span>,<span class="number">365</span>,<span class="number">377</span>,<span class="number">387</span>,<span class="number">390</span>,<span class="number">397</span>,	<span class="comment">//130~139F</span></span><br><span class="line">    <span class="number">403</span>,<span class="number">410</span>,<span class="number">417</span>,<span class="number">423</span>,<span class="number">430</span>,<span class="number">444</span>,<span class="number">451</span>,<span class="number">459</span>,<span class="number">463</span>,<span class="number">473</span>,	<span class="comment">//140~149F</span></span><br><span class="line">    <span class="number">480</span>,<span class="number">488</span>,<span class="number">495</span>,<span class="number">504</span>,<span class="number">519</span>,<span class="number">527</span>,<span class="number">535</span>,<span class="number">542</span>,<span class="number">552</span>,<span class="number">560</span>,	<span class="comment">//150~159F</span></span><br><span class="line">    <span class="number">568</span>,<span class="number">576</span>,<span class="number">585</span>,<span class="number">603</span>,<span class="number">614</span>,<span class="number">620</span>,<span class="number">629</span>,<span class="number">638</span>,<span class="number">648</span>,<span class="number">656</span>,	<span class="comment">//160~169F</span></span><br><span class="line">    <span class="number">675</span>,<span class="number">685</span>,<span class="number">694</span>,<span class="number">703</span>,<span class="number">713</span>,<span class="number">723</span>,<span class="number">733</span>,<span class="number">743</span>,<span class="number">753</span>,<span class="number">763</span>,	<span class="comment">//170~179F</span></span><br><span class="line">    <span class="number">773</span>,<span class="number">794</span>,<span class="number">805</span>,<span class="number">815</span>,<span class="number">825</span>,<span class="number">836</span>,<span class="number">846</span>,<span class="number">858</span>,<span class="number">868</span>,<span class="number">879</span>,	<span class="comment">//180~189F</span></span><br><span class="line">    <span class="number">901</span>,<span class="number">912</span>,<span class="number">924</span>,<span class="number">936</span>,<span class="number">947</span>,<span class="number">960</span>,<span class="number">970</span>,<span class="number">984</span>,<span class="number">994</span>,<span class="number">1016</span>,	<span class="comment">//190~199F</span></span><br><span class="line">    <span class="number">1028</span>,<span class="number">1040</span>,<span class="number">1052</span>,<span class="number">1064</span>,<span class="number">1075</span>,<span class="number">1088</span>,<span class="number">1004</span>,<span class="number">1020</span>,<span class="number">1137</span>,<span class="number">1150</span>,	<span class="comment">//200~209F</span></span><br><span class="line">    <span class="number">1162</span>,<span class="number">1173</span>,<span class="number">1188</span>,<span class="number">1199</span>,<span class="number">1214</span>,<span class="number">1238</span>,<span class="number">1249</span>,<span class="number">1264</span>,<span class="number">1277</span>,<span class="number">1290</span>,	<span class="comment">//210~219F</span></span><br><span class="line">    <span class="number">1298</span>,<span class="number">1316</span>,<span class="number">1342</span>,<span class="number">1356</span>,<span class="number">1369</span>,<span class="number">1381</span>,<span class="number">1395</span>,<span class="number">1410</span>,<span class="number">1422</span>,<span class="number">1432</span>,	<span class="comment">//220~229F</span></span><br><span class="line">    <span class="number">1449</span>,<span class="number">1476</span>,<span class="number">1489</span>,<span class="number">1500</span>,<span class="number">1515</span>,<span class="number">1530</span>,<span class="number">1445</span>,<span class="number">1557</span>,<span class="number">1468</span>,<span class="number">1584</span>,	<span class="comment">//230~239F</span></span><br><span class="line">    <span class="number">1611</span>,<span class="number">1625</span>,<span class="number">1638</span>,<span class="number">1651</span>,<span class="number">1666</span>,<span class="number">1679</span>,<span class="number">1693</span>,<span class="number">1704</span>,<span class="number">1720</span>,<span class="number">1735</span>,	<span class="comment">//240~249F</span></span><br><span class="line">    <span class="number">1748</span>,<span class="number">1765</span>,<span class="number">1778</span>,<span class="number">1802</span>,<span class="number">1817</span>,<span class="number">1830</span>,<span class="number">1845</span>,<span class="number">1857</span>,<span class="number">1868</span>,<span class="number">1886</span>,	<span class="comment">//250~259F</span></span><br><span class="line">    <span class="number">1911</span>,<span class="number">1925</span>,<span class="number">1938</span>,<span class="number">1950</span>,<span class="number">1965</span>,<span class="number">1977</span>,<span class="number">1992</span>,<span class="number">2010</span>,<span class="number">2019</span>,<span class="number">2038</span>,	<span class="comment">//260~269F</span></span><br><span class="line">    <span class="number">2048</span>,<span class="number">2072</span>,<span class="number">2084</span>,<span class="number">2099</span>,<span class="number">2110</span>,<span class="number">2125</span>,<span class="number">2140</span>,<span class="number">2151</span>,<span class="number">2163</span>,<span class="number">2178</span>,	<span class="comment">//270~279F</span></span><br><span class="line">    <span class="number">2203</span>,<span class="number">2216</span>,<span class="number">2229</span>,<span class="number">2242</span>,<span class="number">2255</span>,<span class="number">2279</span>,<span class="number">2280</span>,<span class="number">2295</span>,<span class="number">2310</span>,<span class="number">2330</span>,	<span class="comment">//280~289F</span></span><br><span class="line">    <span class="number">2345</span>,<span class="number">2356</span>,<span class="number">2369</span>,<span class="number">2380</span>,<span class="number">2397</span>,<span class="number">2405</span>,<span class="number">2419</span>,<span class="number">2433</span>,<span class="number">2450</span>,<span class="number">2468</span>, 	<span class="comment">//290~299F</span></span><br><span class="line">    <span class="number">2477</span>,<span class="number">2489</span>,<span class="number">2501</span>,<span class="number">2513</span>,<span class="number">2524</span>,<span class="number">2435</span>,<span class="number">2547</span>,<span class="number">2570</span>,<span class="number">2482</span>,<span class="number">2593</span>, 	<span class="comment">//300~309F</span></span><br><span class="line">    <span class="number">2506</span>,<span class="number">2615</span>,<span class="number">2627</span>,<span class="number">2638</span>,<span class="number">2649</span>,<span class="number">2660</span>,<span class="number">2682</span>,<span class="number">2693</span>,<span class="number">2703</span>,<span class="number">2713</span>,	<span class="comment">//310~319F</span></span><br><span class="line">    <span class="number">2724</span>,<span class="number">2735</span>,<span class="number">2746</span>,<span class="number">2756</span>,<span class="number">2766</span>,<span class="number">2787</span>,<span class="number">2797</span>,<span class="number">2807</span>,<span class="number">2817</span>,<span class="number">2827</span>,	<span class="comment">//320~329F</span></span><br><span class="line">    <span class="number">2837</span>,<span class="number">2847</span>,<span class="number">2857</span>,<span class="number">2867</span>,<span class="number">2886</span>,<span class="number">2897</span>,<span class="number">2905</span>,<span class="number">2914</span>,<span class="number">2924</span>,<span class="number">2933</span>,	<span class="comment">//330~339F</span></span><br><span class="line">    <span class="number">2942</span>,<span class="number">2951</span>,<span class="number">2961</span>,<span class="number">2979</span>,<span class="number">2988</span>,<span class="number">2997</span>,<span class="number">3002</span>,<span class="number">3014</span>,<span class="number">3022</span>,<span class="number">3032</span>,	<span class="comment">//340~349F	</span></span><br><span class="line">    <span class="number">3040</span>,<span class="number">3049</span>,<span class="number">3065</span>,<span class="number">3073</span>,<span class="number">3082</span>,<span class="number">3090</span>,<span class="number">3098</span>,<span class="number">3007</span>,<span class="number">3114</span>,<span class="number">3125</span>,	<span class="comment">//350~359F</span></span><br><span class="line">    <span class="number">3130</span>,<span class="number">3146</span>,<span class="number">3154</span>,<span class="number">3161</span>,<span class="number">3168</span>,<span class="number">3176</span>,<span class="number">3184</span>,<span class="number">3191</span>,<span class="number">3198</span>,<span class="number">3206</span>,	<span class="comment">//360~369F	</span></span><br><span class="line">    <span class="number">3220</span>,<span class="number">3228</span>,<span class="number">3235</span>,<span class="number">3241</span>,<span class="number">3249</span>,<span class="number">3256</span>,<span class="number">3262</span>,<span class="number">3269</span>,<span class="number">3276</span>,<span class="number">3289</span>,	<span class="comment">//370~379F	</span></span><br><span class="line">    <span class="number">3396</span>,<span class="number">3303</span>,<span class="number">3309</span>,<span class="number">3315</span>,<span class="number">3322</span>,<span class="number">3328</span>,<span class="number">3336</span>,<span class="number">3341</span>,<span class="number">3353</span>,<span class="number">3359</span>,	<span class="comment">//380~389F</span></span><br><span class="line">    <span class="number">3365</span>,<span class="number">3371</span>,<span class="number">3377</span>,<span class="number">3382</span>,<span class="number">3389</span>,<span class="number">3395</span>,<span class="number">3400</span>,<span class="number">3412</span>,<span class="number">3417</span>,<span class="number">3423</span>,	<span class="comment">//390~399F</span></span><br><span class="line">    <span class="number">3429</span>,<span class="number">3434</span>,<span class="number">3439</span>,<span class="number">3444</span>,<span class="number">3449</span>,<span class="number">3455</span>,<span class="number">3466</span>,<span class="number">3471</span>,<span class="number">3476</span>,<span class="number">3481</span>,	<span class="comment">//400~409F</span></span><br><span class="line">    <span class="number">3486</span>,<span class="number">3491</span>,<span class="number">3496</span>,<span class="number">3500</span>,<span class="number">3505</span>,<span class="number">3515</span>,<span class="number">3520</span>,<span class="number">3524</span>,<span class="number">3529</span>,<span class="number">3534</span>,	<span class="comment">//410~419F</span></span><br><span class="line">    <span class="number">3539</span>,<span class="number">3543</span>,<span class="number">3548</span>,<span class="number">3551</span>,<span class="number">3560</span>,<span class="number">3564</span>,<span class="number">3569</span>,<span class="number">3574</span>,<span class="number">3577</span>,<span class="number">3582</span>,	<span class="comment">//420~429F</span></span><br><span class="line">    <span class="number">3586</span>,<span class="number">3590</span>,<span class="number">3594</span>,<span class="number">3602</span>,<span class="number">3606</span>,<span class="number">3610</span>,<span class="number">3614</span>,<span class="number">3617</span>,<span class="number">3621</span>,<span class="number">3625</span>,	<span class="comment">//430~439F</span></span><br><span class="line">    <span class="number">3629</span>,<span class="number">3633</span>,<span class="number">3640</span>,<span class="number">3644</span>,<span class="number">3647</span>,<span class="number">3650</span>,<span class="number">3654</span>,<span class="number">3658</span>,<span class="number">3661</span>,<span class="number">3665</span>,	<span class="comment">//440~449F</span></span><br><span class="line">    <span class="number">3668</span>,<span class="number">3675</span>,<span class="number">3678</span>,<span class="number">3681</span>,<span class="number">3685</span>,<span class="number">3688</span>,<span class="number">3691</span>,<span class="number">3694</span>,<span class="number">3698</span>,<span class="number">3701</span>,	<span class="comment">//450~459F</span></span><br><span class="line">    <span class="number">3707</span>,<span class="number">3707</span>,</span><br><span class="line">    &#125;;	<span class="comment">//460F</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3AD转换，得到12位AD"><a href="#4-3AD转换，得到12位AD" class="headerlink" title="4.3AD转换，得到12位AD"></a>4.3AD转换，得到12位AD</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************</span></span><br><span class="line"><span class="comment">函数名称:uchar AD_Conbert(uchar ch_way)</span></span><br><span class="line"><span class="comment">输入:AD通道</span></span><br><span class="line"><span class="comment">输出:_sadoh _sadol(12位)</span></span><br><span class="line"><span class="comment">函数功能：AD转换,输入通道,返回AD值的高8位</span></span><br><span class="line"><span class="comment">*****************************************/</span></span><br><span class="line">uint <span class="title function_">AD_Conbert</span><span class="params">(uchar ch_way)</span></span><br><span class="line">&#123;</span><br><span class="line">    uint main_12 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    _sadc0 = ch_way;</span><br><span class="line">    _start = <span class="number">0</span>;</span><br><span class="line">    GCC_NOP();</span><br><span class="line">    _start = <span class="number">1</span>;</span><br><span class="line">    GCC_NOP();</span><br><span class="line">    _start = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (_adbz);</span><br><span class="line">    main_12 = _sadoh;</span><br><span class="line">    main_12 &lt;&lt;= <span class="number">8</span>;</span><br><span class="line">    main_12 |= _sadol;</span><br><span class="line">    main_12 &gt;&gt;= <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> main_12;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-4削抖，滤波"><a href="#4-4削抖，滤波" class="headerlink" title="4.4削抖，滤波"></a>4.4削抖，滤波</h3><p>经过累计求平均的方法，去除最值，削抖，可以得到相对稳定的AD值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************</span></span><br><span class="line"><span class="comment">函数名称:void Get_Temper()</span></span><br><span class="line"><span class="comment">输入:</span></span><br><span class="line"><span class="comment">输出:Temper</span></span><br><span class="line"><span class="comment">函数功能：将12位AD值，转化成华氏度(F)</span></span><br><span class="line"><span class="comment">*****************************************/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Get_Temper</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    uchar i;</span><br><span class="line">    <span class="comment">//获取AD完毕</span></span><br><span class="line">    <span class="keyword">if</span>(b_Adc)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(TEMP_MAIN2 &gt;= <span class="number">3707</span>) &#123;Temper = <span class="number">460</span>;b_Adc = <span class="number">0</span>;&#125;	<span class="comment">//短路,显示460F</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(TEMP_MAIN2 &lt;= <span class="number">20</span>) &#123;Temper = <span class="number">20</span>;b_Adc = <span class="number">0</span>;&#125;	<span class="comment">//开路,显示20F</span></span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt;= <span class="number">20</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(TEMP_MAIN2 &lt;= Tab_temp_array[Loop_Arr])	</span><br><span class="line">                &#123;</span><br><span class="line">                        Temper = Loop_Arr;			<span class="comment">//Temper 为实际的温度</span></span><br><span class="line">                        Loop_Arr = <span class="number">460</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(++Loop_Arr &gt;= <span class="number">461</span>)	<span class="comment">//超过表格</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(Loop_Arr &gt;= <span class="number">460</span>) &#123;b_Adc = <span class="number">0</span>;&#125;</span><br><span class="line">        &#125;	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-5主函数调用"><a href="#4-5主函数调用" class="headerlink" title="4.5主函数调用"></a>4.5主函数调用</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    。。。</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(b_sys_2ms)</span><br><span class="line">    &#123;</span><br><span class="line">        b_sys_2ms = <span class="number">0</span>;</span><br><span class="line">        ADC_CONVERSION();	<span class="comment">//得到12位AD值</span></span><br><span class="line">        Get_Temper();		<span class="comment">//将AD转换成实际温度值</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    。。。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background: url("");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
