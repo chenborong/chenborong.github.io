@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>tags | Rainjai Blog</title>
+  <title>显示-正反扫 | Rainjai Blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="tags | Rainjai Blog">
+  <meta name="description" content="显示-正反扫 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -526,19 +526,27 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-显示-正反扫" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">tags</h1>
+        <h1 class="article-title">显示-正反扫</h1>
     
     <div class="article-meta">
         
         
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="单片机函数">单片机函数</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-06-16 17:44:34'>2022-06-16 17:44</time>
+            Created At : <time class="date" title='Updated At: 2022-07-12 21:23:06'>2022-07-12 16:10</time>
         
     </div>
     <div class="article-meta">
@@ -560,7 +568,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA-%E6%AD%A3%E5%8F%8D%E6%89%AB"><span class="toc-text">显示-正反扫</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -576,7 +584,354 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        <h1 id="显示-正反扫"><a href="#显示-正反扫" class="headerlink" title="显示-正反扫"></a>显示-正反扫</h1><p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/%E5%8E%9F%E7%90%86%E5%9B%BE_%E7%81%AF2.png"></p>
+<p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/%E5%8E%9F%E7%90%86%E5%9B%BE_%E6%95%B0%E7%A0%81%E7%AE%A12.png"></p>
+<p>1.定义com口与SEG口</p>
+<pre><code class="asm">;;各个IO口定义-----------------
+p_com1		equ			pa1
+p_com2		equ			pa3
+p_com3		equ			pa4
+p_com4		equ			pa7
+
+pc_com1		equ			pac1
+pc_com2		equ			pac3
+pc_com3		equ			pac4
+pc_com4		equ			pac7
+
+p_seg_a		equ			pd7 ;;
+p_seg_b		equ			pd5 ;;
+p_seg_c		equ			pd3 ;; 
+p_seg_d		equ			pd0 ;;
+p_seg_e		equ			pd1 ;;
+p_seg_f		equ			pd6 ;;
+p_seg_g		equ			pd4	;; 
+p_seg_h		equ			pd2
+
+pc_seg_a		equ		pdc7 ;;
+pc_seg_b		equ		pdc5 ;;
+pc_seg_c		equ		pdc3 ;; 
+pc_seg_d		equ		pdc0 ;;
+pc_seg_e		equ		pdc1 ;;
+pc_seg_f		equ		pdc6 ;;
+pc_seg_g		equ		pdc4 ;; 
+pc_seg_h		equ		pdc2
+</code></pre>
+<p>2.在125us处调用</p>
+<pre><code class="asm">timer_isr:						
+            push
+            clr     ptmaf
+;;2ms		
+            inc 		timer_cnt
+            mov 		a,timer_cnt
+            sub 		a,16
+            snz			c
+            jmp 		led_start
+            clr 		timer_cnt
+            set			f_2ms
+            
+;;500MS
+            inc			t500msjs
+            mov 		a,t500msjs
+            sub 		a,250
+            snz			c
+            jmp 		led_start
+            clr 		t500msjs
+            set 		f_500ms
+            
+            
+            
+;;=================显示扫描==============			
+led_start:
+            JMP 		_BS84B08C_DRIVR_LED_START	;;	//显示扫描
+_DRIVR_LED_RETURN:
+</code></pre>
+<p>3.正反扫</p>
+<pre><code class="asm">;;***********************************************************
+;;*NAME:_BS84B08C_DRIVR_LED_START                         							*
+;;*INPUT    :                                               *
+;;*OUTPUT   :                                               *
+;;*USED REG.:                                               *
+;;*FUNCTION :正反扫           
+;;COM:	PA1 PA3 PA4 PA7 
+;;SEG: PD1 PD0 PD2 PD3 PD4 PD5 PD6 PD7                                    *
+;;***********************************************************				
+_BS84B08C_DRIVR_LED_START:
+            
+            SET 	PDC
+            CLR 	PD
+            
+            SET		pc_com1
+            SET		pc_com2
+            SET		pc_com3
+            SET		pc_com4
+            
+            CLR		p_com1
+            CLR		p_com2
+            CLR		p_com3
+            CLR		p_com4	;;全部清0
+            
+            sz		_CHK_LEDF
+            jmp 	scan_end
+            
+        ;;循环扫描
+            inc		led_scan_task
+            mov 	a,led_scan_task
+            sub 	a,12
+            snz		c
+            jmp 	scan_buf_1
+            mov 	a,led_scan_task
+            sub 	a,30
+            snz		c
+            jmp 	scan_end
+            clr 	led_scan_task
+scan_buf_1:
+            mov 	a,led_scan_task
+            addm	a,pcl
+            ;;------------------;扫描数码管的4个com
+            jmp 	scan_gr1_c
+            jmp 	scan_gr2_c
+            jmp 	scan_gr3_c
+            jmp 	scan_gr4_c			
+            ;;------------------;扫描数码管的4个seg			
+            jmp 	scan_seg1
+            jmp 	scan_seg2
+            jmp 	scan_seg3
+            jmp 	scan_seg4
+            jmp 	scan_seg5
+            jmp 	scan_seg6
+            jmp 	scan_seg7
+            jmp 	scan_seg8
+            
+scan_gr1_c:
+            mov 	a,_DISP_BUF[0]
+            mov 	mov_buf,a			
+            clr 	pc_com1
+            clr 	p_com1	;共阴数码管			
+            cpla  mov_buf	;;取反, 因为输出为0,输入为1
+            jmp 	com_scan	
+            
+scan_gr2_c:
+            mov 	a,_DISP_BUF[1]
+            mov 	mov_buf,a			
+            clr 	pc_com2
+            clr 	p_com2	;;共阴数码管			
+            cpla  mov_buf	;;共阴数码管, 取反, 因为输出为0,输入为1
+            jmp 	com_scan
+            
+scan_gr3_c:
+            mov 	a,_DISP_BUF[2]
+            mov 	mov_buf,a			
+            clr 	pc_com3
+            clr 	p_com3	;;共阴数码管			
+            cpla  mov_buf	;;取反, 因为输出为0,输入为1
+            jmp 	com_scan
+            
+scan_gr4_c:
+            mov 	a,_DISP_BUF[3]
+            mov 	mov_buf,a			
+            clr 	pc_com4
+            clr 	p_com4	;;共阴数码管			
+            cpla  mov_buf	;;取反, 因为输出为0,输入为1
+            jmp 	com_scan			
+            
+
+            
+scan_seg1:
+            clr 	acc
+            sz		_DISP_BUF[4].0
+            or		a,00000001b
+            sz		_DISP_BUF[5].0
+            or		a,00000010b
+            sz		_DISP_BUF[6].0
+            or		a,00000100b
+            sz		_DISP_BUF[7].0
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_d
+            clr 	p_seg_d
+            jmp 	seg_scan
+            
+            
+            
+scan_seg2:
+            clr 	acc
+            sz		_DISP_BUF[4].1
+            or		a,00000001b
+            sz		_DISP_BUF[5].1
+            or		a,00000010b
+            sz		_DISP_BUF[6].1
+            or		a,00000100b
+            sz		_DISP_BUF[7].1
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_e
+            clr 	p_seg_e
+            jmp 	seg_scan
+            
+scan_seg3:
+            clr 	acc
+            sz		_DISP_BUF[4].2
+            or		a,00000001b
+            sz		_DISP_BUF[5].2
+            or		a,00000010b
+            sz		_DISP_BUF[6].2
+            or		a,00000100b
+            sz		_DISP_BUF[7].2
+            or		a,00001000b		
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_h
+            clr 	p_seg_h
+            jmp 	seg_scan
+            
+scan_seg4:
+            clr 	acc
+            sz		_DISP_BUF[4].3
+            or		a,00000001b
+            sz		_DISP_BUF[5].3
+            or		a,00000010b
+            sz		_DISP_BUF[6].3
+            or		a,00000100b
+            sz		_DISP_BUF[7].3
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_c
+            clr 	p_seg_c
+            jmp 	seg_scan
+            
+scan_seg5:
+            clr 	acc
+            sz		_DISP_BUF[4].4
+            or		a,00000001b
+            sz		_DISP_BUF[5].4
+            or		a,00000010b
+            sz		_DISP_BUF[6].4
+            or		a,00000100b
+            sz		_DISP_BUF[7].4
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_g
+            clr 	p_seg_g
+            jmp 	seg_scan
+            
+scan_seg6:
+            clr 	acc
+            sz		_DISP_BUF[4].5
+            or		a,00000001b
+            sz		_DISP_BUF[5].5
+            or		a,00000010b
+            sz		_DISP_BUF[6].5
+            or		a,00000100b
+            sz		_DISP_BUF[7].5
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_b
+            clr 	p_seg_b
+            jmp 	seg_scan
+            
+scan_seg7:
+            clr 	acc
+            sz		_DISP_BUF[4].6
+            or		a,00000001b
+            sz		_DISP_BUF[5].6
+            or		a,00000010b
+            sz		_DISP_BUF[6].6
+            or		a,00000100b
+            sz		_DISP_BUF[7].6
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_f
+            clr 	p_seg_f
+            jmp 	seg_scan
+            
+scan_seg8:
+            clr 	acc
+            sz		_DISP_BUF[4].7
+            or		a,00000001b
+            sz		_DISP_BUF[5].7
+            or		a,00000010b
+            sz		_DISP_BUF[6].7
+            or		a,00000100b
+            sz		_DISP_BUF[7].7
+            or		a,00001000b
+            mov 	mov_buf,a
+    
+            sz		mov_buf
+            jmp 	$+2
+            jmp 	seg_scan
+            clr 	pc_seg_a
+            clr 	p_seg_a
+            jmp 	seg_scan
         
+scan_end:
+            JMP 	_DRIVR_LED_RETURN			
+            
+            
+;;共阴扫描
+com_scan:
+            mov 	pdc,a			;;输入为1	输出为0
+            mov		a,0ffh
+            mov 	pd,a			;;高电平1	低电平0
+            jmp 	scan_end	;;亮: 输出高电平
+            
+;;共阳扫描
+seg_scan:
+            mov 	a,mov_buf
+            sub 	a,0
+            sz		c
+            jmp 	$+2
+            jmp 	scan_end	;;无需点亮
+            
+            snz		mov_buf.0
+            jmp 	$+3
+            clr 	pc_com1
+            set 	p_com1
+            
+            snz		mov_buf.1
+            jmp 	$+3
+            clr 	pc_com2
+            set 	p_com2
+            
+            snz		mov_buf.2
+            jmp 	$+3
+            clr 	pc_com3
+            set 	p_com3
+            
+            snz		mov_buf.3
+            jmp 	$+3
+            clr 	pc_com4
+            set 	p_com4
+            
+            jmp 	scan_end	;;亮:输出低电平
+</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
     </div>
