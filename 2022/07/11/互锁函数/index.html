@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>DEF.H文件 | Rainjai Blog</title>
+  <title>互锁函数 | Rainjai Blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="DEF.H文件 | Rainjai Blog">
+  <meta name="description" content="互锁函数 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -510,9 +510,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-DEF.H文件" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-互锁函数" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">DEF.H文件</h1>
+        <h1 class="article-title">互锁函数</h1>
     
     <div class="article-meta">
         
@@ -522,7 +522,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="C语言">C语言</a>
+            <a  data-rel="单片机函数">单片机函数</a>
             
         </span>
         
@@ -530,7 +530,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-06 17:22:35'>2022-07-06 17:20</time>
+            发布时间 : <time class="date" title='最后更新: 2022-07-12 14:43:30'>2022-07-11 20:56</time>
         
     </div>
     <div class="article-meta">
@@ -552,7 +552,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%92%E9%94%81%E5%87%BD%E6%95%B0"><span class="toc-text">互锁函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951"><span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952"><span class="toc-text">方法2</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -568,71 +568,80 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code class="c">
-#ifndef __DEF__
-#define __DEF__
-#pragma warning disable 752,759,373
-
-#define uchar unsigned char
-#define uint unsigned int
-#define ulong unsigned long
-
-typedef struct 
+        <h1 id="互锁函数"><a href="#互锁函数" class="headerlink" title="互锁函数"></a>互锁函数</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>1个芯片，控制2个炉头。</p>
+<pre><code class="c">while((p_ch0-&gt;dsphuoli + p_ch1-&gt;dsphuoli) &gt; _HUOLI_SUM) 	//两个机器的档位超过_HUOLI_SUM时
 &#123;
-    unsigned char Bit0 : 1;
-    unsigned char Bit1 : 1;
-    unsigned char Bit2 : 1;
-    unsigned char Bit3 : 1;
-    unsigned char Bit4 : 1; 
-    unsigned char Bit5 : 1;
-    unsigned char Bit6 : 1; 
-    unsigned char Bit7 : 1;
-&#125;MakeBits;
-
-typedef union &#123;
-    MakeBits	bits;
-    unsigned char	byte;
-&#125;MakeBitsType,BIT;
-/*************************************************************************/
-/*************************************************************************/
-#define bit0	0x01
-#define bit1	0x02
-#define bit2	0x04
-#define bit3	0x08
-#define bit4	0x10
-#define bit5	0x20
-#define bit6	0x40
-#define bit7	0x80
-/*************************************************************************/
-//对寄存器位处理bit=0x01,0x02,0x04...0x80
-#define set_bit(dat,bit)	dat|=bit	
-#define clr_bit(dat,bit)	dat&amp;=~bit	
-#define clr_buff(dat)		dat=0
-#define set_buff(dat)		dat=0xff
-#define BIT(n) (1 &lt;&lt; (n))
-
-#define SET(Reg,n)    Reg |= BIT(n); 
-#define CLR(Reg,n)    Reg &amp;= ~BIT(n); 
-
-#define MAX(x, y)               (((x) &gt; (y)) ? (x) : (y))
-#define MIN(x, y)               (((x) &lt; (y)) ? (x) : (y))
-#define DELTA(x, y)             (((x) &gt; (y)) ? ((x)-(y)) : ((y)-(x)))
-
-#define HiByte_ref(addr)        (*((uchar*)&amp;addr))
-#define LoByte_ref(addr)        (*((uchar*)&amp;addr+1))
-#define MakeWord(high,low)      (((uint)(high) &lt;&lt; 8) + (uint)(low))
-#define HiByte(u16Data)         ((uchar)((u16Data) &gt;&gt; 8))
-#define LoByte(u16Data)         ((uchar)((u16Data) &amp; 0xff))
-#define HiNibble(u8Data)        ((uchar)(((u8Data) &gt;&gt; 4) &amp; 0xf))
-#define LoNibble(u8Data)        ((uchar)(( u8Data) &amp; 0xf))
-#define SetBit(u8Data, bBit)    (u8Data |= (1 &lt;&lt; bBit))
-#define ClrBit(u8Data, bBit)    (u8Data &amp;=~(1 &lt;&lt; bBit))
-#define TestBit(u8Data,bBit)    (u8Data &amp;  (1 &lt;&lt; bBit))
-#define CplBit(u8Data, bBit)    (u8Data ^= (1 &lt;&lt; bBit))
-
-#endif
-
-
+    if(b_select(MC0))  p_ch1-&gt;dsphuoli--;					//需要对另一台机器减功率
+    else if(b_onoff_1) p_ch0-&gt;dsphuoli--;
+&#125;
+</code></pre>
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>1个芯片控制3个炉头，2个炉头之间互锁,3个炉头之间也要互锁</p>
+<pre><code class="c">void SINGLE_3HS_PROCESS(P_MACH_DAT p_ch0,P_MACH_DAT p_ch1,P_MACH_DAT p_ch2)
+&#123;
+    uchar mac_num = 0;
+    uchar _HUOLI_SUM;
+    if(b_onoff) mac_num++;
+    if(b_onoff_1) mac_num++;	
+    if(b_onoff_2) mac_num++;
+    //3个炉头的情况
+    if(mac_num == 3)
+    &#123;
+        _HUOLI_SUM = 12;
+        while((p_ch0-&gt;dsphuoli + p_ch1-&gt;dsphuoli + p_ch2-&gt;dsphuoli)&gt;_HUOLI_SUM)
+        &#123;
+            //当前为MC0
+            if(b_select(MC0))
+            &#123;
+                if(p_ch1-&gt;dsphuoli &gt; 1) p_ch1-&gt;dsphuoli--;
+                else if(p_ch2-&gt;dsphuoli &gt; 1) p_ch2-&gt;dsphuoli--;
+            &#125;
+        
+            //当前为MC1
+            else if(b_select(MC1))
+            &#123;
+                if(p_ch0-&gt;dsphuoli &gt; 1) p_ch0-&gt;dsphuoli--;
+                else if(p_ch2-&gt;dsphuoli &gt; 1) p_ch2-&gt;dsphuoli--;
+                
+            &#125;
+        
+            //当前为MC2
+            else if(b_select(MC2))
+            &#123;
+                if(p_ch0-&gt;dsphuoli &gt; 1) p_ch0-&gt;dsphuoli--;
+                else if(p_ch1-&gt;dsphuoli &gt; 1) p_ch1-&gt;dsphuoli--;
+            &#125;
+            else&#123;;&#125;
+        &#125;	
+    &#125;
+    
+    //其中两个炉工作
+    else if(mac_num == 2)
+    &#123;
+        _HUOLI_SUM = 12;
+        if(b_onoff) _HUOLI_SUM = 13;
+        
+        while((p_ch0-&gt;dsphuoli + p_ch1-&gt;dsphuoli + p_ch2-&gt;dsphuoli) &gt; _HUOLI_SUM) 
+        &#123;
+                if(b_select(MC0)) 
+                &#123;
+                    if(b_onoff_1) p_ch1-&gt;dsphuoli--;
+                    else if(b_onoff_2) p_ch2-&gt;dsphuoli--;
+                &#125;
+                
+                if(b_select(MC1)) 
+                &#123;
+                    if(b_onoff) p_ch0-&gt;dsphuoli--;
+                    else if(b_onoff_2) p_ch2-&gt;dsphuoli--;
+                &#125;
+                
+                if(b_select(MC2)) 
+                &#123;
+                    if(b_onoff) p_ch0-&gt;dsphuoli--;
+                    else if(b_onoff_1) p_ch1-&gt;dsphuoli--;
+                &#125;
+        &#125;
+    &#125;
+&#125;
 </code></pre>
 
       

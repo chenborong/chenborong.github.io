@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>DEF.H文件 | Rainjai Blog</title>
+  <title>结构体使用 | Rainjai Blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="DEF.H文件 | Rainjai Blog">
+  <meta name="description" content="结构体使用 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -510,9 +510,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-DEF.H文件" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-结构体使用" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">DEF.H文件</h1>
+        <h1 class="article-title">结构体使用</h1>
     
     <div class="article-meta">
         
@@ -530,7 +530,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-06 17:22:35'>2022-07-06 17:20</time>
+            发布时间 : <time class="date" title='最后更新: 2022-07-12 14:44:55'>2022-07-12 14:44</time>
         
     </div>
     <div class="article-meta">
@@ -552,7 +552,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="toc-text">结构体使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9E%9A%E4%B8%BE%E4%BD%93"><span class="toc-text">1.枚举体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">2.结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1结构体的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.2结构体变量的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="toc-text">2.3结构体的寄存器的声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4%E4%BD%BF%E7%94%A8"><span class="toc-text">2.4使用</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -568,71 +568,104 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code class="c">
-#ifndef __DEF__
-#define __DEF__
-#pragma warning disable 752,759,373
+        <h1 id="结构体使用"><a href="#结构体使用" class="headerlink" title="结构体使用"></a>结构体使用</h1><h2 id="1-枚举体"><a href="#1-枚举体" class="headerlink" title="1.枚举体"></a>1.枚举体</h2><p>定义枚举类型：</p>
+<pre><code class="c">enum MODE
+    &#123;
+        POWER_OFF_MODE = 0,
+        HUOGUO_MODE,		//#define HUOGUO_MODE	1
+        CHAOCAI_MODE,		//炒菜
+        BAOCHAO_MODE,		//爆炒
+        JIANCHAO_MODE,		//煎炒
+        SHAOKAO_MODE,		//烧烤
+        WUHUO_MODE,		//武火
+        ...
+        MODE_END,		//结束
+    &#125;;
+</code></pre>
+<p>等效于：</p>
+<pre><code class="c">#define HUOGUO_MODE		1
+#define CHAOCAI_MODE		2
+#define BAOCHAO_MODE		3
+#define JIANCHAO_MODE		4
+#define SHAOKAO_MODE		5
+#define WUHUO_MODE		6
+</code></pre>
+<p>将这些定义给一个名称为MODE。</p>
+<h2 id="2-结构体"><a href="#2-结构体" class="headerlink" title="2.结构体"></a>2.结构体</h2><h3 id="2-1结构体的定义"><a href="#2-1结构体的定义" class="headerlink" title="2.1结构体的定义"></a>2.1结构体的定义</h3><pre><code class="c">typedef struct MACH_DATA&#123;
+    enum MODE mode;
+    uchar modejs;
+    uchar dsphuoli;
+    uchar worksec;
+    uchar workmin;
+    uchar workhour;
+    uchar ordermin;			//预约时间
+    uchar orderhour;		//预约时间
+    uchar timermin;			//定时时间
+    uchar timerhour;		//定时时间
+    uchar ErrCode;			//机器故障
+    uchar DingyuDelay;	//定预设定延时
+    uchar DspChange;		//交互显示
+    uchar runmin;				//运行分钟
+    uchar StandbyDelay;	//待命时间：显示ON时间
+    uchar Pcv_index;		//火力映射,__POWER_COVER__  
+    BIT   flag_m1;
+    BIT   flag_m2;
+    BIT   flag_m3;
+    &#125;MACH_DAT,*P_MACH_DAT;
+</code></pre>
+<p>意思为：一种命名为MACH_DATA的结构体，采用新的名称代替，新的名称为</p>
+<pre><code class="c">MACH_DAT	//名称1
+*P_MACH_DAT	//名称2
+</code></pre>
+<h3 id="2-2结构体变量的定义"><a href="#2-2结构体变量的定义" class="headerlink" title="2.2结构体变量的定义"></a>2.2结构体变量的定义</h3><p>接下来，可以使用新的变量名称，定义多个结构体变量,例如：</p>
+<pre><code class="c">MACH_DAT mach;		//新建一个结构体变量为mach
+MACH_DAT mach1;		//新建一个结构体变量为mach1
 
-#define uchar unsigned char
-#define uint unsigned int
-#define ulong unsigned long
+//=================================================
+//=================================================
+#define MC0		mach	//声明MC0 等效于 mach
+#define MC1		mach1	//声明MC1 等效于 mach1
+</code></pre>
+<h3 id="2-3结构体的寄存器的声明"><a href="#2-3结构体的寄存器的声明" class="headerlink" title="2.3结构体的寄存器的声明"></a>2.3结构体的寄存器的声明</h3><pre><code class="c">#define m_mode(M)	M.mode		//结构体属性:结构体M的成员mode
+#define p_mode		p_mach-&gt;mode	//指针属性  :指向 指针变量p_mach的成员mode
 
-typedef struct 
+#define m_modejs(M)	M.modejs
+#define p_modejs	p_mach-&gt;modejs
+
+。。。
+
+#define m_flag_m1(M)	M.flag_m1.byte
+#define p_flag_m1	p_mach-&gt;flag_m1.byte
+
+。。。
+
+//flag_m1
+#define bM_onoff(M) 		M.flag_m1.bits.Bit0	//开关
+#define bM_standby(M)		M.flag_m1.bits.Bit1	//待机
+#define bM_error(M)		M.flag_m1.bits.Bit2	//故障			
+#define bM_recover_er(M)	M.flag_m1.bits.Bit3	//可恢复故障	
+#define bM_select(M)		M.flag_m1.bits.Bit4
+</code></pre>
+<p>除了对寄存器，标志位的定义外，还可以对整个结构体进行清0</p>
+<pre><code class="c">#define OFF_MACH(_M_)  		&#123;memset(&amp;_M_,0,sizeof(mach));&#125;		//清除机器数据
+
+#define P_OFF_MACH()  		&#123;memset(p_mach,0,sizeof(mach));&#125; 	//清除机器数据
+</code></pre>
+<h3 id="2-4使用"><a href="#2-4使用" class="headerlink" title="2.4使用"></a>2.4使用</h3><p>在Keypro.c中</p>
+<pre><code class="c">void CheckWorkMin(P_MACH_DAT p_mach)
 &#123;
-    unsigned char Bit0 : 1;
-    unsigned char Bit1 : 1;
-    unsigned char Bit2 : 1;
-    unsigned char Bit3 : 1;
-    unsigned char Bit4 : 1; 
-    unsigned char Bit5 : 1;
-    unsigned char Bit6 : 1; 
-    unsigned char Bit7 : 1;
-&#125;MakeBits;
-
-typedef union &#123;
-    MakeBits	bits;
-    unsigned char	byte;
-&#125;MakeBitsType,BIT;
-/*************************************************************************/
-/*************************************************************************/
-#define bit0	0x01
-#define bit1	0x02
-#define bit2	0x04
-#define bit3	0x08
-#define bit4	0x10
-#define bit5	0x20
-#define bit6	0x40
-#define bit7	0x80
-/*************************************************************************/
-//对寄存器位处理bit=0x01,0x02,0x04...0x80
-#define set_bit(dat,bit)	dat|=bit	
-#define clr_bit(dat,bit)	dat&amp;=~bit	
-#define clr_buff(dat)		dat=0
-#define set_buff(dat)		dat=0xff
-#define BIT(n) (1 &lt;&lt; (n))
-
-#define SET(Reg,n)    Reg |= BIT(n); 
-#define CLR(Reg,n)    Reg &amp;= ~BIT(n); 
-
-#define MAX(x, y)               (((x) &gt; (y)) ? (x) : (y))
-#define MIN(x, y)               (((x) &lt; (y)) ? (x) : (y))
-#define DELTA(x, y)             (((x) &gt; (y)) ? ((x)-(y)) : ((y)-(x)))
-
-#define HiByte_ref(addr)        (*((uchar*)&amp;addr))
-#define LoByte_ref(addr)        (*((uchar*)&amp;addr+1))
-#define MakeWord(high,low)      (((uint)(high) &lt;&lt; 8) + (uint)(low))
-#define HiByte(u16Data)         ((uchar)((u16Data) &gt;&gt; 8))
-#define LoByte(u16Data)         ((uchar)((u16Data) &amp; 0xff))
-#define HiNibble(u8Data)        ((uchar)(((u8Data) &gt;&gt; 4) &amp; 0xf))
-#define LoNibble(u8Data)        ((uchar)(( u8Data) &amp; 0xf))
-#define SetBit(u8Data, bBit)    (u8Data |= (1 &lt;&lt; bBit))
-#define ClrBit(u8Data, bBit)    (u8Data &amp;=~(1 &lt;&lt; bBit))
-#define TestBit(u8Data,bBit)    (u8Data &amp;  (1 &lt;&lt; bBit))
-#define CplBit(u8Data, bBit)    (u8Data ^= (1 &lt;&lt; bBit))
-
-#endif
-
-
+    ...
+    P_OFF_MACH();
+    ...
+&#125;
+</code></pre>
+<pre><code class="c">void key_all_start()
+&#123;
+    ...
+    OFF_MACH(&amp;MC0);
+    OFF_MACH(&amp;MC1);
+    ...
+&#125;
 </code></pre>
 
       

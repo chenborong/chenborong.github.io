@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>DEF.H文件 | Rainjai Blog</title>
+  <title>VAR.H文件 | Rainjai Blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="DEF.H文件 | Rainjai Blog">
+  <meta name="description" content="VAR.H文件 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -510,9 +510,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-DEF.H文件" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-VAR.H" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">DEF.H文件</h1>
+        <h1 class="article-title">VAR.H文件</h1>
     
     <div class="article-meta">
         
@@ -530,7 +530,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-06 17:22:35'>2022-07-06 17:20</time>
+            发布时间 : <time class="date" title='最后更新: 2022-07-11 16:09:53'>2022-07-11 16:04</time>
         
     </div>
     <div class="article-meta">
@@ -568,71 +568,143 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code class="c">
-#ifndef __DEF__
-#define __DEF__
-#pragma warning disable 752,759,373
+        <pre><code class="c">#ifndef __VAR_H__
+#define __VAR_H__
 
-#define uchar unsigned char
-#define uint unsigned int
-#define ulong unsigned long
-
-typedef struct 
-&#123;
-    unsigned char Bit0 : 1;
-    unsigned char Bit1 : 1;
-    unsigned char Bit2 : 1;
-    unsigned char Bit3 : 1;
-    unsigned char Bit4 : 1; 
-    unsigned char Bit5 : 1;
-    unsigned char Bit6 : 1; 
-    unsigned char Bit7 : 1;
-&#125;MakeBits;
-
-typedef union &#123;
-    MakeBits	bits;
-    unsigned char	byte;
-&#125;MakeBitsType,BIT;
-/*************************************************************************/
-/*************************************************************************/
-#define bit0	0x01
-#define bit1	0x02
-#define bit2	0x04
-#define bit3	0x08
-#define bit4	0x10
-#define bit5	0x20
-#define bit6	0x40
-#define bit7	0x80
-/*************************************************************************/
-//对寄存器位处理bit=0x01,0x02,0x04...0x80
-#define set_bit(dat,bit)	dat|=bit	
-#define clr_bit(dat,bit)	dat&amp;=~bit	
-#define clr_buff(dat)		dat=0
-#define set_buff(dat)		dat=0xff
-#define BIT(n) (1 &lt;&lt; (n))
-
-#define SET(Reg,n)    Reg |= BIT(n); 
-#define CLR(Reg,n)    Reg &amp;= ~BIT(n); 
-
-#define MAX(x, y)               (((x) &gt; (y)) ? (x) : (y))
-#define MIN(x, y)               (((x) &lt; (y)) ? (x) : (y))
-#define DELTA(x, y)             (((x) &gt; (y)) ? ((x)-(y)) : ((y)-(x)))
-
-#define HiByte_ref(addr)        (*((uchar*)&amp;addr))
-#define LoByte_ref(addr)        (*((uchar*)&amp;addr+1))
-#define MakeWord(high,low)      (((uint)(high) &lt;&lt; 8) + (uint)(low))
-#define HiByte(u16Data)         ((uchar)((u16Data) &gt;&gt; 8))
-#define LoByte(u16Data)         ((uchar)((u16Data) &amp; 0xff))
-#define HiNibble(u8Data)        ((uchar)(((u8Data) &gt;&gt; 4) &amp; 0xf))
-#define LoNibble(u8Data)        ((uchar)(( u8Data) &amp; 0xf))
-#define SetBit(u8Data, bBit)    (u8Data |= (1 &lt;&lt; bBit))
-#define ClrBit(u8Data, bBit)    (u8Data &amp;=~(1 &lt;&lt; bBit))
-#define TestBit(u8Data,bBit)    (u8Data &amp;  (1 &lt;&lt; bBit))
-#define CplBit(u8Data, bBit)    (u8Data ^= (1 &lt;&lt; bBit))
-
+#ifndef EXTERN
+#define EXTERN  extern
+#else 
+#define EXTERN
 #endif
 
+#include &quot;def.h&quot;
 
+
+    enum MODE
+    &#123;
+        POWER_OFF_MODE = 0,
+        HUOGUO_MODE,		//火锅
+        CHAOCAI_MODE,		//炒菜
+        BAOCHAO_MODE,		//爆炒
+        JIANCHAO_MODE,	//煎炒
+        SHAOKAO_MODE,		//烧烤
+        WUHUO_MODE,			//武火
+//===============以保温为临界功能================		
+        WARM_MODE,			//保温		----//保温及其以下功能为自动模式
+        WENHUO_MODE,		//文火
+        SOUP_MODE,			//煲汤
+        ZHENG_MODE,			//蒸煮
+        MILK_MODE,			//热奶
+        SHAOSHUI_MODE,	//烧水
+        ZHOU_MODE,			//煮粥
+        ZHUFAN_MODE,		//煮饭
+        MODE_END,
+    &#125;;
+
+typedef struct MACH_DATA&#123;
+    enum MODE mode;
+    uchar modejs;
+    uchar dsphuoli;
+    uchar heathuoli;
+    uchar worksec;
+    uchar workmin;
+    uchar workhour;
+    uchar ordermin;			//预约时间
+    uchar orderhour;		//预约时间
+    uchar timermin;			//定时时间
+    uchar timerhour;		//定时时间
+    BIT   flag_m1;
+    BIT   flag_m2;
+    BIT   flag_m3; 
+&#125;MACH_DAT,*P_MACH_DAT;   
+
+EXTERN  MACH_DAT mach;
+//falg_m1
+#define b_onoff         mach.flag_m1.bits.Bit0  //开关
+#define b_standby       mach.flag_m1.bits.Bit1  //待机
+#define b_lock          mach.flag_m1.bits.Bit2  //童锁
+#define b_Scr_On        mach.flag_m1.bits.Bit3  //可控硅
+#define b_Scr1_On       mach.flag_m1.bits.Bit4  //可控硅
+#define b_jump_on       mach.flag_m1.bits.Bit5  //可控硅丢波
+#define b_chk_jump		mach.flag_m1.bits.Bit6  //可控硅丢波
+
+
+//flag_m2---模式切换被清掉
+#define b_auto_mode     mach.flag_m2.bits.Bit0  //自动模式
+#define b_temp_mode     mach.flag_m2.bits.Bit1  //控温模式
+#define b_dingshi       mach.flag_m2.bits.Bit2  //定时时间设定
+#define b_yuyue         mach.flag_m2.bits.Bit3  //预约时间设定
+#define b_dingyuSet     mach.flag_m2.bits.Bit4  //定时预约时间设定显示
+#define b_igbtwarm      mach.flag_m2.bits.Bit5  //IGBT高温
+#define b_baowen        mach.flag_m2.bits.Bit6  //保温不加热
+#define MFLAG_2         mach.flag_m2.byte
+
+//flag_m3---模式切换被清
+#define b_coulo_dsp     mach.flag_m3.bits.Bit0  //电量显示
+#define b_Voltage_dsp   mach.flag_m3.bits.Bit1  //电压显示
+#define b_timer_hour	mach.flag_m3.bits.Bit2		//定时预约小时分钟轮流设定标志
+
+#define MFLAG_3         mach.flag_m3.byte
+/*************************************************************************/
+EXTERN volatile bit
+b_dbg_step1,	//调试模式第一步
+b_dbg_step2,	//调试模式第二步
+b_debug_set;	//
+
+EXTERN uchar 
+DEBUG_STAGE,
+DEBUG_DATA,
+DspVersion,
+dingyu_delay
+;
+
+
+//=======KeyPro.c=====================
+EXTERN uchar Keydat;
+
+
+//显示 Dsp_Pro中的显示寄存器
+EXTERN uchar cms_dspbuff[8];
+
+EXTERN BIT  Flag_user;
+#define b_led_next      Flag_user.bits.Bit0
+
+
+
+
+EXTERN BIT flag_key;
+#define b_key_release       flag_key.bits.Bit0
+#define b_key_lock          flag_key.bits.Bit1
+#define b_key_add           flag_key.bits.Bit2
+#define b_key_sub           flag_key.bits.Bit3
+#define b_key_start         flag_key.bits.Bit4
+#define KEYFlag         	flag_key.byte
+
+
+//可控硅
+EXTERN uchar 
+tiao_on,
+//丢波计数
+Jump_Cnt,
+Jump_cycle
+
+;
+
+//===========Interrupt.c==================
+EXTERN uchar tiaojs20ms,tiaojs;
+
+
+
+/*****************************************************************/
+#define CLEAR_MACH()		&#123;memset(&amp;mach,0,sizeof(mach));&#125;	//清除机器数据
+#define CLEAR_MODE()		&#123;MFLAG_3 = MFLAG_2 = 0;mach.worksec = 0;WorkMin = 0;&#125;
+
+#define _DSPBUFF_NUMBER		8
+
+
+
+
+#endif
 </code></pre>
 
       
