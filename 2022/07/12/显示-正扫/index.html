@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>蜂鸣器 | Rainjai Blog</title>
+  <title>显示-正扫 | Rainjai Blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="蜂鸣器 | Rainjai Blog">
+  <meta name="description" content="显示-正扫 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -518,9 +518,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-蜂鸣器" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-显示-正扫" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">蜂鸣器</h1>
+        <h1 class="article-title">显示-正扫</h1>
     
     <div class="article-meta">
         
@@ -538,7 +538,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-06-17 23:30:17'>2022-06-17 23:28</time>
+            Created At : <time class="date" title='Updated At: 2022-07-12 20:38:25'>2022-07-12 16:10</time>
         
     </div>
     <div class="article-meta">
@@ -560,7 +560,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%9C%82%E9%B8%A3%E5%99%A8"><span class="toc-text">蜂鸣器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951"><span class="toc-text">方法1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">定义寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8125us%E4%B8%AD%E6%96%AD%E4%B8%AD"><span class="toc-text">在125us中断中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A810ms%E6%88%96%E8%80%8520ms%E5%A4%84"><span class="toc-text">在10ms或者20ms处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E8%9C%82%E9%B8%A3%E5%99%A8%E5%8F%AB%E7%9A%84%E5%9C%B0%E6%96%B9%EF%BC%8C%E8%B0%83%E7%94%A8%E4%BB%A5%E4%B8%8B%E5%87%BD%E6%95%B0"><span class="toc-text">在需要蜂鸣器叫的地方，调用以下函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952"><span class="toc-text">方法2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%AF%84%E5%AD%98%E5%99%A8-1"><span class="toc-text">定义寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#125us%E5%A4%84"><span class="toc-text">125us处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A820ms%E5%A4%84"><span class="toc-text">在20ms处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-text">在需要调用的地方</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA-%E6%AD%A3%E6%89%AB"><span class="toc-text">显示-正扫</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89com%E5%8F%A3%E4%B8%8ESEG%E5%8F%A3"><span class="toc-text">1.定义com口与SEG口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%AD%A3%E6%89%AB"><span class="toc-text">2.正扫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9C%A8%E4%B8%AD%E6%96%AD%E4%B8%AD%E8%B0%83%E7%94%A8"><span class="toc-text">3.在中断中调用</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -576,127 +576,180 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="蜂鸣器"><a href="#蜂鸣器" class="headerlink" title="蜂鸣器"></a>蜂鸣器</h1><p>无源蜂鸣器，需要使用8K的振荡频率的脉冲驱动，才能发出声音。根据频率的大小，决定蜂鸣器叫声的尖锐程度。</p>
-<p>在单片机中，需要先配置125us的定时器中断，蜂鸣器对应的单片机引脚，输出脉冲，即可驱动蜂鸣器</p>
-<h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><h3 id="定义寄存器"><a href="#定义寄存器" class="headerlink" title="定义寄存器"></a>定义寄存器</h3><pre><code class="c">uchar		Buze_Step=0;
-uchar		Buze_Cnt_Time=0;
-uchar		Buze_Off=0;
-uchar		Buze_On=0;
-uchar		Buze_Set_Cnt=0;
-</code></pre>
-<h3 id="在125us中断中"><a href="#在125us中断中" class="headerlink" title="在125us中断中"></a>在125us中断中</h3><pre><code class="c">//=========================
-//位置:125us中断处
-//=========================
-void	Buze_Driver(void)
-&#123;
-    //蜂鸣器驱动
-    if(bBuze) 			
-        BUZE ^= 1 ;		//异或运算，不停取反
-    else	
-        BUZE = 1;
-&#125;
-</code></pre>
-<h3 id="在10ms或者20ms处"><a href="#在10ms或者20ms处" class="headerlink" title="在10ms或者20ms处"></a>在10ms或者20ms处</h3><pre><code class="c">//=========================
-//位置:主函数,每10ms或者20ms进来一次
-//蜂鸣器控制
-//=========================
-void	Buze_Control(void)
-&#123;	
-    //发声的时候关闭，蜂鸣器
-    if (bEnable_Buze)
-    &#123;		
-        ++Buze_Cnt_Time;
-        if (0==Buze_Step)
-        &#123;
-            if (Buze_Cnt_Time&lt;Buze_On)&#123;bBuze=1;&#125;			
-            else
-            &#123;				
-                bBuze=0;
-                Buze_Cnt_Time=0;
-                Buze_Step=1;
-            &#125;
-        &#125;
-        else if (1==Buze_Step)
-        &#123;
-            if (Buze_Cnt_Time&lt;Buze_Off) bBuze=0;		 
-            else
-            &#123;
-                Buze_Step=0;
-                Buze_Cnt_Time=0;
-                if (Buze_Set_Cnt&gt;0) --Buze_Set_Cnt;					
-                if (0==Buze_Set_Cnt)&#123;bEnable_Buze = bSet_Buze = 0;&#125;
-            &#125;
-        &#125;
-        else&#123;;&#125;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="在需要蜂鸣器叫的地方，调用以下函数"><a href="#在需要蜂鸣器叫的地方，调用以下函数" class="headerlink" title="在需要蜂鸣器叫的地方，调用以下函数"></a>在需要蜂鸣器叫的地方，调用以下函数</h3><pre><code class="c">//=====================================
-//位置:按键处理,或者功能处,
-//Buze_OnTime,发声时间;
-//BuzeOffTime,毕声时间;
-//Buze_Cnt,发声次数
-//Buze_Set(150,0,1);
-//=====================================
-void	Buze_Set(u16  Buze_OnTime, u16  BuzeOffTime,u8 Buze_Cnt)
-&#123;
-    if (!bSet_Buze)	   
-    &#123;
-        bSet_Buze=1;
-        Buze_On = Buze_OnTime/10;
-        Buze_Off = BuzeOffTime/10;
-        Buze_Set_Cnt = Buze_Cnt;
-        Buze_Step = 0;	
-        Buze_Cnt_Time=0;
-        bEnable_Buze=1;		
-    &#125;	
-&#125;
-</code></pre>
-<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><h3 id="定义寄存器-1"><a href="#定义寄存器-1" class="headerlink" title="定义寄存器"></a>定义寄存器</h3><pre><code class="c">bit b_beep_on,b_fan_on;
-uchar beep_count0;
+        <h1 id="显示-正扫"><a href="#显示-正扫" class="headerlink" title="显示-正扫"></a>显示-正扫</h1><p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/%E5%8E%9F%E7%90%86%E5%9B%BE_%E7%81%AF1.png"></p>
+<p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/%E5%8E%9F%E7%90%86%E5%9B%BE_%E6%95%B0%E7%A0%81%E7%AE%A11.png"></p>
+<h2 id="1-定义com口与SEG口"><a href="#1-定义com口与SEG口" class="headerlink" title="1.定义com口与SEG口"></a>1.定义com口与SEG口</h2><p>在H文件中，先对涉及到的io口进行定义命名</p>
+<pre><code class="c">#ifndef __DRIVE_LED__
+#define __DRIVE_LED__
 
-/************************************************
-*******************蜂鸣器-风扇********************
-*************************************************/
-#define pc_buz_fan      TRISA6
-#define p_buz_fan       RB6
+#include &quot;def.h&quot;
+#define _Brightness		8 //(6~40)
+/* ************************************************* */
+/* ************************************************* */
+uchar dd_buff[8];
+
+void Scan_Bit(uchar dat);
+void __LED_drv();
+
+
+//IO口选择
+    #ifdef __DRIVE_LED_M0__
+    #define pc_com_0         TRISC1 //12脚
+    #define pc_com_1         TRISC3 //10脚
+    #define pc_com_2         TRISC4 //9脚
+    #define pc_com_3         TRISD2 //3脚
+    #define pc_com_4         TRISC0 //13脚
+
+    #define pc_seg_a         TRISA0 //14脚-
+    #define pc_seg_b         TRISC5 //8脚-
+    #define pc_seg_c         TRISB1 //23脚-
+    #define pc_seg_d         TRISC7 //6脚-
+    #define pc_seg_e         TRISC6 //7脚-
+    #define pc_seg_f         TRISC2 //11脚-
+    #define pc_seg_g         TRISB2 //24脚-
+    #define pc_seg_h         TRISB0 //22脚-
+
+    #define p_com_0          RC1
+    #define p_com_1          RC3
+    #define p_com_2          RC4
+    #define p_com_3          RD2
+    #define p_com_4          RC0
+
+    #define p_seg_a          RA0
+    #define p_seg_b          RC5
+    #define p_seg_c          RB1
+    #define p_seg_d          RC7
+    #define p_seg_e          RC6
+    #define p_seg_f          RC2
+    #define p_seg_g          RB2
+    #define p_seg_h          RB0
+    #endif
+
+        #ifdef __DRIVE_LED_M1__
+    #define pc_com_0         TRISC1 //12脚
+    #define pc_com_1         TRISC2 //11脚
+    #define pc_com_2         TRISC3 //10脚
+    #define pc_com_3         TRISC0 //13脚
+    #define pc_com_4         TRISC4 //9脚
+
+    #define pc_seg_a         TRISA3 //17脚-
+    #define pc_seg_b         TRISA1 //15脚-
+    #define pc_seg_c         TRISA7 //21脚-
+    #define pc_seg_d         TRISA5 //19脚-
+    #define pc_seg_e         TRISA4 //18脚-
+    #define pc_seg_f         TRISA2 //16脚-
+    #define pc_seg_g         TRISA0 //14脚-
+    #define pc_seg_h         TRISA6 //20脚-
+
+    #define p_com_0          RC1
+    #define p_com_1          RC2
+    #define p_com_2          RC3
+    #define p_com_3          RC0
+    #define p_com_4          RC4
+
+    #define p_seg_a          RA3
+    #define p_seg_b          RA1
+    #define p_seg_c          RA7
+    #define p_seg_d          RA5
+    #define p_seg_e          RA4
+    #define p_seg_f          RA2
+    #define p_seg_g          RA0
+    #define p_seg_h          RA6
+    #endif
+
+#endif //__DRIVE_LED__
+
+/************************************************************/
+/************************************************************/
+/************************************************************/
+/*************************** For Example ********************/
+/************************************************************/
+
+
+
+/*************************************************************/
 </code></pre>
-<h3 id="125us处"><a href="#125us处" class="headerlink" title="125us处"></a>125us处</h3><pre><code class="c">//========================================= 
-//========蜂鸣器与风扇======================
-        if(b_beep_on) &#123;p_buz_fan ^= 1;&#125;
-        else 
-        &#123;
-            if(b_fan_on) &#123;p_buz_fan = 1;&#125;
-            else &#123;p_buz_fan = 0;&#125;
-        &#125; 
-</code></pre>
-<h3 id="在20ms处"><a href="#在20ms处" class="headerlink" title="在20ms处"></a>在20ms处</h3><pre><code class="c">/****************************************
-函数名称:Beep_Pro()
-输入:无
-输出:无
-函数功能：蜂鸣器函数 20ms/次
-*****************************************/
-void Beep_Pro()
-&#123;
-    if(beep_count0) beep_count0--;
-    else
+<h2 id="2-正扫"><a href="#2-正扫" class="headerlink" title="2.正扫"></a>2.正扫</h2><pre><code class="c">/********************************************
+    functio:void Scan_Bit(uchar dat) 
+    input: 
+    output:
+    ********************************************/
+    void Scan_Bit(uchar dat) 
     &#123;
-        beep_count0 = 0;
-        b_beep_on = 0;
+        if(dat&amp;bit0) &#123;pc_seg_a = 0;p_seg_a = 1;&#125;
+        if(dat&amp;bit1) &#123;pc_seg_b = 0;p_seg_b = 1;&#125;
+        if(dat&amp;bit2) &#123;pc_seg_c = 0;p_seg_c = 1;&#125;
+        if(dat&amp;bit3) &#123;pc_seg_d = 0;p_seg_d = 1;&#125;
+        if(dat&amp;bit4) &#123;pc_seg_e = 0;p_seg_e = 1;&#125;
+        if(dat&amp;bit5) &#123;pc_seg_f = 0;p_seg_f = 1;&#125;
+        if(dat&amp;bit6) &#123;pc_seg_g = 0;p_seg_g = 1;&#125; 
+        if(dat&amp;bit7) &#123;pc_seg_h = 0;p_seg_h = 1;&#125;
     &#125;
-&#125;
+
+
+/********************************************
+    functio:void __LED_drv() 扫描数码管和LED
+    input: 
+    output:
+    ********************************************/
+    void __LED_drv()
+    &#123;
+        static uchar scan_cnt;
+        uchar i;
+
+        if(b_led_next)
+        &#123;
+            b_led_next = 0;
+            for(i = 0; i &lt; _DSPBUFF_NUMBER; i++) &#123;dd_buff[i] = cms_dspbuff[i];&#125;
+        &#125;
+
+        if(++scan_cnt &gt;= _Brightness) scan_cnt = 0;
+
+        //所有显示清0
+        p_com_0 = p_com_1 = p_com_2 = p_com_3 = p_com_4 = 1;
+        p_seg_a = p_seg_b = p_seg_c = p_seg_d = p_seg_e = p_seg_f = p_seg_g = p_seg_h = 0;
+
+        switch (scan_cnt)
+        &#123;
+            case 0:&#123;Scan_Bit(dd_buff[0]);pc_com_0 = 0;p_com_0 = 0;break;&#125;
+            case 1:&#123;Scan_Bit(dd_buff[1]);pc_com_1 = 0;p_com_1 = 0;break;&#125;            
+            case 2:&#123;Scan_Bit(dd_buff[2]);pc_com_2 = 0;p_com_2 = 0;break;&#125;
+            case 3:&#123;Scan_Bit(dd_buff[3]);pc_com_3 = 0;p_com_3 = 0;break;&#125;
+            case 4:&#123;Scan_Bit(dd_buff[4]);pc_com_4 = 0;p_com_4 = 0;break;&#125;
+            default:
+            break;
+        &#125;
+    &#125;
+    #endif //---__DRIVE_LED__---
+//---__DRIVE_LED_SELECT__---
 </code></pre>
-<h3 id="在需要调用的地方"><a href="#在需要调用的地方" class="headerlink" title="在需要调用的地方"></a>在需要调用的地方</h3><pre><code class="c">/****************************************
- 函数名称:Beep_Inin()
-输入:无
-输出:无
-函数功能:风扇-蜂鸣器初始化
-*****************************************/
-void Beep_Init(uchar _BLONG)
+<h2 id="3-在中断中调用"><a href="#3-在中断中调用" class="headerlink" title="3.在中断中调用"></a>3.在中断中调用</h2><p>在125us中断处</p>
+<pre><code class="c">//125us处
+    #ifdef __DRIVE_LED_SELECT__
+        if(++sys_1ms_cnt &gt;= 4)
+        &#123;
+            sys_1ms_cnt = 0;
+            __LED_drv();
+        &#125;
+    #endif
+</code></pre>
+<p>在main()主函数中</p>
+<pre><code class="c">void main()
 &#123;
-    b_beep_on = 1;
-    b_fan_on = 0;
-    beep_count0 = _BLONG;
+    if(b_sys_2ms)
+    &#123;
+        b_sys_2ms = 0;
+        if(++main_20ms_cnt &gt;= 10) main_20ms_cnt = 0;
+        switch (main_20ms_cnt)
+        &#123;
+            case 2:
+            &#123;
+                DSP_PRO();	//显示处理
+                b_led_next = 1;
+                break;
+            &#125;
+        &#125;    
+    &#125;
 &#125;
 </code></pre>
 
