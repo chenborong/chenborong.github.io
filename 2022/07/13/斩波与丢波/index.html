@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>categories | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="categories | Rainjai Blog">
+  <title>斩波与丢波 | Rainjai Blog</title>
+  <meta name="keywords" content=" C语言 ">
+  <meta name="description" content="斩波与丢波 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -572,19 +572,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="categories-" class="article article-type-categories" itemscope itemprop="blogPost">
+        <article id="post-斩波与丢波" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">categories</h1>
+        <h1 class="article-title">斩波与丢波</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="电陶炉相关">电陶炉相关</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">C语言</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-06-16 17:30:46'>2022-06-16 17:28</time>
+            发布时间 : <time class="date" title='最后更新: 2022-07-13 20:29:29'>2022-07-13 10:23</time>
         
     </div>
     <div class="article-meta">
@@ -606,7 +621,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%A9%E6%B3%A2%E4%B8%8E%E4%B8%A2%E6%B3%A2"><span class="toc-text">斩波与丢波</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%A9%E6%B3%A2"><span class="toc-text">1.斩波</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%A2%E6%B3%A2"><span class="toc-text">2.丢波</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -622,7 +637,348 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="斩波与丢波"><a href="#斩波与丢波" class="headerlink" title="斩波与丢波"></a>斩波与丢波</h1><p>在阅读此MD之前，先阅读完 “AD过零检测”后，在这基础上，再进行拓展。</p>
+<h2 id="1-斩波"><a href="#1-斩波" class="headerlink" title="1.斩波"></a>1.斩波</h2><p>在function.c中</p>
+<pre><code class="c">void work_function()
+&#123;
+    ...
+    ChopWaveProcess(_ht_270c,HEATHUOLI,6);  //斩波控温
+    ...
+&#125;
+</code></pre>
+<p>功率表格,在50Hz与60Hz的电压段中，各电压段的功率值</p>
+<pre><code class="c">    #ifdef __Voltage_230V__
+        const uchar VolageChopWave[]=&#123;
+        _vol_235,_vol_240,_vol_245,_vol_250,_vol_255,
+        _vol_260,_vol_265,_vol_270,_vol_275,_vol_280
+        &#125;;
+        const uchar VolageChopWave_60hz[]=&#123;
+        _vol60hz_235,_vol60hz_240,_vol60hz_245,_vol60hz_250,_vol60hz_255,
+        _vol60hz_260,_vol60hz_265,_vol60hz_270,_vol60hz_275,_vol60hz_275
+        &#125;;
+    #else 
+        const uchar VolageChopWave[]=&#123;
+        _vol_225,_vol_230,_vol_235,_vol_240,_vol_245,
+        _vol_250,_vol_255,_vol_260,_vol_265,_vol_270
+        &#125;;
+        const uchar VolageChopWave_60hz[]=&#123;
+        _vol60hz_225,_vol60hz_230,_vol60hz_235,_vol60hz_240,_vol60hz_245,
+        _vol60hz_250,_vol60hz_255,_vol60hz_260,_vol60hz_265,_vol60hz_270
+        &#125;;
+    #endif
+</code></pre>
+<pre><code class="c">static const uchar Tab_Chop220V_1800W[10][22]=&#123;
+    &#123;60,  55, 51, 48, 46, 45, 44, 42,40,  38, 35,  33,  30,  28,  25,23,  22,  20,  18,  16,  13,    0&#125;,//220V_50HZ_1800W_
+    &#123;60,  55, 51, 49, 46, 45, 44, 42,40,  38, 36,  34,  32,  29,  27,25,  24,  22,  20,  18,  17,   15&#125;,//225V_50HZ_1800W_
+    &#123;60,  56, 52, 49, 47, 46, 44, 42,40,  39, 37,  35,  32,  30,  29,26,  25,  24,  22,  21,  19,   17&#125;,//230V_50HZ_1800W_
+    &#123;61,  56, 53, 50, 47, 46, 45, 43,41,  39, 37,  35,  33,  32,  29,27,  26,  25,  24,  23,  21,   20&#125;,//235V_50HZ_1800W_
+    &#123;61,  57, 54, 50, 48, 47, 45, 43,42,  40, 38,  36,  35,  33,  31,29,  28,  27,  26,  24,  23,   22&#125;,//240V_50HZ_1800W_
+    &#123;62,  56, 53, 50, 48, 47, 46, 44,42,  40, 38,  37,  35,  33,  32,30,  29,  28,  27,  26,  25,   24&#125;,//245V_50HZ_1800W_
+    &#123;62,  56, 53, 51, 48, 47, 46, 44,43,  40, 39,  38,  36,  34,  33,31,  30,  29,  28,  27,  26,   25&#125;,//250V_50HZ_1800W_
+    &#123;62,  57, 53, 51, 48, 47, 46, 44,43,  41, 39,  38,  36,  35,  33,32,  31,  30,  29,  28,  27,   26&#125;, //260V_50HZ_1800W_
+    &#123;62,  57, 53, 51, 48, 47, 46, 44,43,  41, 39,  38,  36,  35,  34,33,  32,  31,  30,  29,  28,   27&#125;, //265V_50HZ_1800W_
+    &#123;62,  57, 54, 51, 49, 48, 47, 45,43,  42, 40,  39,  38,  37,  36,35,  34,  33,  32,  31,  30,   29&#125; //270V_50HZ_1800W_
+&#125;;
+
+static const uchar Tab_Chop220V60hz_1800W[10][22]=&#123;
+    &#123;48,  43, 41, 38, 36, 35, 34, 32,30,  28, 27,  25,  23,  21,  19,17,  15,  13,  12,  9,  6,   0&#125;,//220V_60HZ_1800W_
+    &#123;48,  44, 41, 39, 37, 36, 34, 33,31,  29, 27,  25,  24,  22,  20,18,  17,  16,  15,  13,  11,   9&#125;,//225V_60HZ_1800W_
+    &#123;48,  44, 41, 39, 37, 36, 35, 33,32,  30, 28,  26,  25,  23,  21,19,  18,  17,  16,  15,  14,   11&#125;,//230V_60HZ_1800W_
+    &#123;48,  45, 42, 40, 37, 36, 35, 34,32,  30, 29,  27,  25,  24,  22,21,  20,  19,  18,  17,  16,   14&#125;,//235V_60HZ_1800W_
+    &#123;49,  45, 42, 40, 37, 36, 35, 34,32,  30, 29,  27,  25,  24,  22,21,  20,  19,  18,  17,  16,   14&#125;,//240V_60HZ_1800W_
+    &#123;49,  45, 42, 40, 38, 37, 36, 34,33,  31, 29,  28,  26,  25,  23,22,  21,  20,  19,  18,  17,   16&#125;,//245V_60HZ_1800W_
+    &#123;49,  45, 42, 40, 39, 38, 37, 35,33,  32, 31,  29,  28,  27,  26,25,  24,  23,  22,  21,  20,   19&#125;,//250V_60HZ_1800W_
+    &#123;49,  46, 43, 41, 40, 39, 37, 36,34,  33,  32, 31,  30,  29,  28,27,  26,  25,  24,  23,  22,   21&#125;, //260V_60HZ_1800W_
+    &#123;49,  46, 43, 41, 40, 39, 37, 36,34,  33,  32, 31,  30,  29,  29,28,  27,  26,  25,  24,  23,   22&#125;, //265V_60HZ_1800W_
+    &#123;50,  46, 44, 42, 40, 39, 38, 37,36,  35,  34,  33,  32, 31,  30,29,  28,  27,  26,  25,  24,   23&#125; //270V_60HZ_1800W_
+&#125;;
+</code></pre>
+<pre><code class="c">/********************************************
+functio:void ChopWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
+input: 
+output:
+********************************************/
+
+void ChopWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
+&#123;
+    uchar i,gvt_temp;
+    uchar tci = 22;
+
+    while((ad_main &gt;= MainMax) &amp;&amp; ( TarGear &gt; MinPower))
+    &#123;
+        if( TarGear &gt;= tci)  TarGear--;
+        tci--;
+        MainMax++;
+    &#125;
+
+    if((TarGear==0) || (TarGear&gt;22)) &#123;tiao_on = 0;&#125;  //超出范围
+
+    else
+    &#123;
+        TarGear--;
+        //60Hz范围内
+        if(B_AC_60HZ)
+        &#123;
+            for(i = 0;i &lt; 10;i++)
+            &#123;
+                if(ad_vol &lt; VolageChopWave_60hz[i]) 
+                &#123;
+                  gvt_temp = Tab_Chop220V60hz_1800W[i][TarGear];
+                  break;
+                &#125;
+            &#125;
+        &#125;
+        //50Hz范围内
+        else 
+        &#123;
+            for(i = 0;i &lt; 10;i++)
+            &#123;
+                if(ad_vol &lt; VolageChopWave[i]) 
+                &#123;
+                  gvt_temp = Tab_Chop220V_1800W[i][TarGear];
+                  break;
+                &#125;
+            &#125;
+        &#125;
+        tiao_on = gvt_temp;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-丢波"><a href="#2-丢波" class="headerlink" title="2.丢波"></a>2.丢波</h2><pre><code class="c">void main()
+&#123;
+    ...
+    if(b_sys_2ms)
+    &#123;
+        b_sys_2ms = 0;
+    #ifdef __JUMPWAVE_H__
+        JumpWave_Ctrl(HEATHUOLI);	
+    #endif
+    &#125;
+    ...
+&#125;
+
+
+void work_function()
+&#123;
+    ...
+           JumpWaveProcess(_ht_270c,HEATHUOLI,6);  //丢波控温
+    ...
+&#125;
+</code></pre>
+<pre><code class="c">/********************************************
+functio:void JumpWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
+input: 
+output:
+********************************************/
+void JumpWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
+&#123;
+    uchar tci = 22;
+
+    //每超过MainMax 1个值, 档位TarGear则自减1个值,
+    while((ad_main &gt;= MainMax) &amp;&amp; ( TarGear &gt; MinPower))
+    &#123;
+        if( TarGear &gt;= tci)  TarGear--;
+        tci--;
+        MainMax++;
+    &#125;
+</code></pre>
+<pre><code class="c">/********************************************
+functio:void JumpWave_Ctrl(uchar  TarGear)
+input: TarGear(火力)
+output: b_jump_on(丢波标志位)
+********************************************/
+void JumpWave_Ctrl(uchar  TarGear)
+&#123;
+    // uchar i;
+    if((b_Scr_On || b_Scr1_On)&amp;&amp;(TarGear &gt; 0))
+    &#123;    
+        switch (TarGear)
+        &#123;
+            case 1:
+            &#123;
+                Jump_cycle = 11;
+                if(0 == Jump_Cnt) b_jump_on = 1;
+                else b_jump_on = 0;
+                
+                break;
+            &#125;
+            case 2:
+            &#123;
+                Jump_cycle = 21;
+                if((0 == Jump_Cnt)||(8 == Jump_Cnt)||(16 == Jump_Cnt)) b_jump_on = 1;
+                else b_jump_on = 0;
+                
+                break;
+            &#125;
+            case 3:
+            &#123;
+                Jump_cycle = 11;
+                if((0 == Jump_Cnt)||(5 == Jump_Cnt)) b_jump_on = 1;
+                else b_jump_on = 0;
+                
+                break;
+            &#125;
+            case 4:
+            &#123;
+                Jump_cycle = 21;
+                if(0 == Jump_Cnt%5) b_jump_on = 1;
+                else b_jump_on = 0;
+            &#125;
+            case 5:
+            &#123;
+                Jump_cycle = 11;
+                if(0 == Jump_Cnt%4) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 6:
+            &#123;
+                Jump_cycle = 21;
+                if(0 == Jump_Cnt%3) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 7:
+            &#123;
+                Jump_cycle = 11;
+                if(0 == Jump_Cnt%3) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 8:
+            &#123;
+                Jump_cycle = 21;
+                if(0 == Jump_Cnt) b_jump_on = 1;
+                else if((3 == Jump_Cnt)||(4 == Jump_Cnt)) b_jump_on = 1;
+                else if((8 == Jump_Cnt)||(9 == Jump_Cnt)) b_jump_on = 1;
+                else if((13 == Jump_Cnt)||(14 == Jump_Cnt)) b_jump_on = 1;
+                else if((17 == Jump_Cnt)||(18 == Jump_Cnt)) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 9:
+            &#123;
+                Jump_cycle = 11;
+                if((0 == Jump_Cnt%2)&amp;&amp;(Jump_Cnt &lt; 10)) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 10:
+            &#123;
+                Jump_cycle = 21;
+                if((0 == Jump_Cnt%4)||(1 == Jump_Cnt%4)) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 11:
+            &#123;
+                Jump_cycle = 21;
+                if(0 == Jump_Cnt%2) b_jump_on = 1;
+                else b_jump_on = 0;
+                break;
+            &#125;
+            case 12:
+            &#123;
+                Jump_cycle = 21;
+                if(Jump_Cnt &gt; 7)
+                &#123;
+                  if(2 == Jump_Cnt%3)   b_jump_on = 0;
+                  else if((3 == Jump_Cnt)||(4 == Jump_Cnt)||(7 == Jump_Cnt)) b_jump_on = 0;
+                  else b_jump_on = 1;
+                &#125;
+                break;
+            &#125;
+            case 13:
+            &#123;
+                Jump_cycle = 21;
+                if(Jump_Cnt &gt; 7)
+                &#123;
+                  if(2 == Jump_Cnt%3)   b_jump_on = 0;
+                  else if((4 == Jump_Cnt)||(7 == Jump_Cnt)) b_jump_on = 0;
+                  else b_jump_on = 1;
+                &#125;
+                break;               
+            &#125;
+            case 14:
+            &#123;
+                Jump_cycle = 21;
+                if(Jump_Cnt &gt; 7)
+                &#123;
+                  if(2 == Jump_Cnt%3)   b_jump_on = 0;
+                  else if(4 == Jump_Cnt) b_jump_on = 0;
+                  else b_jump_on = 1;
+                &#125;
+                break;               
+            &#125; 
+            case 15:
+            &#123;
+                Jump_cycle = 21;
+                if(0 == Jump_Cnt%4) b_jump_on = 0;
+                else b_jump_on = 1;
+                break;
+            &#125;        
+            case 16:
+            &#123;
+                Jump_cycle = 22;
+                if((Jump_Cnt &gt; 0)&amp;&amp;(Jump_Cnt &lt; 21))
+                &#123;
+                    if(0 == Jump_Cnt%3) &#123;b_jump_on = 0;break;&#125;
+                &#125;
+                b_jump_on = 1;
+                break;
+            &#125;
+            case 17:
+            &#123;
+                Jump_cycle = 22;
+                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%4)) b_jump_on = 0;
+                else b_jump_on = 1;
+                break;
+            &#125; 
+            case 18:
+            &#123;
+                Jump_cycle = 22;
+                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%5)) b_jump_on = 0;
+                else b_jump_on = 1;
+                break;
+            &#125; 
+            case 19:
+            &#123;
+                Jump_cycle = 22;
+                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%6)) b_jump_on = 0;
+                else b_jump_on = 1;
+                break;
+            &#125;           
+            case 20:
+            &#123;
+                Jump_cycle = 22;
+                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%8)) b_jump_on = 0;
+                else b_jump_on = 1;
+                break;
+            &#125;
+            case 21:
+            &#123;
+                Jump_cycle = 22;
+                if(10 == Jump_Cnt) b_jump_on = 0;
+                else b_jump_on = 1;
+                break;
+            &#125;
+            case 22:
+            &#123;
+                Jump_cycle = 22;
+                b_jump_on = 1;
+                break;
+            &#125;
+            default:&#123;;&#125;
+        &#125;
+        // if(Jump_Cnt &lt; TarGear) b_jump_on = 1;
+        // else b_jump_on = 0;
+    &#125;
+&#125;
+
+// __DRIVE_JUMPWAVE_SELECT__
+/*丢波控温*************************************************/
+</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
     </div>

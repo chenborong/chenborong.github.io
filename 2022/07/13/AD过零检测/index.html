@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>categories | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="categories | Rainjai Blog">
+  <title>AD过零检测 | Rainjai Blog</title>
+  <meta name="keywords" content=" C语言 ">
+  <meta name="description" content="AD过零检测 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -572,19 +572,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="categories-" class="article article-type-categories" itemscope itemprop="blogPost">
+        <article id="post-AD过零检测" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">categories</h1>
+        <h1 class="article-title">AD过零检测</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="电陶炉相关">电陶炉相关</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">C语言</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-06-16 17:30:46'>2022-06-16 17:28</time>
+            发布时间 : <time class="date" title='最后更新: 2022-07-13 20:27:57'>2022-07-13 10:23</time>
         
     </div>
     <div class="article-meta">
@@ -606,7 +621,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AD%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B"><span class="toc-text">AD过零检测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Ad-Waitting"><span class="toc-text">1. Ad_Waitting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A3%80%E6%9F%A5%E8%BF%87%E9%9B%B6%E5%92%8CAD"><span class="toc-text">2.检查过零和AD</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -622,7 +637,253 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        <h1 id="AD过零检测"><a href="#AD过零检测" class="headerlink" title="AD过零检测"></a>AD过零检测</h1><h2 id="1-Ad-Waitting"><a href="#1-Ad-Waitting" class="headerlink" title="1. Ad_Waitting"></a>1. Ad_Waitting</h2><p>在8P电陶炉中,由于电压AD采用AD检测过零点,因此与常规的AD检测方式不一样,需要在中断中,读取AD值，并处理AD值。</p>
+<pre><code class="c">void main(void)
+&#123;
+    ...
+    while(1)
+    &#123;
+        Ad_Waitting();		//AD
         
+        if(b_sys_2ms)
+        &#123;
+            ...
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在主函数中,通过轮询方式检测AD，第0组，第2组为电压AD检测</p>
+<pre><code class="c">static const uchar Tab_AD_CH[4] = &#123;
+    _CH_VOL,
+    _CH_PCB,
+    _CH_VOL,
+    _CH_MAIN
+&#125;;
+</code></pre>
+<pre><code class="c">void Ad_Waitting()
+&#123;
+    static uchar igbtcnt,maincnt,volcnt,main_temp,vol_temp;
+    static uint igbttemph,mainh,volinh;
+
+    if(!b_Chk_Freq_ok) return;  //检测60hz
+
+    if(b_CanRead_AD) return;    //没有读完
+
+    // //读PCB温度和风扇AD
+    if(1 == AD_SP)
+    &#123;  
+        Main_inttemp &gt;&gt;= 5;    // 累计32次后，再右移5位
+        igbttemph += Main_inttemp;
+        if(igbtcnt++ &gt;= 16)
+        &#123;
+            igbtcnt = 0;
+            igbttemph &gt;&gt;= 4;    //igbttemph &lt;&lt;= 4; igbttemph &gt;&gt;= 8;
+            ad_fan = (uchar)igbttemph;
+             igbttemph = 0;
+        &#125;
+    &#125;
+
+    // //读炉面温度
+    else if(3 == AD_SP)
+    &#123;
+        Main_inttemp &gt;&gt;= 5;      // 累计32次后，再右移5位
+        mainh += Main_inttemp;
+        if(maincnt++ &gt;= 16)
+        &#123;
+            maincnt = 0;
+            mainh &gt;&gt;= 4;    
+            main_temp = (uchar)mainh;
+            mainh = 0;
+
+            if((main_temp &lt; 0xf0)||(main_temp &gt; 0x10)) &#123;ad_main = main_temp;&#125;
+            else 
+            &#123;
+                if(main_temp &gt;= (ad_main+2)) &#123;ad_main = main_temp - 1;&#125;
+                if(main_temp &lt;= (ad_main-2)) &#123;ad_main = main_temp + 1;&#125;
+            &#125;
+        &#125;
+    &#125;
+
+    // //读电压AD
+    else 
+    &#123;
+        Vol_inttemp &gt;&gt;= 6;
+        volinh += Vol_inttemp;
+        if(volcnt++ &gt;= 48) 
+        &#123;
+            volcnt = 0;
+            volinh =volinh &gt;&gt; 5;   // volinh &lt;&lt;= 3; volinh &gt;&gt;= 8;
+            vol_temp = (uchar)volinh; 
+            volinh = 0;
+            if(vol_temp &gt;= (ad_vol+2)) &#123;ad_vol = vol_temp - 1;&#125;
+            if(vol_temp &lt;= (ad_vol-2)) &#123;ad_vol = vol_temp + 1;&#125;
+        &#125;
+    &#125;
+
+    AD_HH = 0;
+    if(AD_SP++ &gt;=4) AD_SP = 0;
+    if((0 == AD_SP)||(2 == AD_SP)) &#123;b_Read_FF = 1;&#125;
+    else &#123;b_Read_FF = 0;&#125;	//0 和 2 为电压检测
+
+    ADCON0 = Tab_AD_CH[AD_SP]; //选取AD通道
+    ADCON1 = 0x00;              //左对齐
+    asm(&quot;nop&quot;);
+    asm(&quot;nop&quot;);
+    asm(&quot;nop&quot;);
+    asm(&quot;nop&quot;);
+    AD_Cover_Go;        //启动
+
+    CAD_JS = 0;
+    b_CanRead_AD = 1;
+&#125;
+</code></pre>
+<h2 id="2-检查过零和AD"><a href="#2-检查过零和AD" class="headerlink" title="2.检查过零和AD"></a>2.检查过零和AD</h2><p>在125us处，读取AD过零</p>
+<pre><code class="c">/***********************************************************************
+函数功能：中断入口函数
+***********************************************************************/
+void interrupt time0(void)
+&#123;
+    if(TMR2IF)
+    &#123;
+        TMR2IF = 0;
+        tcount ++;
+        
+        ...
+        CHK_AC_FREQ();	//检查电网频率
+
+        CHK_AD_READ();	//检查过零和AD
+        
+        if(B_SCR_MAP) &#123;SCR_ON();&#125;
+        else &#123;SCR_OFF();&#125;
+        if(B_SCR1_MAP) &#123;SCR_ON();&#125;
+        else &#123;SCR1_OFF();&#125;
+        ...
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="c">/********************************************
+functio:void CHK_AD_READ() 
+input: 
+output:
+********************************************/
+void CHK_AD_READ()
+&#123;
+    uchar inttemp;
+
+    if(!b_Chk_Freq_ok) return;  //检测电源频率
+
+    if(b_CanRead_AD)
+    &#123;
+        if(ADCON0 &amp; 0x02) &#123;ADCON0 |= 0b00000010;&#125;   //转换中
+        //转换完毕
+        else
+        &#123;
+            if(b_Read_FF)   //检测电压
+            &#123;
+               AD_HH += ADRESH;
+               if(ADRESH &lt; 4)   //AD值小于04h,零点附近
+               &#123;
+                   AD_Zero++;
+                   if(AD_Zero &gt; 1)    //最低值,抖动2次，判为过零
+                   &#123;
+                       if(b_Zero)       //零点位置
+                       &#123;
+                           tiaojs20ms = (tiaojs &gt;&gt; 1);  //tiaojs20ms = tiaojs/2;
+                           tiaojs = 0;
+                           b_Zero = 0;
+                       &#125;
+                       else &#123;AD_Zero = 0;&#125;
+                   &#125;
+                #ifdef __JUMPWAVE_H__
+                   if(tiaojs &gt; (tiaojs20ms/3) &amp;&amp; !b_Zero)
+                   &#123;
+                       if(!b_chk_jump) &#123;b_chk_jump = 1;&#125;    //丢波
+                   &#125; 
+                #endif//__JUMPWAVE_H__
+                &#125;
+                else &#123;AD_Zero = 0;&#125; //ADRESH &gt; 4
+                               
+                if(ADRESH &gt; 40) //在高峰区域
+                &#123;
+                    b_Zero = 1;
+                    b_Zero_High = 1;
+                #ifdef __JUMPWAVE_H__
+                    if(!b_chk_jump) &#123;b_chk_jump = 1;&#125;    //丢波
+                #endif
+                &#125;
+                
+
+                if(CAD_JS++ &gt;= 72)   //20ms
+                &#123;
+                    if((tiaojs == 0) &amp;&amp; (b_Zero_High)) &#123;b_CanRead_AD = 0;Vol_inttemp = AD_HH;&#125;  //下一轮
+                    else &#123;AD_Cover_Go;&#125;   //下一轮
+                &#125;
+                else &#123;AD_Cover_Go;&#125;   //下一轮
+            &#125;
+            //检测主温控，PCB的AD
+            else
+            &#123;
+                AD_HH += ADRESH;
+                if(CAD_JS++ &gt;= 32) &#123; b_CanRead_AD = 0;Main_inttemp = AD_HH;&#125; //完成
+                else &#123;AD_Cover_Go;&#125;   //下一轮
+            &#125;
+        &#125;
+    &#125;
+
+    tiaojs++;
+    //==============================================
+    //==============处理加热斩波=====================
+#ifdef __CHOPWAVE_H__
+    if(b_Scr_On || b_Scr1_On)
+    &#123;
+        inttemp = tiaojs;
+        if(inttemp &gt; tiaojs20ms) &#123;inttemp = inttemp - tiaojs20ms;&#125;
+
+        if((inttemp &gt;= tiao_on)&amp;&amp;(inttemp &lt; (tiao_on+5)))   //5*125us = 625us
+        &#123;
+            if(b_Scr_On) B_SCR_MAP = 1;
+            if(b_Scr1_On) B_SCR1_MAP = 1;
+        &#125;
+        else &#123;B_SCR_MAP = B_SCR1_MAP = 0;&#125;
+    &#125;
+    //关闭可控硅
+    else &#123;B_SCR_MAP = B_SCR1_MAP = 0;&#125;
+#endif
+
+    //==============================================
+    //==============处理加热丢波=====================
+#ifdef __JUMPWAVE_H__
+    if(b_Scr_On || b_Scr1_On)
+    &#123;
+        inttemp = tiaojs;
+        if(inttemp &gt; tiaojs20ms) &#123;inttemp = inttemp - tiaojs20ms;&#125;
+
+        if(Jump_Cnt &gt;= Jump_cycle) Jump_Cnt = 0;  //20个为一个周期
+ 
+        if((inttemp &lt; 5)&amp;&amp;(b_jump_on))
+        &#123;
+            if(b_Scr_On) B_SCR_MAP = 1;
+            if(b_Scr1_On) B_SCR1_MAP = 1;
+        &#125;
+        else &#123;B_SCR_MAP = B_SCR1_MAP = 0;&#125;
+
+        //丢波
+        if((inttemp == 6) &amp;&amp; b_chk_jump)  
+        &#123;
+            b_chk_jump = 0;
+            Jump_Cnt++;
+        &#125;
+    &#125;
+     //关闭可控硅
+    else &#123;B_SCR_MAP = B_SCR1_MAP = 0;&#125; 
+#endif
+&#125;
+</code></pre>
+<p>对于斩波：</p>
+<p>只需要控制tiao_on的值，即可控制功率。tiao_on的取值范围在0~80之间，(80 * 125us &#x3D; 10ms)</p>
+<p>对于丢波：</p>
+<p>只需要控制标志位b_jump_on即可加热, 不同时间段b_jump_on的状态，1为加热，0为不加热，从而达到控制功率的目的</p>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
     </div>
