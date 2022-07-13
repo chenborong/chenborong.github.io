@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>电磁炉波形解析 | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="电磁炉波形解析 | Rainjai Blog">
+  <title>显示-数码管流水 | Rainjai Blog</title>
+  <meta name="keywords" content=" C语言 , 汇编 ">
+  <meta name="description" content="显示-数码管流水 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -542,9 +542,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-电磁炉波形解析" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-显示-数码管流水" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">电磁炉波形解析</h1>
+        <h1 class="article-title">显示-数码管流水</h1>
     
     <div class="article-meta">
         
@@ -554,15 +554,24 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="电磁炉">电磁炉</a>
+            <a  data-rel="单片机函数">单片机函数</a>
             
         </span>
         
         
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">C语言</a>
+            
+            <a class="color3">汇编</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-06-17 16:30:01'>2022-06-17 16:31</time>
+            发布时间 : <time class="date" title='最后更新: 2022-07-13 10:03:39'>2022-07-12 16:10</time>
         
     </div>
     <div class="article-meta">
@@ -584,7 +593,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%B5%E7%A3%81%E7%82%89%E6%B3%A2%E5%BD%A2%E8%A7%A3%E6%9E%90"><span class="toc-text">电磁炉波形解析</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA-%E6%95%B0%E7%A0%81%E7%AE%A1%E6%B5%81%E6%B0%B4"><span class="toc-text">显示-数码管流水</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-C%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC"><span class="toc-text">1.C语言版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-4%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E6%B5%81%E6%B0%B4"><span class="toc-text">1.1 4位数码管流水</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B1%87%E7%BC%96%E7%89%88%E6%9C%AC"><span class="toc-text">2.汇编版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-4%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1"><span class="toc-text">2.1 4位数码管</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -600,16 +609,171 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="电磁炉波形解析"><a href="#电磁炉波形解析" class="headerlink" title="电磁炉波形解析"></a>电磁炉波形解析</h1><img src="https://i.loli.net/2021/11/27/es8M2kBLvN1yZ54.png" alt="电磁炉波形.png" style="zoom:150%;" />
+        <h1 id="显示-数码管流水"><a href="#显示-数码管流水" class="headerlink" title="显示-数码管流水"></a>显示-数码管流水</h1><h2 id="1-C语言版本"><a href="#1-C语言版本" class="headerlink" title="1.C语言版本"></a>1.C语言版本</h2><h3 id="1-1-4位数码管流水"><a href="#1-1-4位数码管流水" class="headerlink" title="1.1 4位数码管流水"></a>1.1 4位数码管流水</h3><pre><code class="c">/********************************************
+functio:
+input: 
+output:
+********************************************/
+#ifdef __WATER_RUN__
 
-<p> 以上波形为LC振荡工作原理图.</p>
-<p><strong>T1-T2</strong>：IGBT控制极为高电平,IGBT饱和导通,电流I1从电源流过线盘L,电能转换为磁能存储在线盘上。</p>
-<p><strong>T2-T3</strong>:IGBT控制极为低电平,关断IGBT,由于电感不允许电流突变,电流I2流向电容C5,能量转移到C5,I2减到最小时,也就是线盘的能量全部放完时,VC达到最高。</p>
-<p><strong>T3-T4</strong>:电容开始通过线盘方向放电,所以此时I3为负向,电容的能量转移线盘上,VC最低时,反向电流I3最大。</p>
-<p><strong>T4-T5</strong>:此时IGBT开通,但由于感抗的作用,不允许电流突变,负向电流I4继续向电容C5充电直至为0。</p>
-<p><strong>所以</strong>,在一个高频的周期里,T2<del>T3的I2是<strong>线盘磁能对电容C5的充电电流</strong>,T3</del>T4的I3逆程脉冲峰压<strong>通过L1放电</strong>得电流,T4~T5得I4是线盘两端的电动势反向时形成的阻尼电流,因此,IGBT的导通电流实际是I1。</p>
-<p>IGBT的电压变化:在静态时,VC为输入电源经过整流滤波后得直流电源,T1<del>T2,IGBT饱和导通,VC接近地电位,T4</del>T5,VC为负压,T2~T4,也就是LC自由震荡得半个周期,VC上出现峰值电压,在T3时VC达到最大值。</p>
-<p>以上证明两个问题:一是在高频电流得一个周期中,只有I1是电源供给线盘能量的,所以I1的大小就决定加热功率的大小,同时脉冲宽度越大,T1~T2的时间就越长,I1就越大,反之亦然,所以<strong>要调节加热功率,只需要调节脉冲宽度</strong>;二是LC自由震荡的半个周期是出现峰值电压的时间亦是IGBT的截止时间,也是开关脉冲没有到达的时间,这个时间关系是不能错位的,如果峰值脉冲还没有消失,而开关脉冲已提前到来,就会出现很大的瞬间电流导致IGBT烧坏,因此必须保证开关脉冲的前沿与峰值脉冲后沿同步。</p>
+uchar run_speed,run_state;
+
+void dsp_water_run()
+&#123;
+    if(++run_speed &gt;= 5)
+    &#123;
+        run_speed = 0;
+        if(++run_state &gt; 11) run_state = 0;
+    &#125;
+    
+    dspbuf0 = dspbuf1 = dspbuf2 = dspbuf3 = 0;
+    
+    switch(run_state)
+    &#123;
+        case 0: &#123;dspbuf0 = dspbuf1 = dspbuf2 = seg_a; break;&#125;
+        case 1: &#123;dspbuf1 = dspbuf2 = dspbuf3 = seg_a; break;&#125;
+        case 2: &#123;dspbuf2 = dspbuf3 = seg_a; dspbuf3+=seg_b; break;&#125;
+        case 3: &#123;dspbuf3 = seg_a+seg_b+seg_c; break;&#125;
+        case 4: &#123;dspbuf3 = seg_b+seg_c+seg_d; break;&#125;
+        case 5: &#123;dspbuf3 = seg_c+seg_d; dspbuf2 = seg_d; break;&#125;
+        case 6: &#123;dspbuf3 = seg_d; dspbuf2 = dspbuf1 = seg_d; break;&#125;
+        case 7: &#123;dspbuf2 = dspbuf1 = dspbuf0 = seg_d; break;&#125;
+        case 8: &#123;dspbuf1 = dspbuf0 = seg_d; dspbuf0 += seg_e; break;&#125;
+        case 9: &#123;dspbuf0 = seg_d+seg_e+seg_f; break;&#125;
+        case 10: &#123;dspbuf0 = seg_e+seg_f+seg_a; break;&#125;
+        case 11: &#123;dspbuf0 = seg_f+seg_a; dspbuf1 = seg_a; break;&#125;
+        default:&#123;&#125;
+    &#125;
+&#125;
+#endif
+</code></pre>
+<h2 id="2-汇编版本"><a href="#2-汇编版本" class="headerlink" title="2.汇编版本"></a>2.汇编版本</h2><h3 id="2-1-4位数码管"><a href="#2-1-4位数码管" class="headerlink" title="2.1 4位数码管"></a>2.1 4位数码管</h3><pre><code class="asm">IFDEF 	__KEY_STOP__
+
+dd_stop:
+        set		ststop
+ IFDEF __DSP_STOP__
+        mov		a,sym_5
+        mov		dspbuf0,a 
+        mov		a,sym_t
+        mov		dspbuf1,a
+        mov		a,sym_0
+        mov		dspbuf2,a
+        mov		a,sym_p
+        mov		dspbuf3,a
+    ENDIF
+    
+IFDEF __WATER_RUN__		
+        inc		run_speed
+        mov		a,run_speed
+        sub		a,5
+        snz		c
+        jmp		_DD_RUN_1
+        clr		run_speed
+        
+        mov		a,run_state
+        sub		a,12
+        sz		c
+        clr		run_state
+        inc		run_state
+
+_DD_RUN_1:		
+        clr		dspbuf0
+        clr		dspbuf1
+        clr		dspbuf2
+        clr		dspbuf3
+    
+        mov		a,run_state
+        sdz		acc
+        jmp		Dwr_n2
+Dwr_n1:
+        mov		a,seg_a
+        mov		dspbuf0,a
+        mov		dspbuf1,a
+        mov		dspbuf2,a
+        ret
+Dwr_n2:		
+        sdz		acc
+        jmp		Dwr_n3	
+        mov		a,seg_a
+        mov		dspbuf1,a
+        mov		dspbuf2,a
+        mov		dspbuf3,a
+        ret
+Dwr_n3:		
+        sdz		acc
+        jmp		Dwr_n4		
+        mov		a,seg_a
+        mov		dspbuf2,a
+        add		a,seg_b
+        mov		dspbuf3,a
+        ret
+Dwr_n4:		
+        sdz		acc
+        jmp		Dwr_n5
+        mov		a,seg_a+seg_b+seg_c
+        mov		dspbuf3,a
+        ret	
+Dwr_n5:		
+        sdz		acc
+        jmp		Dwr_n6		
+        mov		a,seg_b+seg_c+seg_d
+        mov		dspbuf3,a
+        ret	
+Dwr_n6:		
+        sdz		acc
+        jmp		Dwr_n7		
+        mov		a,seg_d
+        mov		dspbuf2,a
+        add		a,seg_c
+        mov		dspbuf3,a
+        ret	
+Dwr_n7:		
+        sdz		acc
+        jmp		Dwr_n8		
+        mov		a,seg_d
+        mov		dspbuf1,a
+        mov		dspbuf2,a
+        mov		dspbuf3,a
+        ret
+Dwr_n8:		
+        sdz		acc
+        jmp		Dwr_n9		
+        mov		a,seg_d
+        mov		dspbuf0,a
+        mov		dspbuf1,a
+        mov		dspbuf2,a
+        ret
+Dwr_n9:		
+        sdz		acc
+        jmp		Dwr_n10		
+        mov		a,seg_d
+        mov		dspbuf1,a
+        add		a,seg_e
+        mov		dspbuf0,a
+        ret
+Dwr_n10:		
+        sdz		acc
+        jmp		Dwr_n11		
+        mov		a,seg_d+seg_e+seg_f
+        mov		dspbuf0,a
+        ret
+Dwr_n11:		
+        sdz		acc
+        jmp		Dwr_n12		
+        mov		a,seg_e+seg_f+seg_a
+        mov		dspbuf0,a
+        ret
+Dwr_n12:		
+        mov		a,seg_a
+        mov		dspbuf1,a
+        add		a,seg_f
+        mov		dspbuf0,a
+        ret
+ENDIF
+
+        ret
+ENDIF
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
