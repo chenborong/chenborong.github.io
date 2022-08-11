@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>VAR.H文件 | Rainjai Blog</title>
-  <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="VAR.H文件 | Rainjai Blog">
+  <title>Type-C脚位标识 | Rainjai Blog</title>
+  <meta name="keywords" content=" Type-C ">
+  <meta name="description" content="Type-C脚位标识 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -624,9 +624,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-VAR.H" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Type-C脚位标识" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">VAR.H文件</h1>
+        <h1 class="article-title">Type-C脚位标识</h1>
     
     <div class="article-meta">
         
@@ -636,7 +636,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="C语言">C语言</a>
+            <a  data-rel="电子元器件">电子元器件</a>
             
         </span>
         
@@ -644,14 +644,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color4">C语言</a>
+            <a class="color2">Type-C</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-13 09:37:41'>2022-07-11 16:04</time>
+            发布时间 : <time class="date" title='最后更新: 2022-08-11 09:18:55'>2022-08-11 08:54</time>
         
     </div>
     <div class="article-meta">
@@ -673,7 +673,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Type-C%E8%84%9A%E4%BD%8D%E6%A0%87%E8%AF%86"><span class="toc-text">Type-C脚位标识</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -689,144 +689,133 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code class="c">#ifndef __VAR_H__
-#define __VAR_H__
-
-#ifndef EXTERN
-#define EXTERN  extern
-#else 
-#define EXTERN
-#endif
-
-#include &quot;def.h&quot;
-
-
-    enum MODE
-    &#123;
-        POWER_OFF_MODE = 0,
-        HUOGUO_MODE,		//火锅
-        CHAOCAI_MODE,		//炒菜
-        BAOCHAO_MODE,		//爆炒
-        JIANCHAO_MODE,	//煎炒
-        SHAOKAO_MODE,		//烧烤
-        WUHUO_MODE,			//武火
-//===============以保温为临界功能================		
-        WARM_MODE,			//保温		----//保温及其以下功能为自动模式
-        WENHUO_MODE,		//文火
-        SOUP_MODE,			//煲汤
-        ZHENG_MODE,			//蒸煮
-        MILK_MODE,			//热奶
-        SHAOSHUI_MODE,	//烧水
-        ZHOU_MODE,			//煮粥
-        ZHUFAN_MODE,		//煮饭
-        MODE_END,
-    &#125;;
-
-typedef struct MACH_DATA&#123;
-    enum MODE mode;
-    uchar modejs;
-    uchar dsphuoli;
-    uchar heathuoli;
-    uchar worksec;
-    uchar workmin;
-    uchar workhour;
-    uchar ordermin;			//预约时间
-    uchar orderhour;		//预约时间
-    uchar timermin;			//定时时间
-    uchar timerhour;		//定时时间
-    BIT   flag_m1;
-    BIT   flag_m2;
-    BIT   flag_m3; 
-&#125;MACH_DAT,*P_MACH_DAT;   
-
-EXTERN  MACH_DAT mach;
-//falg_m1
-#define b_onoff         mach.flag_m1.bits.Bit0  //开关
-#define b_standby       mach.flag_m1.bits.Bit1  //待机
-#define b_lock          mach.flag_m1.bits.Bit2  //童锁
-#define b_Scr_On        mach.flag_m1.bits.Bit3  //可控硅
-#define b_Scr1_On       mach.flag_m1.bits.Bit4  //可控硅
-#define b_jump_on       mach.flag_m1.bits.Bit5  //可控硅丢波
-#define b_chk_jump		mach.flag_m1.bits.Bit6  //可控硅丢波
-
-
-//flag_m2---模式切换被清掉
-#define b_auto_mode     mach.flag_m2.bits.Bit0  //自动模式
-#define b_temp_mode     mach.flag_m2.bits.Bit1  //控温模式
-#define b_dingshi       mach.flag_m2.bits.Bit2  //定时时间设定
-#define b_yuyue         mach.flag_m2.bits.Bit3  //预约时间设定
-#define b_dingyuSet     mach.flag_m2.bits.Bit4  //定时预约时间设定显示
-#define b_igbtwarm      mach.flag_m2.bits.Bit5  //IGBT高温
-#define b_baowen        mach.flag_m2.bits.Bit6  //保温不加热
-#define MFLAG_2         mach.flag_m2.byte
-
-//flag_m3---模式切换被清
-#define b_coulo_dsp     mach.flag_m3.bits.Bit0  //电量显示
-#define b_Voltage_dsp   mach.flag_m3.bits.Bit1  //电压显示
-#define b_timer_hour	mach.flag_m3.bits.Bit2		//定时预约小时分钟轮流设定标志
-
-#define MFLAG_3         mach.flag_m3.byte
-/*************************************************************************/
-EXTERN volatile bit
-b_dbg_step1,	//调试模式第一步
-b_dbg_step2,	//调试模式第二步
-b_debug_set;	//
-
-EXTERN uchar 
-DEBUG_STAGE,
-DEBUG_DATA,
-DspVersion,
-dingyu_delay
-;
-
-
-//=======KeyPro.c=====================
-EXTERN uchar Keydat;
-
-
-//显示 Dsp_Pro中的显示寄存器
-EXTERN uchar cms_dspbuff[8];
-
-EXTERN BIT  Flag_user;
-#define b_led_next      Flag_user.bits.Bit0
-
-
-
-
-EXTERN BIT flag_key;
-#define b_key_release       flag_key.bits.Bit0
-#define b_key_lock          flag_key.bits.Bit1
-#define b_key_add           flag_key.bits.Bit2
-#define b_key_sub           flag_key.bits.Bit3
-#define b_key_start         flag_key.bits.Bit4
-#define KEYFlag         	flag_key.byte
-
-
-//可控硅
-EXTERN uchar 
-tiao_on,
-//丢波计数
-Jump_Cnt,
-Jump_cycle
-
-;
-
-//===========Interrupt.c==================
-EXTERN uchar tiaojs20ms,tiaojs;
-
-
-
-/*****************************************************************/
-#define CLEAR_MACH()		&#123;memset(&amp;mach,0,sizeof(mach));&#125;	//清除机器数据
-#define CLEAR_MODE()		&#123;MFLAG_3 = MFLAG_2 = 0;mach.worksec = 0;WorkMin = 0;&#125;
-
-#define _DSPBUFF_NUMBER		8
-
-
-
-
-#endif
-</code></pre>
+        <h1 id="Type-C脚位标识"><a href="#Type-C脚位标识" class="headerlink" title="Type-C脚位标识"></a>Type-C脚位标识</h1><p>Type-C口有4对TX&#x2F;RX分线，2对USBD+&#x2F;D-，一对SBU，2个CC，另外还有4个VBUS和4个地线。</p>
+<p>1、当Type-C接口仅用作传输DP信号时，则可利用4对TX&#x2F;RX，从而实现4Lane传输，这种模式称为DPonly模式；</p>
+<p>2、Type-C还保留了USB D+&#x2F;D-，用以接USB2.0设备，同时使用USB D+&#x2F;D-和上面的DPonly模式配合可实现DP+USB2.0模式；</p>
+<p>3、正常来说USB3.0只需要使用2对TX&#x2F;RX、USB2.0只需要使用一对D+&#x2F;D-，所以Type-C接口中总会有一半的接口是多余的；而DP的交替模式则是将DP的差分信号加载到2对“多余”的TX&#x2F;RX上面，所以也可实现USB3.0+DP的模式。</p>
+<p><strong>此外2条CC线主要是用来判断设备的插入方向：正插or反插，PD快充</strong></p>
+<p>如果是正插，主机使用CC1来和设备通讯；反之，则是CC2（这里可以看出CC使用的是单线协议）；</p>
+<p>最开始的快充是从高通CPU的QC开始的：通过提高输电电压，来提高输送功率。但QC协议中，通信使用的是USB的DP、DM，这就导致充电的时候会对USB通信造成影响；</p>
+<p>而USB-PD对电源设备的识别依靠CC1、CC2引脚，避免了QC标准与DP、DM的冲突。使得USB-PD在传输电力的同时，数据传输不会受到影响。</p>
+<p>2条SBU线则是在DP功能启用时，化身为DP协议中的AUX_P&#x2F;N差分对（它的极性是可以根据正反插方向修改的），负责传输设备的DPCD、EDID等信息（而平时这对引脚一般用不到，可忽略）。</p>
+<p>接口引脚定义如下图所示：（可以看出TYPE-C接口定义对称分布，所以我们平时正插反插都没有影响）</p>
+<p>![](<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/chenborong/image/master/img/Type_C.png">https://raw.githubusercontent.com/chenborong/image/master/img/Type_C.png</a>)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Pin</td>
+<td>名称</td>
+<td>功能</td>
+<td>Pin</td>
+<td>名称</td>
+<td>功能</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>GND</td>
+<td>接地</td>
+<td>B12</td>
+<td>GND</td>
+<td>接地</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>SSTXp1</td>
+<td>SuperSpeed差分信号#1,TX,正</td>
+<td>B11</td>
+<td>SSRXp1</td>
+<td>SuperSpeed差分信号#1,RX,正</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>SSTXn1</td>
+<td>SuperSpeed差分信号#1,TX,负</td>
+<td>B10</td>
+<td>SSRXn1</td>
+<td>SuperSpeed差分信号#1,RX,负</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>VBUS</td>
+<td>总线电源</td>
+<td>B9</td>
+<td>VBUS</td>
+<td>总线电源</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>CC1</td>
+<td>Configuration channel</td>
+<td>B8</td>
+<td>SBU2</td>
+<td>Sideband use(SBU)</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>Dp1</td>
+<td>USB 2.0差分信号,position 1,正</td>
+<td>B7</td>
+<td>Dn2</td>
+<td>USB 2.0差分信号,position 2,负</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>Dn1</td>
+<td>USB 2.0差分信号,position 1,负</td>
+<td>B6</td>
+<td>Dp2</td>
+<td>USB 2.0差分信号,position 2,正</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>SBU1</td>
+<td>Sideband use(SBU)</td>
+<td>B5</td>
+<td>CC2</td>
+<td>Configuration channel</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>VBUS</td>
+<td>总线电源</td>
+<td>B4</td>
+<td>VBUS</td>
+<td>总线电源</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>SSRXn2</td>
+<td>SuperSpeed差分信号#2,RX,负</td>
+<td>B3</td>
+<td>SSTXn2</td>
+<td>SuperSpeed差分信号#2,TX,负</td>
+</tr>
+<tr>
+<td>A11</td>
+<td>SSRXp2</td>
+<td>SuperSpeed差分信号#2,RX,正</td>
+<td>B2</td>
+<td>SSTXp2</td>
+<td>SuperSpeed差分信号#2,TX,正</td>
+</tr>
+<tr>
+<td>A12</td>
+<td>GND</td>
+<td>接地</td>
+<td>B1</td>
+<td>GND</td>
+<td>接地</td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
