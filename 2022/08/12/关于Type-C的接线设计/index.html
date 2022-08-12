@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>电磁炉波形解析 | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="电磁炉波形解析 | Rainjai Blog">
+  <title>关于Type-C的接线设计 | Rainjai Blog</title>
+  <meta name="keywords" content=" PCB ">
+  <meta name="description" content="关于Type-C的接线设计 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -650,9 +650,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-电磁炉波形解析" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-关于Type-C的接线设计" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">电磁炉波形解析</h1>
+        <h1 class="article-title">关于Type-C的接线设计</h1>
     
     <div class="article-meta">
         
@@ -662,15 +662,22 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="电磁炉">电磁炉</a>
+            <a  data-rel="PCB相关">PCB相关</a>
             
         </span>
         
         
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">PCB</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-06-17 16:30:01'>2022-06-17 16:31</time>
+            Created At : <time class="date" title='Updated At: 2022-08-12 14:13:56'>2022-08-12 14:05</time>
         
     </div>
     <div class="article-meta">
@@ -692,7 +699,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%B5%E7%A3%81%E7%82%89%E6%B3%A2%E5%BD%A2%E8%A7%A3%E6%9E%90"><span class="toc-text">电磁炉波形解析</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EType-C%E7%9A%84%E6%8E%A5%E7%BA%BF%E8%AE%BE%E8%AE%A1"><span class="toc-text">关于Type-C的接线设计</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -708,16 +715,129 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="电磁炉波形解析"><a href="#电磁炉波形解析" class="headerlink" title="电磁炉波形解析"></a>电磁炉波形解析</h1><img src="https://i.loli.net/2021/11/27/es8M2kBLvN1yZ54.png" alt="电磁炉波形.png" style="zoom:150%;" />
-
-<p> 以上波形为LC振荡工作原理图.</p>
-<p><strong>T1-T2</strong>：IGBT控制极为高电平,IGBT饱和导通,电流I1从电源流过线盘L,电能转换为磁能存储在线盘上。</p>
-<p><strong>T2-T3</strong>:IGBT控制极为低电平,关断IGBT,由于电感不允许电流突变,电流I2流向电容C5,能量转移到C5,I2减到最小时,也就是线盘的能量全部放完时,VC达到最高。</p>
-<p><strong>T3-T4</strong>:电容开始通过线盘方向放电,所以此时I3为负向,电容的能量转移线盘上,VC最低时,反向电流I3最大。</p>
-<p><strong>T4-T5</strong>:此时IGBT开通,但由于感抗的作用,不允许电流突变,负向电流I4继续向电容C5充电直至为0。</p>
-<p><strong>所以</strong>,在一个高频的周期里,T2<del>T3的I2是<strong>线盘磁能对电容C5的充电电流</strong>,T3</del>T4的I3逆程脉冲峰压<strong>通过L1放电</strong>得电流,T4~T5得I4是线盘两端的电动势反向时形成的阻尼电流,因此,IGBT的导通电流实际是I1。</p>
-<p>IGBT的电压变化:在静态时,VC为输入电源经过整流滤波后得直流电源,T1<del>T2,IGBT饱和导通,VC接近地电位,T4</del>T5,VC为负压,T2~T4,也就是LC自由震荡得半个周期,VC上出现峰值电压,在T3时VC达到最大值。</p>
-<p>以上证明两个问题:一是在高频电流得一个周期中,只有I1是电源供给线盘能量的,所以I1的大小就决定加热功率的大小,同时脉冲宽度越大,T1~T2的时间就越长,I1就越大,反之亦然,所以<strong>要调节加热功率,只需要调节脉冲宽度</strong>;二是LC自由震荡的半个周期是出现峰值电压的时间亦是IGBT的截止时间,也是开关脉冲没有到达的时间,这个时间关系是不能错位的,如果峰值脉冲还没有消失,而开关脉冲已提前到来,就会出现很大的瞬间电流导致IGBT烧坏,因此必须保证开关脉冲的前沿与峰值脉冲后沿同步。</p>
+        <h1 id="关于Type-C的接线设计"><a href="#关于Type-C的接线设计" class="headerlink" title="关于Type-C的接线设计"></a>关于Type-C的接线设计</h1><p>在常规的硬件设计中，经常需要用到USB线下载和供电，但是随着Type-C的普及，我们也应该升级我们的硬件设计，使用Type-C的公头和母座来烧录程序和供电。</p>
+<p>以下是关于Type-C的设计相关事项，主要是对USB的D- D+脚，以及芯片的TXD RXD脚进行规划。</p>
+<p>1.串口工具</p>
+<p>在串口工具中，有两处注意事项。</p>
+<p>1.1Type-C的公头接入电脑处</p>
+<p>此处连接的是</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tyep-C-Pin</td>
+<td>Tyep-C</td>
+<td>CH340G-Pin</td>
+<td>CH340G</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>D-</td>
+<td>6</td>
+<td>UD-</td>
+</tr>
+<tr>
+<td>B7</td>
+<td>D-</td>
+<td>6</td>
+<td>UD-</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>D+</td>
+<td>5</td>
+<td>UD+</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>D+</td>
+<td>5</td>
+<td>UD+</td>
+</tr>
+</tbody></table>
+<p>1.2 Type-C的母座接入芯片IC</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CH340G-Pin</td>
+<td>CH340G</td>
+<td>Tyep-C-Pin</td>
+<td>Tyep-C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>TXD</td>
+<td>A7</td>
+<td>D-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>TXD</td>
+<td>A7</td>
+<td>D-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>RXD</td>
+<td>A6</td>
+<td>D+</td>
+</tr>
+<tr>
+<td>3</td>
+<td>RXD</td>
+<td>A6</td>
+<td>D+</td>
+</tr>
+</tbody></table>
+<p>2.硬件设计中</p>
+<p>2.1 Type-C母座与被烧录IC</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tyep-C-Pin</td>
+<td>Tyep-C</td>
+<td>IC</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>D-</td>
+<td>RXD</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>D-</td>
+<td>RXD</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>D+</td>
+<td>TXD</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>D+</td>
+<td>TXD</td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
