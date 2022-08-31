@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>README-中微芯片8P生成库文件 | Rainjai Blog</title>
-  <meta name="keywords" content=" README ">
-  <meta name="description" content="README-中微芯片8P生成库文件 | Rainjai Blog">
+  <title>ESP32-S2-mini | Rainjai Blog</title>
+  <meta name="keywords" content=" IC , ESP32 ">
+  <meta name="description" content="ESP32-S2-mini | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -680,9 +680,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-README-中微芯片8P生成库文件" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ESP32-S2-mini" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">README-中微芯片8P生成库文件</h1>
+        <h1 class="article-title">ESP32-S2-mini</h1>
     
     <div class="article-meta">
         
@@ -692,7 +692,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="README系列">README系列</a>
+            <a  data-rel="芯片资料">芯片资料</a>
             
         </span>
         
@@ -700,14 +700,16 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color2">README</a>
+            <a class="color3">IC</a>
+            
+            <a class="color1">ESP32</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-14 14:22:28'>2022-07-14 10:23</time>
+            发布时间 : <time class="date" title='最后更新: 2022-08-31 11:10:13'>2022-08-31 08:23</time>
         
     </div>
     <div class="article-meta">
@@ -729,7 +731,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CMS-DTL-8P"><span class="toc-text">CMS-DTL_8P</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-text">1.文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BA%93%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90"><span class="toc-text">2.库文件生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-text">2.1复制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E6%89%93%E5%BC%80%E5%B7%A5%E7%A8%8B"><span class="toc-text">2.2打开工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3%E7%94%9F%E6%88%90%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-text">2.3生成库文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4%E6%B7%BB%E5%8A%A0%E5%88%B0C%E5%B7%A5%E7%A8%8B"><span class="toc-text">2.4添加到C工程</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP32-S2-mini"><span class="toc-text">ESP32-S2-mini</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-text">功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E8%A7%84%E6%A0%BC"><span class="toc-text">技术规格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%84%9A"><span class="toc-text">引脚</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -745,14 +747,66 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="CMS-DTL-8P"><a href="#CMS-DTL-8P" class="headerlink" title="CMS-DTL_8P"></a>CMS-DTL_8P</h1><h2 id="1-文件夹"><a href="#1-文件夹" class="headerlink" title="1.文件夹"></a>1.文件夹</h2><p>在8P电陶炉的工程中,有C，DOC，PCB,LPP这4个文件夹。正常使用,不需要LPP文件夹。</p>
-<p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/8P%E5%9B%BE1.png"></p>
-<h2 id="2-库文件生成"><a href="#2-库文件生成" class="headerlink" title="2.库文件生成"></a>2.库文件生成</h2><h3 id="2-1复制文件"><a href="#2-1复制文件" class="headerlink" title="2.1复制文件"></a>2.1复制文件</h3><p>将 “<strong>CMS89F7385_LPP_V1.x.c</strong>“复制到C文件夹中的”<strong>SourceFile</strong>”.文件夹内<br><img src="https://raw.githubusercontent.com/chenborong/image/master/img/8P%E5%9B%BE3.png"></p>
-<h3 id="2-2打开工程"><a href="#2-2打开工程" class="headerlink" title="2.2打开工程"></a>2.2打开工程</h3><p>打开<strong>LPP</strong>文件中的工程<br><img src="https://raw.githubusercontent.com/chenborong/image/master/img/8P%E5%9B%BE4.png"></p>
-<h3 id="2-3生成库文件"><a href="#2-3生成库文件" class="headerlink" title="2.3生成库文件"></a>2.3生成库文件</h3><p>在工程中，右击”源文件”,选择C文件夹中的”CMS89F7385_LPP_V1.x.c”文件，然后点击”工程”-“生成库”。</p>
-<p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/8P%E5%9B%BE5.png"></p>
-<p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/8P%E5%9B%BE6.png"></p>
-<h3 id="2-4添加到C工程"><a href="#2-4添加到C工程" class="headerlink" title="2.4添加到C工程"></a>2.4添加到C工程</h3><p>新生成的<strong>LPP</strong>库文件,在LPP问价夹内,将其重名为<strong>CMS89F7385_LPP_V1.x</strong>,即可添加至C工程中使用。<br><img src="https://raw.githubusercontent.com/chenborong/image/master/img/8P%E5%9B%BE7.png"></p>
+        <h1 id="ESP32-S2-mini"><a href="#ESP32-S2-mini" class="headerlink" title="ESP32-S2-mini"></a>ESP32-S2-mini</h1><img src="https://raw.githubusercontent.com/chenborong/image/master/img/ESP32_S2_mini_tu1.jpg" style="zoom: 40%;" />
+
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/ESP32_S2_mini_tu2.jpg" style="zoom:40%;" />
+
+
+
+<p>基于ESP32-S2FN4R2的迷你wifi板。</p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ul>
+<li><p>基于ESP32-S2FN4R2 WIFI 芯片</p>
+</li>
+<li><p>Type-C USB</p>
+</li>
+<li><p>4MB Flash</p>
+</li>
+<li><p>2MB PSRAM</p>
+</li>
+<li><p>27x IO</p>
+</li>
+<li><p>ADC, DAC, I2C, SPI, UART, USB OTG</p>
+</li>
+<li><p>与LOLIN D1迷你屏蔽兼容</p>
+</li>
+<li><p>与MicroPython、Arduino和ESP-IDF兼容</p>
+</li>
+<li><p>默认固件：MicroPython</p>
+</li>
+</ul>
+<h2 id="技术规格"><a href="#技术规格" class="headerlink" title="技术规格"></a>技术规格</h2><table>
+<thead>
+<tr>
+<th>工作电压</th>
+<th>3.3V</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数字I&#x2F;O引脚</td>
+<td>27</td>
+</tr>
+<tr>
+<td>时钟速度</td>
+<td>240Mhz</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>4M Bytes</td>
+</tr>
+<tr>
+<td>PSRAM</td>
+<td>2M Byte</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>34.3 * 25.4mm</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="引脚"><a href="#引脚" class="headerlink" title="引脚"></a>引脚</h2><p><img src="https://raw.githubusercontent.com/chenborong/image/master/img/ESP32_S2_mini_tu3.jpg"></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
