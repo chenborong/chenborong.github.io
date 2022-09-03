@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>蜂鸣器 | Rainjai Blog</title>
-  <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="蜂鸣器 | Rainjai Blog">
+  <title>ESP_IDF多个C文件编译 | Rainjai Blog</title>
+  <meta name="keywords" content=" ESP32 , ESP-IDF ">
+  <meta name="description" content="ESP_IDF多个C文件编译 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -706,9 +706,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-蜂鸣器" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ESP-IDF多个C文件" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">蜂鸣器</h1>
+        <h1 class="article-title">ESP_IDF多个C文件编译</h1>
     
     <div class="article-meta">
         
@@ -718,7 +718,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="单片机函数">单片机函数</a>
+            <a  data-rel="VSCODE">VSCODE</a>
             
         </span>
         
@@ -726,14 +726,16 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color4">C语言</a>
+            <a class="color1">ESP32</a>
+            
+            <a class="color3">ESP-IDF</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-07-13 09:36:53'>2022-06-17 23:28</time>
+            Created At : <time class="date" title='Updated At: 2022-09-03 08:39:51'>2022-09-03 08:23</time>
         
     </div>
     <div class="article-meta">
@@ -755,7 +757,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%9C%82%E9%B8%A3%E5%99%A8"><span class="toc-text">蜂鸣器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951"><span class="toc-text">方法1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">定义寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8125us%E4%B8%AD%E6%96%AD%E4%B8%AD"><span class="toc-text">在125us中断中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A810ms%E6%88%96%E8%80%8520ms%E5%A4%84"><span class="toc-text">在10ms或者20ms处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E8%9C%82%E9%B8%A3%E5%99%A8%E5%8F%AB%E7%9A%84%E5%9C%B0%E6%96%B9%EF%BC%8C%E8%B0%83%E7%94%A8%E4%BB%A5%E4%B8%8B%E5%87%BD%E6%95%B0"><span class="toc-text">在需要蜂鸣器叫的地方，调用以下函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952"><span class="toc-text">方法2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%AF%84%E5%AD%98%E5%99%A8-1"><span class="toc-text">定义寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#125us%E5%A4%84"><span class="toc-text">125us处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A820ms%E5%A4%84"><span class="toc-text">在20ms处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-text">在需要调用的地方</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP-IDF%E5%A4%9A%E4%B8%AAC%E6%96%87%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="toc-text">ESP_IDF多个C文件编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8B%E6%98%AF%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">以下是需要修改的内容</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -771,128 +773,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="蜂鸣器"><a href="#蜂鸣器" class="headerlink" title="蜂鸣器"></a>蜂鸣器</h1><p>无源蜂鸣器，需要使用8K的振荡频率的脉冲驱动，才能发出声音。根据频率的大小，决定蜂鸣器叫声的尖锐程度。</p>
-<p>在单片机中，需要先配置125us的定时器中断，蜂鸣器对应的单片机引脚，输出脉冲，即可驱动蜂鸣器</p>
-<h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><h3 id="定义寄存器"><a href="#定义寄存器" class="headerlink" title="定义寄存器"></a>定义寄存器</h3><pre><code class="c">uchar		Buze_Step=0;
-uchar		Buze_Cnt_Time=0;
-uchar		Buze_Off=0;
-uchar		Buze_On=0;
-uchar		Buze_Set_Cnt=0;
+        <h1 id="ESP-IDF多个C文件编译"><a href="#ESP-IDF多个C文件编译" class="headerlink" title="ESP_IDF多个C文件编译"></a>ESP_IDF多个C文件编译</h1><h2 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h2><p>新建一个名为components的文件夹，里面放所需要的文件,比如”ws2812”文件夹。</p>
+<p>在ws2812中，建2个文件夹，</p>
+<p>一个”src” ，src”放ws2812.c文件,</p>
+<p>另一个”inc” , ”inc“放ws2812.h文件</p>
+<p>在ws2812文件夹中，再增加两个文件，一个”cMakeLists.txt“ 另一个”component.mk”</p>
+<h2 id="以下是需要修改的内容"><a href="#以下是需要修改的内容" class="headerlink" title="以下是需要修改的内容"></a>以下是需要修改的内容</h2><p><strong>ws2812 - “cMakeLists.txt”</strong></p>
+<pre><code class="c">idf_component_register(SRCS &quot;src/ws2812.c&quot;
+                    INCLUDE_DIRS &quot;inc&quot;)
 </code></pre>
-<h3 id="在125us中断中"><a href="#在125us中断中" class="headerlink" title="在125us中断中"></a>在125us中断中</h3><pre><code class="c">//=========================
-//位置:125us中断处
-//=========================
-void	Buze_Driver(void)
-&#123;
-    //蜂鸣器驱动
-    if(bBuze) 			
-        BUZE ^= 1 ;		//异或运算，不停取反
-    else	
-        BUZE = 1;
-&#125;
+<p><strong>ws2812 - “component.mk”</strong></p>
+<pre><code class="c">COMPONENT_SRCDIRS := .
+COMPONENT_ADD_INCLUDEDIRS := .
 </code></pre>
-<h3 id="在10ms或者20ms处"><a href="#在10ms或者20ms处" class="headerlink" title="在10ms或者20ms处"></a>在10ms或者20ms处</h3><pre><code class="c">//=========================
-//位置:主函数,每10ms或者20ms进来一次
-//蜂鸣器控制
-//=========================
-void	Buze_Control(void)
-&#123;	
-    //发声的时候关闭，蜂鸣器
-    if (bEnable_Buze)
-    &#123;		
-        ++Buze_Cnt_Time;
-        if (0==Buze_Step)
-        &#123;
-            if (Buze_Cnt_Time&lt;Buze_On)&#123;bBuze=1;&#125;			
-            else
-            &#123;				
-                bBuze=0;
-                Buze_Cnt_Time=0;
-                Buze_Step=1;
-            &#125;
-        &#125;
-        else if (1==Buze_Step)
-        &#123;
-            if (Buze_Cnt_Time&lt;Buze_Off) bBuze=0;		 
-            else
-            &#123;
-                Buze_Step=0;
-                Buze_Cnt_Time=0;
-                if (Buze_Set_Cnt&gt;0) --Buze_Set_Cnt;					
-                if (0==Buze_Set_Cnt)&#123;bEnable_Buze = bSet_Buze = 0;&#125;
-            &#125;
-        &#125;
-        else&#123;;&#125;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="在需要蜂鸣器叫的地方，调用以下函数"><a href="#在需要蜂鸣器叫的地方，调用以下函数" class="headerlink" title="在需要蜂鸣器叫的地方，调用以下函数"></a>在需要蜂鸣器叫的地方，调用以下函数</h3><pre><code class="c">//=====================================
-//位置:按键处理,或者功能处,
-//Buze_OnTime,发声时间;
-//BuzeOffTime,毕声时间;
-//Buze_Cnt,发声次数
-//Buze_Set(150,0,1);
-//=====================================
-void	Buze_Set(u16  Buze_OnTime, u16  BuzeOffTime,u8 Buze_Cnt)
-&#123;
-    if (!bSet_Buze)	   
-    &#123;
-        bSet_Buze=1;
-        Buze_On = Buze_OnTime/10;
-        Buze_Off = BuzeOffTime/10;
-        Buze_Set_Cnt = Buze_Cnt;
-        Buze_Step = 0;	
-        Buze_Cnt_Time=0;
-        bEnable_Buze=1;		
-    &#125;	
-&#125;
-</code></pre>
-<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><h3 id="定义寄存器-1"><a href="#定义寄存器-1" class="headerlink" title="定义寄存器"></a>定义寄存器</h3><pre><code class="c">bit b_beep_on,b_fan_on;
-uchar beep_count0;
-
-/************************************************
-*******************蜂鸣器-风扇********************
-*************************************************/
-#define pc_buz_fan      TRISA6
-#define p_buz_fan       RB6
-</code></pre>
-<h3 id="125us处"><a href="#125us处" class="headerlink" title="125us处"></a>125us处</h3><pre><code class="c">//========================================= 
-//========蜂鸣器与风扇======================
-        if(b_beep_on) &#123;p_buz_fan ^= 1;&#125;
-        else 
-        &#123;
-            if(b_fan_on) &#123;p_buz_fan = 1;&#125;
-            else &#123;p_buz_fan = 0;&#125;
-        &#125; 
-</code></pre>
-<h3 id="在20ms处"><a href="#在20ms处" class="headerlink" title="在20ms处"></a>在20ms处</h3><pre><code class="c">/****************************************
-函数名称:Beep_Pro()
-输入:无
-输出:无
-函数功能：蜂鸣器函数 20ms/次
-*****************************************/
-void Beep_Pro()
-&#123;
-    if(beep_count0) beep_count0--;
-    else
-    &#123;
-        beep_count0 = 0;
-        b_beep_on = 0;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="在需要调用的地方"><a href="#在需要调用的地方" class="headerlink" title="在需要调用的地方"></a>在需要调用的地方</h3><pre><code class="c">/****************************************
- 函数名称:Beep_Inin()
-输入:无
-输出:无
-函数功能:风扇-蜂鸣器初始化
-*****************************************/
-void Beep_Init(uchar _BLONG)
-&#123;
-    b_beep_on = 1;
-    b_fan_on = 0;
-    beep_count0 = _BLONG;
-&#125;
+<p><strong>main - “cMakeLists.txt”</strong></p>
+<pre><code class="c">idf_component_register(SRCS &quot;led_strip_main.c&quot;
+                       INCLUDE_DIRS &quot;.&quot;
+                       &quot;../components/ws2812/inc&quot;)
 </code></pre>
 
       
