@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>显示芯片-1628 | Rainjai Blog</title>
-  <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="显示芯片-1628 | Rainjai Blog">
+  <title>Rainjai Blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -714,34 +714,17 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-显示芯片-1628" class="article article-type-post" itemscope itemprop="blogPost">
-    
-        <h1 class="article-title">显示芯片-1628</h1>
+        <article id="post-电阻-电容-电感" class="article article-type-post" itemscope itemprop="blogPost">
     
     <div class="article-meta">
         
         
         
-        <span class="book">
-            <i class="iconfont icon-category"></i>
-            
-            
-            <a  data-rel="单片机函数">单片机函数</a>
-            
-        </span>
-        
-        
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color4">C语言</a>
-            
-        </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-07-13 09:36:22'>2022-07-06 16:33</time>
+            Created At : <time class="date" title='Updated At: 2022-11-10 16:07:36'>2022-11-10 16:07</time>
         
     </div>
     <div class="article-meta">
@@ -763,7 +746,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA-1628"><span class="toc-text">显示-1628</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%A3%B0%E6%98%8E"><span class="toc-text">1.定义与声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%98%BE%E7%A4%BA%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8C%89%E9%94%AE%E5%87%BD%E6%95%B0"><span class="toc-text">2.显示函数与按键函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9C%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8"><span class="toc-text">3.在主函数中调用</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%B5%E9%98%BB-%E7%94%B5%E5%AE%B9-%E7%94%B5%E6%84%9F"><span class="toc-text">电阻-电容-电感</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E9%98%BB"><span class="toc-text">电阻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E5%AE%B9"><span class="toc-text">电容</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -779,219 +762,164 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="显示-1628"><a href="#显示-1628" class="headerlink" title="显示-1628"></a>显示-1628</h1><h2 id="1-定义与声明"><a href="#1-定义与声明" class="headerlink" title="1.定义与声明"></a>1.定义与声明</h2><p>在1628.h文件中，需要对IO口的名称，NOP的名称，再一次命名，还需要对函数进行声明。</p>
-<pre><code class="c">#ifndef _1628_H_
-#define _1628_H_
-
-//----------NOP定义----------------
-#define Nop()      &#123;GCC_NOP();&#125; 
-
-//-------1628  I/O口 ----------------------
-#define pc_dat      _pbc4
-#define p_clk       _pb3
-#define p_dat       _pb4
-#define p_stb       _pb0
-
-//函数声明
-void Tm1628_Write_Byte(uchar dat);
-void Tm1628_Drv(uchar Brightness);
-void Tm1628_Key();
-#define buff_num    7       //
-#define _KEY_ONTIME 15      //削抖时间 2ms * n
-
-#endif
-</code></pre>
-<h2 id="2-显示函数与按键函数"><a href="#2-显示函数与按键函数" class="headerlink" title="2.显示函数与按键函数"></a>2.显示函数与按键函数</h2><p>定义IO口</p>
-<pre><code class="c">#include  &quot;Include.h&quot;
-
-#define p_clk_clr	p_clk=0
-#define p_clk_set	p_clk=1
-#define p_dat_clr	p_dat=0
-#define p_dat_set	p_dat=1 
-#define p_stb_clr	p_stb=0
-#define p_stb_set	p_stb=1
-
-#define pc_dat_clr	pc_dat=0
-#define pc_dat_set	pc_dat=1  
-
-volatile uchar 
-keydat1,
-keydat1bk,
-key_ontime
-;
-
-/****************************************
-函数名称:Tm1628_Write_Byte(uchar dat)
-输入:dat
-输出:无
-函数功能:1628写数据驱动(8位)
-*****************************************/
-void Tm1628_Write_Byte(uchar dat)
-&#123;
-    uchar i;
-    for(i = 0;i &lt; 8;i++)
-    &#123;
-        Nop();
-        Nop();
-        Nop();
-        p_clk_clr;
-        Nop();
-        Nop();
-        Nop();
-        if(dat &amp; 0x01)
-            p_dat_set;
-        else
-            p_dat_clr;
-        Nop();
-        Nop();
-        Nop();
-        dat&gt;&gt;=1;
-        p_clk_set;
-    &#125;
-&#125;
-
-/****************************************
-函数名称:Tm1628_Drv()
-输入:dat
-输出:无
-函数功能:1628写显示驱动
-*****************************************/
-void Tm1628_Drv(uchar Brightness)
-&#123;
-    uchar i;
-    p_stb_clr;
-    pc_dat_clr;
-    Nop();
-    Nop();
-    Nop();
-    Tm1628_Write_Byte(0x03);
-    p_stb_set;
-    Nop();
-    Nop();
-    Nop();
-    p_stb_clr;
-    Tm1628_Write_Byte(0x40);	//地址自动增加
-    p_stb_set;
-    Nop();
-    Nop();
-    p_stb_clr;
-    Tm1628_Write_Byte(0xc0);	//开显示
-
-    for (i = 0; i &lt; buff_num; i++)
-    &#123;	
-        Tm1628_Write_Byte(dsp_buff_TM[i]);
-        Tm1628_Write_Byte(0x0);
-    &#125;
-    
-    p_stb_set;
-    Nop();
-    Nop();
-    p_stb_clr;
-    Tm1628_Write_Byte(Brightness);
-    p_stb_set;
-&#125;
-
-
-
-/****************************************
-函数名称:Tm1628_Key()
-输入:dat
-输出:无
-函数功能:1628扫描按键
-*****************************************/
-void Tm1628_Key()
-&#123;
-    uchar i,j,temp;
-    p_stb_clr;
-    Nop();
-    Nop();
-    Nop();
-    Tm1628_Write_Byte(0x42);
-    pc_dat_set;
-    Nop();
-    Nop();
-    Nop();
-    keydat1 = 0;
-    for(j = 0; j &lt; 5; j++)
-    &#123;
-        temp = 0;
-        for(i = 0; i &lt; 8; i++)
-        &#123;
-            temp &gt;&gt;= 1;
-            p_clk_set;
-            Nop();
-            Nop();
-            Nop();
-            p_clk_clr;
-            Nop();
-            Nop();
-            Nop();
-            if(p_dat) temp |= 0x80;
-        &#125;
-        // keydat[j] = temp;
-        if(temp)
-        &#123;
-            for(i = 0; i &lt; 6; i++)
-            &#123;
-                if(temp &amp; 0x01) break;
-                temp &gt;&gt;= 1;
-            &#125;
-            keydat1 = j*5+i+1;
-            break;
-        &#125;
-    &#125;
-    pc_dat_clr;
-    Nop();
-    Nop();
-    Nop();
-    p_dat_set;
-    p_stb_set;
-
-    //----削抖过程----
-    if(keydat1 == keydat1bk)
-    &#123;
-        if(key_ontime &gt; 15)  &#123;keydat_ =  keydat1;&#125;
-        else  &#123;key_ontime++;&#125;
-    &#125;
-    else 
-    &#123;
-        keydat1bk = keydat1;
-        key_ontime = 0;
-    &#125;
-&#125;
-</code></pre>
-<h2 id="3-在主函数中调用"><a href="#3-在主函数中调用" class="headerlink" title="3.在主函数中调用"></a>3.在主函数中调用</h2><pre><code class="c">void  main(void)
-&#123;
-    ...
-    
-    if(b_sys_2ms)
-    &#123;
-        b_sys_2ms = 0;
-        if(++main_20ms_cnt &gt;= 10) main_20ms_cnt = 0;
-        switch (main_20ms_cnt)
-        &#123;
-        ...
-        case 0:
-        &#123;
-            #ifdef __DRIVE_TM1628_KEY__
-            Key_Pro(Keydat);
-            #endif
-        break;	
-        &#125;	
-        
-        
-        case 3:
-            &#123;
-            #ifdef __DRIVE_TM1628_SELECT__
-                Tm1628_Drv(0x8a);	//1628
-            #endif				
-                break;
-            &#125;
-        ...	
-        &#125;
-    &#125;
-&#125;
-</code></pre>
+        <p>title: 电阻-电容-电感</p>
+<p>date: 2022-11-10</p>
+<p>categories:</p>
+<ul>
+<li>电子元器件</li>
+</ul>
+<p>tags:</p>
+<ul>
+<li>电阻</li>
+<li>电容</li>
+<li>电感</li>
+<li>元器件</li>
+</ul>
+<h1 id="电阻-电容-电感"><a href="#电阻-电容-电感" class="headerlink" title="电阻-电容-电感"></a>电阻-电容-电感</h1><h2 id="电阻"><a href="#电阻" class="headerlink" title="电阻"></a>电阻</h2><table>
+<thead>
+<tr>
+<th align="center">色别</th>
+<th align="center">第一色环</th>
+<th align="center">第二色环</th>
+<th align="center">第三色环</th>
+<th align="center">第四色环 (误差)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">棕</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">10</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">红</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">100</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">橙</td>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">1K</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">黄</td>
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">10K</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">绿</td>
+<td align="center">5</td>
+<td align="center">5</td>
+<td align="center">100K</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">蓝</td>
+<td align="center">6</td>
+<td align="center">6</td>
+<td align="center">1M</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">紫</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">10M</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">灰</td>
+<td align="center">8</td>
+<td align="center">8</td>
+<td align="center">100M</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">白</td>
+<td align="center">9</td>
+<td align="center">9</td>
+<td align="center">1G</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">黑</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">金</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.1</td>
+<td align="center">±5%</td>
+</tr>
+<tr>
+<td align="center">银</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.01</td>
+<td align="center">±10%</td>
+</tr>
+<tr>
+<td align="center">无色</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h2><p>电容的单位：F，uF(微法),nF(纳法),pF(皮法)</p>
+<p>1F &#x3D; 10^6 uf</p>
+<p>1uF &#x3D; 10^3nF</p>
+<p>1nF &#x3D; 10^3pF</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>101</td>
+<td>10 * 1</td>
+<td>100pF</td>
+</tr>
+<tr>
+<td>102</td>
+<td>10 * 10^2</td>
+<td>1nF (1000pF)</td>
+</tr>
+<tr>
+<td>103</td>
+<td>10 * 10^3</td>
+<td>10nF(10 000pF) &#x3D; 0.01uF</td>
+</tr>
+<tr>
+<td>104</td>
+<td>10 * 10^4</td>
+<td>100nF(100 000pF)  &#x3D; 0.1uF</td>
+</tr>
+<tr>
+<td>105</td>
+<td>10 * 10^5</td>
+<td>1uF(1 000 000pF)</td>
+</tr>
+<tr>
+<td>106</td>
+<td>10 * 10^6</td>
+<td>10uF(10 000 000pF)</td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
