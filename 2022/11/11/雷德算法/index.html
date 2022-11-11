@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>AD检测——笔记1 | Rainjai Blog</title>
-  <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="AD检测——笔记1 | Rainjai Blog">
+  <title>雷德算法 | Rainjai Blog</title>
+  <meta name="keywords" content=" C语言 , 数学 ">
+  <meta name="description" content="雷德算法 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -752,9 +752,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-AD检测——笔记1" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-雷德算法" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">AD检测——笔记1</h1>
+        <h1 class="article-title">雷德算法</h1>
     
     <div class="article-meta">
         
@@ -764,7 +764,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="单片机函数">单片机函数</a>
+            <a  data-rel="算法">算法</a>
             
         </span>
         
@@ -774,12 +774,14 @@
             
             <a class="color4">C语言</a>
             
+            <a class="color3">数学</a>
+            
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-13 09:38:19'>2022-06-23 14:29</time>
+            发布时间 : <time class="date" title='最后更新: 2022-11-11 11:47:31'>2022-11-11 13:45</time>
         
     </div>
     <div class="article-meta">
@@ -801,7 +803,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AD%E6%A3%80%E6%B5%8B%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B01"><span class="toc-text">AD检测——笔记1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%B5%E8%B7%AF%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.电路介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-text">3.真值表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%AF%E4%BB%B6%E9%83%A8%E5%88%86"><span class="toc-text">4.软件部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1%E5%9C%A8adc-h%E6%96%87%E4%BB%B6%E5%87%BA%EF%BC%8C%E5%AE%9A%E4%B9%89%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">4.1在adc.h文件出，定义所需要的的寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%EF%BC%8C%E4%BB%A5%E5%8F%8AAD%E8%A1%A8%E6%A0%BC"><span class="toc-text">4.2函数定义，以及AD表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3AD%E8%BD%AC%E6%8D%A2%EF%BC%8C%E5%BE%97%E5%88%B012%E4%BD%8DAD"><span class="toc-text">4.3AD转换，得到12位AD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4%E5%89%8A%E6%8A%96%EF%BC%8C%E6%BB%A4%E6%B3%A2"><span class="toc-text">4.4削抖，滤波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5%E4%B8%BB%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-text">4.5主函数调用</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B7%E5%BE%B7%E7%AE%97%E6%B3%95"><span class="toc-text">雷德算法</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -817,145 +819,69 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="AD检测——笔记1"><a href="#AD检测——笔记1" class="headerlink" title="AD检测——笔记1"></a>AD检测——笔记1</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><p>本次AD检测，采用常规的AD检测电路，使用单电阻分压，优点是电路和程序相对简单，缺点是对于个别的温度段分辨率不高，因此只适合对温度显示要求不高的场合。</p>
-<h2 id="2-电路介绍"><a href="#2-电路介绍" class="headerlink" title="2.电路介绍"></a>2.电路介绍</h2><img src="https://raw.githubusercontent.com/chenborong/image/master/img/AD%E6%A3%80%E6%B5%8B_%E5%9B%BE1.jpg" alt="" width="314" height="439" class="jop-noMdConv">
+        <h2 id="雷德算法"><a href="#雷德算法" class="headerlink" title="雷德算法"></a>雷德算法</h2><pre><code class="c">
+//对于N个数，我们把递增自然数（0、1、2、3、……、N）称为顺序数列；
+//对顺序数列中的每一个数，将其二进制倒序后转化为十进制，称为倒叙数列。
+//
+//下面，以N=8举例，
+//顺序序列为：
+//0，1，2，3，4，5，6，7。
+//顺序序列的二进制序列为：
+//000，001，010，011，100，101，110，111
+//对顺序序列的二进制序列每一个元素倒叙：
+//
+//000，100，010，110，001，101，011，111
+//
+//对上一序列的每一个元素求十进制，即为倒位叙列：
+//
+//0，4，2，6，1，5，3，7
 
-<p>如图所示，电路采用2.7K下拉，分压后使用104电容滤波储能，之所以使用2.7K，因为本次AD读取要求的从0~460F华氏度，范围较广，因此使用2.7K电阻</p>
-<h2 id="3-真值表"><a href="#3-真值表" class="headerlink" title="3.真值表"></a>3.真值表</h2><p>在写程序之前，还需要通过传感器的真值表，结合下来2.7K电阻，计算出各个温度的AD值，结合使用的单片机，选择8位AD或者12位AD，这里使用的是12位AD。</p>
-<p>以3950为例，在excel中，先列出每个温度点的电阻值，12位的AD计算公式为：1023&#x2F;(R(temp)+2.7)*2.7 而8位的AD计算公式为：255&#x2F;(R(temp)+2.7)*2.7</p>
-<p>得到没一个华氏度对应的AD之后，则可以开始准备写程序</p>
-<h2 id="4-软件部分"><a href="#4-软件部分" class="headerlink" title="4.软件部分"></a>4.软件部分</h2><h3 id="4-1在adc-h文件出，定义所需要的的寄存器"><a href="#4-1在adc-h文件出，定义所需要的的寄存器" class="headerlink" title="4.1在adc.h文件出，定义所需要的的寄存器"></a>4.1在adc.h文件出，定义所需要的的寄存器</h3><pre><code class="c">uint TEMP_MAIN2,Temper;
-uint Loop_Arr;
-uchar adc_cnt;
-static bit b_Adc;
-</code></pre>
-<h3 id="4-2函数定义，以及AD表格"><a href="#4-2函数定义，以及AD表格" class="headerlink" title="4.2函数定义，以及AD表格"></a>4.2函数定义，以及AD表格</h3><p>在adc.c文件中，函数定义以及2.7K下拉电阻的AD表格(在3.真值表)中已有介绍</p>
-<pre><code class="c">void ADC_CONVERSION();
 
-uint AD_Conbert(uchar ch_way);
 
-void Get_Temper();
+//倒位序列		//顺序序列
+//0(000)			0(000)
+//4(100)			1(001)
+//2(010)			2(010)
+//6(110)			3(011)
+//1(001)			4(100)
+//5(101)			5(101)
+//3(011)			6(110)
+//7(111)			7(111)
 
-//0~460F的AD表格
-const unsigned int Tab_temp_array[]=&#123;
-    13,13,14,15,15,15,16,16,17,17,	//0~9F
-    18,18,19,19,20,20,21,21,22,22,	//10~19F
-    23,24,25,26,27,28,29,29,30,31,	//20F~29F	
-    32,32,33,34,35,36,37,38,39,40,	//30~39F
-    42,43,44,45,46,47,48,50,52,53,	//40~49F
-    55,56,57,59,61,63,65,67,69,71,	//50F~59F
-    72,73,74,76,78,81,83,85,87,89,	//60~69F
-    92,95,97,99,101,103,105,108,111,114,	//70~79F
-    117,119,122,125,127,130,135,138,141,144,	//80~89F
-    147,150,153,156,160,163,166,170,173,179,	//90~99F
-    181,183,190,195,198,201,206,210,214,222,	//100~109F
-    227,230,234,239,244,248,252,257,267,271,	//110~119F
-    276,280,287,292,297,303,308,318,324,330,	//120~129F
-    336,341,347,353,358,365,377,387,390,397,	//130~139F
-    403,410,417,423,430,444,451,459,463,473,	//140~149F
-    480,488,495,504,519,527,535,542,552,560,	//150~159F
-    568,576,585,603,614,620,629,638,648,656,	//160~169F
-    675,685,694,703,713,723,733,743,753,763,	//170~179F
-    773,794,805,815,825,836,846,858,868,879,	//180~189F
-    901,912,924,936,947,960,970,984,994,1016,	//190~199F
-    1028,1040,1052,1064,1075,1088,1004,1020,1137,1150,	//200~209F
-    1162,1173,1188,1199,1214,1238,1249,1264,1277,1290,	//210~219F
-    1298,1316,1342,1356,1369,1381,1395,1410,1422,1432,	//220~229F
-    1449,1476,1489,1500,1515,1530,1445,1557,1468,1584,	//230~239F
-    1611,1625,1638,1651,1666,1679,1693,1704,1720,1735,	//240~249F
-    1748,1765,1778,1802,1817,1830,1845,1857,1868,1886,	//250~259F
-    1911,1925,1938,1950,1965,1977,1992,2010,2019,2038,	//260~269F
-    2048,2072,2084,2099,2110,2125,2140,2151,2163,2178,	//270~279F
-    2203,2216,2229,2242,2255,2279,2280,2295,2310,2330,	//280~289F
-    2345,2356,2369,2380,2397,2405,2419,2433,2450,2468, 	//290~299F
-    2477,2489,2501,2513,2524,2435,2547,2570,2482,2593, 	//300~309F
-    2506,2615,2627,2638,2649,2660,2682,2693,2703,2713,	//310~319F
-    2724,2735,2746,2756,2766,2787,2797,2807,2817,2827,	//320~329F
-    2837,2847,2857,2867,2886,2897,2905,2914,2924,2933,	//330~339F
-    2942,2951,2961,2979,2988,2997,3002,3014,3022,3032,	//340~349F	
-    3040,3049,3065,3073,3082,3090,3098,3007,3114,3125,	//350~359F
-    3130,3146,3154,3161,3168,3176,3184,3191,3198,3206,	//360~369F	
-    3220,3228,3235,3241,3249,3256,3262,3269,3276,3289,	//370~379F	
-    3396,3303,3309,3315,3322,3328,3336,3341,3353,3359,	//380~389F
-    3365,3371,3377,3382,3389,3395,3400,3412,3417,3423,	//390~399F
-    3429,3434,3439,3444,3449,3455,3466,3471,3476,3481,	//400~409F
-    3486,3491,3496,3500,3505,3515,3520,3524,3529,3534,	//410~419F
-    3539,3543,3548,3551,3560,3564,3569,3574,3577,3582,	//420~429F
-    3586,3590,3594,3602,3606,3610,3614,3617,3621,3625,	//430~439F
-    3629,3633,3640,3644,3647,3650,3654,3658,3661,3665,	//440~449F
-    3668,3675,3678,3681,3685,3688,3691,3694,3698,3701,	//450~459F
-    3707,3707,
-    &#125;;	//460F
-</code></pre>
-<h3 id="4-3AD转换，得到12位AD"><a href="#4-3AD转换，得到12位AD" class="headerlink" title="4.3AD转换，得到12位AD"></a>4.3AD转换，得到12位AD</h3><pre><code class="c">/****************************************
-函数名称:uchar AD_Conbert(uchar ch_way)
-输入:AD通道
-输出:_sadoh _sadol(12位)
-函数功能：AD转换,输入通道,返回AD值的高8位
-*****************************************/
-uint AD_Conbert(uchar ch_way)
+
+
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+
+int x[16] = &#123;0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15&#125;;
+int y[16] = &#123;0&#125;;
+int N = 8;
+
+int main()
 &#123;
-    uint main_12 = 0;
-    
-    _sadc0 = ch_way;
-    _start = 0;
-    GCC_NOP();
-    _start = 1;
-    GCC_NOP();
-    _start = 0;
-    while (_adbz);
-    main_12 = _sadoh;
-    main_12 &lt;&lt;= 8;
-    main_12 |= _sadol;
-    main_12 &gt;&gt;= 4;
-    return main_12;
-&#125;
-</code></pre>
-<h3 id="4-4削抖，滤波"><a href="#4-4削抖，滤波" class="headerlink" title="4.4削抖，滤波"></a>4.4削抖，滤波</h3><p>经过累计求平均的方法，去除最值，削抖，可以得到相对稳定的AD值</p>
-<pre><code class="c">/****************************************
-函数名称:void Get_Temper()
-输入:
-输出:Temper
-函数功能：将12位AD值，转化成华氏度(F)
-*****************************************/
-void Get_Temper()
-&#123;
-    uchar i;
-    //获取AD完毕
-    if(b_Adc)
+    int i,j,k;
+    int temp;
+    for(j = 0;i = 0;i &lt; N-1;i++)
     &#123;
-        if(TEMP_MAIN2 &gt;= 3707) &#123;Temper = 460;b_Adc = 0;&#125;	//短路,显示460F
-        else if(TEMP_MAIN2 &lt;= 20) &#123;Temper = 20;b_Adc = 0;&#125;	//开路,显示20F
-        else 
+        if(i &lt; j)	//	如果i&lt;j,即进行变址
         &#123;
-            for(i = 0;i &lt;= 20;i++)
-            &#123;
-                if(TEMP_MAIN2 &lt;= Tab_temp_array[Loop_Arr])	
-                &#123;
-                        Temper = Loop_Arr;			//Temper 为实际的温度
-                        Loop_Arr = 460;
-                        break;
-                &#125;
-                if(++Loop_Arr &gt;= 461)	//超过表格
-                    break;
-            &#125;
-            if(Loop_Arr &gt;= 460) &#123;b_Adc = 0;&#125;
+                temp = x[j];
+                x[j] = x[i];
+                x[i] = temp;
         &#125;	
+        k = N/2;			//j的下一个倒位序
+        while(j &gt;= k)	//如果k&lt;=j,表示j的最高位为1
+        &#123;
+            j = j-k;
+            k = k/2;	
+        &#125;
+        j = j + k;
     &#125;
-&#125;
-</code></pre>
-<h3 id="4-5主函数调用"><a href="#4-5主函数调用" class="headerlink" title="4.5主函数调用"></a>4.5主函数调用</h3><pre><code class="c">void main()
-&#123;
-    。。。
-
-    if(b_sys_2ms)
+        
+    for(i = 0; i &lt; N; i++)
     &#123;
-        b_sys_2ms = 0;
-        ADC_CONVERSION();	//得到12位AD值
-        Get_Temper();		//将AD转换成实际温度值
+        printf(&quot;%2d      %2d\n&quot; , i , x[i]) ;
     &#125;
-    
-    。。。
 &#125;
 </code></pre>
 
