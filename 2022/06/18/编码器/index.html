@@ -7,12 +7,12 @@
   <meta name="description" content="编码器 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://example.com/tags/index.html">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://example.com/categories/index.html">
 <meta property="og:site_name" content="Rainjai Blog">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-06-16T09:44:15.000Z">
-<meta property="article:modified_time" content="2022-06-16T09:44:34.032Z">
+<meta property="article:published_time" content="2022-06-16T09:28:56.000Z">
+<meta property="article:modified_time" content="2022-06-16T09:30:46.737Z">
 <meta property="article:author" content="Rainjai">
 <meta name="twitter:card" content="summary">
 
@@ -560,7 +560,7 @@
         
         <a  class="All 芯片资料 "
            href="/2022/08/31/ESP32-S2-mini/"
-           data-tag="ESP32,IC"
+           data-tag="IC,ESP32"
            data-author="" >
             <span class="post-title" title="ESP32-S2-mini">ESP32-S2-mini</span>
             <span class="post-date" title="2022-08-31 08:23:00">2022/08/31</span>
@@ -772,7 +772,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-11-07 11:33:32'>2022-06-18 10:00</time>
+            Created At : <time class="date" title='Updated At: 2022-12-26 16:45:22'>2022-06-18 10:00</time>
         
     </div>
     <div class="article-meta">
@@ -960,10 +960,16 @@ prestatus		db		?
 Econd_Cnt		db		?
 updatejs		db		?
 
-;旋钮-----------------------------------------------
+
 CHK_Encode:
         sz		berror
-        ret 
+        ret
+        
+        sz			block
+        ret
+        
+        snz			bonoff
+        ret
         
         nop
         nop
@@ -982,29 +988,25 @@ CHK_Encode:
         sz 		p_bm2
         set 	temp7_bit1
         
-    ;;消抖
-;		mov 	a,Econd_Cnt
-;		sub 	a,2
-;		sz		c
-;		jmp 	CHK_Statu
-        
         mov 	a,prestatus
         sub 	a,temp7
         snz		z
         jmp 	Update_statu
         
-        jmp 	CHK_Statu
+;;消抖
+        mov 	a,Econd_Cnt
+        sub 	a,25
+        sz		c
+        jmp 	CHK_Statu	
+        inc 	Econd_Cnt
+        ret 		
         
-;		inc 	Econd_Cnt
-;		ret 
-
 Update_statu:
-;		clr 	Econd_Cnt
+        clr 	Econd_Cnt
         mov 	a,temp7
         mov 	prestatus,a
-        ret 
-        
-        
+        ret		
+
 CHK_Statu:
 
         mov 	a,statu_1
@@ -1062,14 +1064,14 @@ CHK_2:
 TURN_R:
          snz		b_right 	
          ret 
-         call 	key_add
+         call 	key_sub
          ret 
          
          
 TURN_L:	
         snz 	b_left
         ret 
-        call 	key_sub 
+        call 	key_add 
         ret 
          
 
