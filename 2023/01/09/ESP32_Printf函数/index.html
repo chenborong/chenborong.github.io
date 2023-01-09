@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>DEF.H文件 | Rainjai Blog</title>
-  <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="DEF.H文件 | Rainjai Blog">
+  <title>ESP32_Printf函数 | Rainjai Blog</title>
+  <meta name="keywords" content=" C语言 , ESP32 ">
+  <meta name="description" content="ESP32_Printf函数 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -794,9 +794,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-DEF.H文件" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ESP32_Printf函数" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">DEF.H文件</h1>
+        <h1 class="article-title">ESP32_Printf函数</h1>
     
     <div class="article-meta">
         
@@ -806,7 +806,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="C语言">C语言</a>
+            <a  data-rel="ESP32">ESP32</a>
             
         </span>
         
@@ -816,12 +816,14 @@
             
             <a class="color4">C语言</a>
             
+            <a class="color1">ESP32</a>
+            
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-07-13 09:37:58'>2022-07-06 17:20</time>
+            发布时间 : <time class="date" title='最后更新: 2023-01-09 21:21:12'>2023-01-09 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -843,7 +845,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP32-Printf%E5%87%BD%E6%95%B0"><span class="toc-text">ESP32_Printf函数</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -859,72 +861,223 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code class="c">
-#ifndef __DEF__
-#define __DEF__
-#pragma warning disable 752,759,373
-
-#define uchar unsigned char
-#define uint unsigned int
-#define ulong unsigned long
-
-typedef struct 
-&#123;
-    unsigned char Bit0 : 1;
-    unsigned char Bit1 : 1;
-    unsigned char Bit2 : 1;
-    unsigned char Bit3 : 1;
-    unsigned char Bit4 : 1; 
-    unsigned char Bit5 : 1;
-    unsigned char Bit6 : 1; 
-    unsigned char Bit7 : 1;
-&#125;MakeBits;
-
-typedef union &#123;
-    MakeBits	bits;
-    unsigned char	byte;
-&#125;MakeBitsType,BIT;
-/*************************************************************************/
-/*************************************************************************/
-#define bit0	0x01
-#define bit1	0x02
-#define bit2	0x04
-#define bit3	0x08
-#define bit4	0x10
-#define bit5	0x20
-#define bit6	0x40
-#define bit7	0x80
-/*************************************************************************/
-//对寄存器位处理bit=0x01,0x02,0x04...0x80
-#define set_bit(dat,bit)	dat|=bit	
-#define clr_bit(dat,bit)	dat&amp;=~bit	
-#define clr_buff(dat)		dat=0
-#define set_buff(dat)		dat=0xff
-#define BIT(n) (1 &lt;&lt; (n))
-
-#define SET(Reg,n)    Reg |= BIT(n); 
-#define CLR(Reg,n)    Reg &amp;= ~BIT(n); 
-
-#define MAX(x, y)               (((x) &gt; (y)) ? (x) : (y))
-#define MIN(x, y)               (((x) &lt; (y)) ? (x) : (y))
-#define DELTA(x, y)             (((x) &gt; (y)) ? ((x)-(y)) : ((y)-(x)))
-
-#define HiByte_ref(addr)        (*((uchar*)&amp;addr))
-#define LoByte_ref(addr)        (*((uchar*)&amp;addr+1))
-#define MakeWord(high,low)      (((uint)(high) &lt;&lt; 8) + (uint)(low))
-#define HiByte(u16Data)         ((uchar)((u16Data) &gt;&gt; 8))
-#define LoByte(u16Data)         ((uchar)((u16Data) &amp; 0xff))
-#define HiNibble(u8Data)        ((uchar)(((u8Data) &gt;&gt; 4) &amp; 0xf))
-#define LoNibble(u8Data)        ((uchar)(( u8Data) &amp; 0xf))
-#define SetBit(u8Data, bBit)    (u8Data |= (1 &lt;&lt; bBit))
-#define ClrBit(u8Data, bBit)    (u8Data &amp;=~(1 &lt;&lt; bBit))
-#define TestBit(u8Data,bBit)    (u8Data &amp;  (1 &lt;&lt; bBit))
-#define CplBit(u8Data, bBit)    (u8Data ^= (1 &lt;&lt; bBit))
-
-#endif
+        <h1 id="ESP32-Printf函数"><a href="#ESP32-Printf函数" class="headerlink" title="ESP32_Printf函数"></a>ESP32_Printf函数</h1><img src="https://raw.githubusercontent.com/chenborong/image/master/img/ESP32/Printf函数/printf函数1.png" style="zoom: 200%;" />
 
 
-</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">specifier(说明符)</th>
+<th align="center">argument(辩论)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">d or i</td>
+<td align="center">Signed INT (<strong>有符号整型</strong>)</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td align="center">Unsigned INT (<strong>无符号整型</strong>)</td>
+</tr>
+<tr>
+<td align="center">o</td>
+<td align="center">Unsigned Octal(<strong>无符号八进制</strong>)</td>
+</tr>
+<tr>
+<td align="center">x or X</td>
+<td align="center">Unsigned Hexadecimal(lower&#x2F;upper case) (<strong>无符号十六进制（小写&#x2F;大写)</strong>)</td>
+</tr>
+<tr>
+<td align="center">e or E</td>
+<td align="center">Floatint Point （<strong>漂浮点</strong>）</td>
+</tr>
+<tr>
+<td align="center">g or G</td>
+<td align="center">Shortest Representation <strong>最短表示法</strong></td>
+</tr>
+<tr>
+<td align="center">a or A</td>
+<td align="center">Hexadecimal Floating Point(lower&#x2F;upper case) <strong>十六进制浮点（小写&#x2F;大写）</strong></td>
+</tr>
+<tr>
+<td align="center">c</td>
+<td align="center">Character (<strong>字符型</strong>)</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td align="center">String of characters(<strong>字符串型</strong>)</td>
+</tr>
+<tr>
+<td align="center">p</td>
+<td align="center">Pointer address(<strong>指针地址</strong>)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">flag</th>
+<th align="center">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-</td>
+<td align="center">Left-justify(default:right)     <strong>(左对齐（默认值：右对齐)）</strong></td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">Force print + sign with positives <strong>(强制打印正号)</strong></td>
+</tr>
+<tr>
+<td align="center">（space）</td>
+<td align="center">Add space,if no sign before value <strong>(如果值前没有符号，则添加空格)</strong></td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">Precede o,x,or X with 0 <strong>(在o、x或x前面加0)</strong></td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">Left pad number with zeros <strong>(带零的左垫数字)</strong></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">.precision</th>
+<th align="center">descroption</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">.number</td>
+<td align="center">specifies number of digits to write <strong>(指定要写入的位数)</strong></td>
+</tr>
+<tr>
+<td align="center">.*</td>
+<td align="center">not specified in cstring,additional INT value given <strong>(cstring中未指定，给出了额外的INT值)</strong></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">width</th>
+<th align="center">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">（number）</td>
+<td align="center">Minimum number or characters to print <strong>(要打印的最小字符数)</strong></td>
+</tr>
+<tr>
+<td align="center">.</td>
+<td align="center">not specified in cstring,additional INT value given <strong>(cstring中未指定，给出了额外的INT值)</strong></td>
+</tr>
+</tbody></table>
+<p><strong>Length</strong> 是对输出数据的大小,以下是默认的对应关系。如果指派了大小，会自动做转换</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">specifiers</th>
+<th align="center">specifiers</th>
+<th align="center">specifiers</th>
+<th align="center">specifiers</th>
+<th align="center">specifiers</th>
+<th align="center">specifiers</th>
+<th align="center">specifiers</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">length</td>
+<td align="center">d   i</td>
+<td align="center">u  o  x  X</td>
+<td align="center">f F e E g G a A</td>
+<td align="center">c</td>
+<td align="center">s</td>
+<td align="center">p</td>
+<td align="center">n</td>
+</tr>
+<tr>
+<td align="center">（none）</td>
+<td align="center">int</td>
+<td align="center">unsigned char</td>
+<td align="center">double</td>
+<td align="center">int</td>
+<td align="center">char*</td>
+<td align="center">void*</td>
+<td align="center">int*</td>
+</tr>
+<tr>
+<td align="center">hh</td>
+<td align="center">signed char</td>
+<td align="center">unsigned char</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">signed char*</td>
+</tr>
+<tr>
+<td align="center">h</td>
+<td align="center">short int</td>
+<td align="center">unsigned short int</td>
+<td align="center"></td>
+<td align="center">wint_t</td>
+<td align="center">wchar_t*</td>
+<td align="center"></td>
+<td align="center">long int*</td>
+</tr>
+<tr>
+<td align="center">ll</td>
+<td align="center">long int</td>
+<td align="center">unsigned long long int</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">long long int*</td>
+</tr>
+<tr>
+<td align="center">j</td>
+<td align="center">intmax_t</td>
+<td align="center">uintmax_t</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">intmax_t*</td>
+</tr>
+<tr>
+<td align="center">z</td>
+<td align="center">size_t</td>
+<td align="center">size_t</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">size_t*</td>
+</tr>
+<tr>
+<td align="center">t</td>
+<td align="center">ptrdiff_t</td>
+<td align="center">ptrdiff_t</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">ptrdiff_t*</td>
+</tr>
+<tr>
+<td align="center">L</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">long double</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
