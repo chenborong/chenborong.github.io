@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>tags | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="tags | Rainjai Blog">
+  <title>FreeRTOS_创建Task | Rainjai Blog</title>
+  <meta name="keywords" content=" ESP32 , FreeRTOS ">
+  <meta name="description" content="FreeRTOS_创建Task | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="FreeRTOS_Task的优先级获取优先级static const char *pcTxt &#x3D; &quot;I am Rainjai&quot;;  void app_main(void) &amp;#123;     &#x2F;&#x2F;---------------------------------------     UBaseType_t iPriority &#x3D; 0;		&#x2F;&#x2F;typedef unsigned">
 <meta property="og:type" content="article">
@@ -840,19 +840,36 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-FreeRTOS_Task的创建与删除" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">tags</h1>
+        <h1 class="article-title">FreeRTOS_创建Task</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="FreeRTOS">FreeRTOS</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">ESP32</a>
+            
+            <a class="color4">FreeRTOS</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-06-16 17:44:34'>2022-06-16 17:44</time>
+            发布时间 : <time class="date" title='最后更新: 2023-01-28 16:30:03'>2023-01-28 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -874,7 +891,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FreeRTOS-Task%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%A0%E9%99%A4"><span class="toc-text">FreeRTOS_Task的创建与删除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-text">Task的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">Task的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-text">Task的删除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%951-%E5%9C%A8main%E5%87%BD%E6%95%B0%E4%B8%AD%E5%88%A0%E9%99%A4Task"><span class="toc-text">方法1 在main函数中删除Task</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%952-%E5%9C%A8Task%E9%87%8C%E9%9D%A2%E5%88%A0%E9%99%A4Task"><span class="toc-text">方法2 在Task里面删除Task</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -890,7 +907,79 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="FreeRTOS-Task的创建与删除"><a href="#FreeRTOS-Task的创建与删除" class="headerlink" title="FreeRTOS_Task的创建与删除"></a>FreeRTOS_Task的创建与删除</h1><h2 id="Task的介绍"><a href="#Task的介绍" class="headerlink" title="Task的介绍"></a>Task的介绍</h2><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h”
+BaseType_t xTaskCreate( TaskFunction_t pvTaskCode,
+                        const char * const pcName,
+                        unsigned short usStackDepth,
+                        void *pvParameters,
+                        UBaseType_t uxPriority,
+                        TaskHandle_t *pxCreatedTask );
+
+ pvTaskCode :	一个空指针,例子：void *pvParam
+ pcName		:	Task名称
+ usStackDepth:	分配内存
+ *pvParameters: 传入参数
+ uxPriority	:	优先级
+ *pxCreatedTask: 句柄 
+</code></pre>
+<h2 id="Task的创建"><a href="#Task的创建" class="headerlink" title="Task的创建"></a>Task的创建</h2><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h”
+
+void myTask(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;Hello World!&quot;);
+        vTaskDelay(1000/portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, NULL, 1, NULL);
+&#125;
+</code></pre>
+<h2 id="Task的删除"><a href="#Task的删除" class="headerlink" title="Task的删除"></a>Task的删除</h2><h3 id="方法1-在main函数中删除Task"><a href="#方法1-在main函数中删除Task" class="headerlink" title="方法1 在main函数中删除Task"></a>方法1 在main函数中删除Task</h3><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h”
+
+void myTask(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;Hello World!&quot;);
+        vTaskDelay(1000/portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123;
+    TaskHandle_t myHandle = NULL;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, NULL, 1, &amp;myHandle);	//Task的创建
+    
+    vTaskDelay(1000/portTICK_PERIOD_MS);
+    if(myHandle != NULL)
+        vTaskDelete(myHandle);	//删除Task
+&#125;
+</code></pre>
+<h3 id="方法2-在Task里面删除Task"><a href="#方法2-在Task里面删除Task" class="headerlink" title="方法2 在Task里面删除Task"></a>方法2 在Task里面删除Task</h3><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h”
+
+void myTask(void *pvParam)
+&#123;
+
+    printf(&quot;Hello World!&quot;);
+    vTaskDelay(1000/portTICK_PERIOD_MS);	//让单片机有机会跑vTaskDelete函数
+
+    vTaskDelete(NULL);	//删除当前的Task
+&#125;
+
+void app_main(void)
+&#123;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, NULL, 1, NULL);	//Task的创建
+&#125;
+</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
     </div>

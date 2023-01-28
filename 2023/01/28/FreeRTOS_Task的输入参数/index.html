@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>tags | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="tags | Rainjai Blog">
+  <title>FreeRTOS_Task的输入参数 | Rainjai Blog</title>
+  <meta name="keywords" content=" ESP32 , FreeRTOS ">
+  <meta name="description" content="FreeRTOS_Task的输入参数 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="FreeRTOS_Task的优先级获取优先级static const char *pcTxt &#x3D; &quot;I am Rainjai&quot;;  void app_main(void) &amp;#123;     &#x2F;&#x2F;---------------------------------------     UBaseType_t iPriority &#x3D; 0;		&#x2F;&#x2F;typedef unsigned">
 <meta property="og:type" content="article">
@@ -840,19 +840,36 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-FreeRTOS_Task的输入参数" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">tags</h1>
+        <h1 class="article-title">FreeRTOS_Task的输入参数</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="FreeRTOS">FreeRTOS</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">ESP32</a>
+            
+            <a class="color4">FreeRTOS</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-06-16 17:44:34'>2022-06-16 17:44</time>
+            发布时间 : <time class="date" title='最后更新: 2023-01-28 15:17:28'>2023-01-28 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -874,7 +891,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FreeRTOS-Task%E7%9A%84%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="toc-text">FreeRTOS_Task的输入参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F"><span class="toc-text">传入一个变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84"><span class="toc-text">传入一个数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E5%85%A5%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">传入结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">传入一个字符串</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -890,7 +907,118 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="FreeRTOS-Task的输入参数"><a href="#FreeRTOS-Task的输入参数" class="headerlink" title="FreeRTOS_Task的输入参数"></a>FreeRTOS_Task的输入参数</h1><h2 id="传入一个变量"><a href="#传入一个变量" class="headerlink" title="传入一个变量"></a>传入一个变量</h2><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h” 
+
+void myTask(void *pvParam)
+&#123;
+    int *pInt;
+    pInt = (int *pvParam);
+    printf(&quot;I got testNum = %d\n&quot;,*pInt);	//将指针的内容打印出来
+    
+    vTaskDelay(1000/portTICK_PERIOD_MS);
+    vTaskDelete(NULL);
+&#125;
+
+int testNum = 5;
+
+void app_main(void)
+&#123;
+    xTaskCreate(myTask,&quot;myTask1&quot;,1024,(void *)&amp;testNum,1,NULL);	//将变量testNum的地址传入进去
+&#125;
+</code></pre>
+<h2 id="传入一个数组"><a href="#传入一个数组" class="headerlink" title="传入一个数组"></a>传入一个数组</h2><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h”
+
+//申请一个结构体
+typedef struct  A_STRUCT
+&#123;
+    int iMenu1;
+    int iMenu2;
+&#125;xStruct;
+
+//定义一个结构体变量
+xStruct xStrTest = &#123;6,9&#125;;
+
+//-----------------------------------
+void myTask(void *pvParam)
+&#123;
+    xStruct *pStrTest;  //定义一个中间变量
+
+    pStrTest = (xStruct *)pvParam;  //统一类型
+
+    printf(&quot;I got struct iMenu1 = %d\n&quot;,pStrTest-&gt;iMenu1);
+
+    printf(&quot;I got struct iMenu2 = %d\n&quot;,pStrTest-&gt;iMenu2);
+
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    vTaskDelete(NULL);
+&#125;
+
+void app_main(void)
+&#123;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, (void *)&amp;xStrTest, 1, NULL);
+&#125;
+</code></pre>
+<h2 id="传入结构体"><a href="#传入结构体" class="headerlink" title="传入结构体"></a>传入结构体</h2><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h” 
+//申请一个结构体
+typedef struct  A_STRUCT
+&#123;
+    int iMenu1;
+    int iMenu2;
+&#125;xStruct;
+
+//定义一个结构体变量
+xStruct xStrTest = &#123;6,9&#125;;
+
+//-----------------------------------
+void myTask(void *pvParam)
+&#123;
+    xStruct *pStrTest;  //定义一个中间变量
+
+    pStrTest = (xStruct *)pvParam;  //统一类型
+
+    printf(&quot;I got struct iMenu1 = %d\n&quot;,pStrTest-&gt;iMenu1);
+
+    printf(&quot;I got struct iMenu2 = %d\n&quot;,pStrTest-&gt;iMenu2);
+
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    vTaskDelete(NULL);
+&#125;
+
+void app_main(void)
+&#123;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, (void *)&amp;xStrTest, 1, NULL);
+&#125;
+</code></pre>
+<h2 id="传入一个字符串"><a href="#传入一个字符串" class="headerlink" title="传入一个字符串"></a>传入一个字符串</h2><pre><code class="c">#include “FreeRTOS.h”
+#include “task.h” 
+static const char *pcTxt = &quot;I am Rainjai&quot;;
+
+//-----------------------------------
+void myTask(void *pvParam)
+&#123;
+    char *pcTxtInTask;  //定义一个中间变量
+
+    pcTxtInTask = (char *)pvParam;  //统一类型
+
+    printf(&quot;I got message = %s\n&quot;,pcTxtInTask);
+
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    vTaskDelete(NULL);
+&#125;    
+
+void app_main(void)
+&#123;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, (void *)&amp;pcTxt, 1, NULL);
+&#125;
+    
+</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
     </div>

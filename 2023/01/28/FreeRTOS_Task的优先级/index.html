@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>tags | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="tags | Rainjai Blog">
+  <title>FreeRTOS_Task的优先级 | Rainjai Blog</title>
+  <meta name="keywords" content=" ESP32 , FreeRTOS ">
+  <meta name="description" content="FreeRTOS_Task的优先级 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="FreeRTOS_Task的优先级获取优先级static const char *pcTxt &#x3D; &quot;I am Rainjai&quot;;  void app_main(void) &amp;#123;     &#x2F;&#x2F;---------------------------------------     UBaseType_t iPriority &#x3D; 0;		&#x2F;&#x2F;typedef unsigned">
 <meta property="og:type" content="article">
@@ -840,19 +840,36 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-FreeRTOS_Task的优先级" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">tags</h1>
+        <h1 class="article-title">FreeRTOS_Task的优先级</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="FreeRTOS">FreeRTOS</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">ESP32</a>
+            
+            <a class="color4">FreeRTOS</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-06-16 17:44:34'>2022-06-16 17:44</time>
+            发布时间 : <time class="date" title='最后更新: 2023-01-28 16:26:27'>2023-01-28 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -874,7 +891,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FreeRTOS-Task%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">FreeRTOS_Task的优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">获取优先级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">优先级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BC%98%E5%85%88%E7%BA%A7%E5%88%AB"><span class="toc-text">修改优先级别</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -890,7 +907,84 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="FreeRTOS-Task的优先级"><a href="#FreeRTOS-Task的优先级" class="headerlink" title="FreeRTOS_Task的优先级"></a>FreeRTOS_Task的优先级</h1><h2 id="获取优先级"><a href="#获取优先级" class="headerlink" title="获取优先级"></a>获取优先级</h2><pre><code class="c">static const char *pcTxt = &quot;I am Rainjai&quot;;
+
+void app_main(void)
+&#123;
+    //---------------------------------------
+    UBaseType_t iPriority = 0;		//typedef unsigned int      UBaseType_t;
+    TaskHandle_t pxTask = NULL;
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, (void *)&amp;pcTxt, 1, &amp;pxTask);
+
+    iPriority = uxTaskPriorityGet(pxTask);  //取得当前该句柄的优先级
+    printf(&quot;iPriority = %d\n&quot;,iPriority);   //并且打印出来
+&#125;
+</code></pre>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><pre><code class="c">
+//-----------------------------------
+void myTask1(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task1-111\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void myTask2(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task2-222\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123; 
+    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, NULL);		//这个先创建,先打印这个
+    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 1, NULL);		//
+&#125;   
+
+void app_main(void)
+&#123; 
+    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 2, NULL);		//这个优先级更高,先打印这个
+    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 1, NULL);		//
+&#125; 
+</code></pre>
+<h2 id="修改优先级别"><a href="#修改优先级别" class="headerlink" title="修改优先级别"></a>修改优先级别</h2><pre><code class="c">//-----------------------------------
+void myTask1(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task1-111\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void myTask2(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task2-222\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123; 
+    UBaseType_t iPriority = 0;
+    TaskHandle_t pxTask = NULL;	//定义一个句柄
+    
+    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask);	//
+    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);		//
+    
+    vTaskPrioritySet(pxTask,3);	//修改句柄pxTask的优先级别为3
+    iPriority = uxTaskPriorityGet(pxTask);  //取得该句柄的优先级
+    printf(&quot;iPriority = %d\n&quot;,iPriority);   //并且打印出来
+&#125; 
+</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
     </div>
