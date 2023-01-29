@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Hello World | Rainjai Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Hello World | Rainjai Blog">
+  <title>FreeRTOS_Task的任务挂起,恢复,任务调度 | Rainjai Blog</title>
+  <meta name="keywords" content=" ESP32 , FreeRTOS ">
+  <meta name="description" content="FreeRTOS_Task的任务挂起,恢复,任务调度 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -860,19 +860,36 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-FreeRTOS_Task的任务挂起" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Hello World</h1>
+        <h1 class="article-title">FreeRTOS_Task的任务挂起,恢复,任务调度</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="FreeRTOS">FreeRTOS</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">ESP32</a>
+            
+            <a class="color4">FreeRTOS</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-06-16 20:05:06'>2022-06-15 16:46</time>
+            Created At : <time class="date" title='Updated At: 2023-01-28 20:08:39'>2023-01-28 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -894,7 +911,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FreeRTOS-Task%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%8C%82%E8%B5%B7-%E6%81%A2%E5%A4%8D-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-text">FreeRTOS_Task的任务挂起,恢复,任务调度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8main%E5%87%BD%E6%95%B0%E6%8C%82%E8%B5%B7%E4%BB%BB%E5%8A%A1"><span class="toc-text">在main函数挂起任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E4%BB%BB%E5%8A%A1%E5%86%85%E9%83%A8%E6%8C%82%E8%B5%B7"><span class="toc-text">在任务内部挂起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%82%E8%B5%B7%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%81%A2%E5%A4%8D"><span class="toc-text">挂起的任务恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-text">任务调度</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -910,19 +927,112 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+        <h1 id="FreeRTOS-Task的任务挂起-恢复-任务调度"><a href="#FreeRTOS-Task的任务挂起-恢复-任务调度" class="headerlink" title="FreeRTOS_Task的任务挂起,恢复,任务调度"></a>FreeRTOS_Task的任务挂起,恢复,任务调度</h1><h2 id="在main函数挂起任务"><a href="#在main函数挂起任务" class="headerlink" title="在main函数挂起任务"></a>在main函数挂起任务</h2><pre><code class="c">void myTask1(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task1-111\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void myTask2(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task2-222\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123;
+    TaskHandle_t pxTask1;
+    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
+    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);
+
+    vTaskDelay(3000 / portTICK_PERIOD_MS);		//延时3sec后
+    vTaskSuspend(pxTask1);						//挂起任务1
+&#125;		
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+<h2 id="在任务内部挂起"><a href="#在任务内部挂起" class="headerlink" title="在任务内部挂起"></a>在任务内部挂起</h2><pre><code class="c">//-----------------------------------
+void myTask1(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task1-111\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        vTaskSuspend(NULL);		//任务挂起
+    &#125;
+&#125;
+
+void myTask2(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task2-222\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123;
+    TaskHandle_t pxTask1;
+    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
+    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);
+&#125;
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+<h2 id="挂起的任务恢复"><a href="#挂起的任务恢复" class="headerlink" title="挂起的任务恢复"></a>挂起的任务恢复</h2><pre><code class="c">//-----------------------------------
+void myTask1(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task1-111\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void myTask2(void *pvParam)
+&#123;
+    while(1)
+    &#123;
+        printf(&quot;task2-222\n&quot;);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    &#125;
+&#125;
+
+void app_main(void)
+&#123;
+    TaskHandle_t pxTask1;
+    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
+    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);
+    
+    vTaskSuspend(pxTask1);		//挂起任务
+
+    vTaskDelay(5000 / portTICK_PERIOD_MS);	//延时5sec
+    vTaskResume(pxTask1);					//恢复任务
+&#125;
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+<h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><pre><code class="c">void myTask1(void *pvParam)
+&#123;
+    printf(&quot;Test begin\n&quot;);
+    vTaskSuspendAll();		//全部挂起
+    
+    //此处函数不得使用FreeRTOS API的函数,且挂起后均不受其它Task影响
+    for(int i = 0;i &lt; 999; i++)
+    &#123;
+        for(int j = 0; j &lt; 999; j++)
+        &#123;
+            ;
+        &#125;
+    &#125;
+    
+    xTaskResumeAll();		//恢复
+    printf(&quot;Test end\n&quot;);
+    vTaskDelete(NULL);
+&#125;
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
