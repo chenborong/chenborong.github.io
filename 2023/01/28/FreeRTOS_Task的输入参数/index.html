@@ -587,14 +587,6 @@
         </a>
         
         <a  class="全部文章 FreeRTOS "
-           href="/2023/01/28/FreeRTOS_Task%E7%9A%84%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/"
-           data-tag="ESP32,FreeRTOS"
-           data-author="" >
-            <span class="post-title" title="FreeRTOS_Task的系统信息">FreeRTOS_Task的系统信息</span>
-            <span class="post-date" title="2023-01-28 00:00:00">2023/01/28</span>
-        </a>
-        
-        <a  class="全部文章 FreeRTOS "
            href="/2023/01/28/FreeRTOS_Task%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%A0%E9%99%A4/"
            data-tag="ESP32,FreeRTOS"
            data-author="" >
@@ -607,6 +599,14 @@
            data-tag="ESP32,FreeRTOS"
            data-author="" >
             <span class="post-title" title="FreeRTOS_Task的堆栈">FreeRTOS_Task的堆栈</span>
+            <span class="post-date" title="2023-01-28 00:00:00">2023/01/28</span>
+        </a>
+        
+        <a  class="全部文章 FreeRTOS "
+           href="/2023/01/28/FreeRTOS_Task%E7%9A%84%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/"
+           data-tag="ESP32,FreeRTOS"
+           data-author="" >
+            <span class="post-title" title="FreeRTOS_Task的系统信息">FreeRTOS_Task的系统信息</span>
             <span class="post-date" title="2023-01-28 00:00:00">2023/01/28</span>
         </a>
         
@@ -668,7 +668,7 @@
         
         <a  class="全部文章 芯片资料 "
            href="/2022/08/31/ESP32-S2-mini/"
-           data-tag="IC,ESP32"
+           data-tag="ESP32,IC"
            data-author="" >
             <span class="post-title" title="ESP32-S2-mini">ESP32-S2-mini</span>
             <span class="post-date" title="2022-08-31 08:23:00">2022/08/31</span>
@@ -715,14 +715,6 @@
         </a>
         
         <a  class="全部文章 单片机函数 "
-           href="/2022/07/12/%E6%98%BE%E7%A4%BA-%E6%AD%A3%E5%8F%8D%E6%89%AB/"
-           data-tag="汇编"
-           data-author="" >
-            <span class="post-title" title="显示-正反扫">显示-正反扫</span>
-            <span class="post-date" title="2022-07-12 16:10:00">2022/07/12</span>
-        </a>
-        
-        <a  class="全部文章 单片机函数 "
            href="/2022/07/12/%E6%98%BE%E7%A4%BA-%E6%95%B0%E7%A0%81%E7%AE%A1%E6%B5%81%E6%B0%B4/"
            data-tag="C语言,汇编"
            data-author="" >
@@ -735,6 +727,14 @@
            data-tag="C语言"
            data-author="" >
             <span class="post-title" title="显示-正扫">显示-正扫</span>
+            <span class="post-date" title="2022-07-12 16:10:00">2022/07/12</span>
+        </a>
+        
+        <a  class="全部文章 单片机函数 "
+           href="/2022/07/12/%E6%98%BE%E7%A4%BA-%E6%AD%A3%E5%8F%8D%E6%89%AB/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="显示-正反扫">显示-正反扫</span>
             <span class="post-date" title="2022-07-12 16:10:00">2022/07/12</span>
         </a>
         
@@ -889,7 +889,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-01-28 15:17:28'>2023-01-28 00:00</time>
+            发布时间 : <time class="date" title='最后更新: 2023-02-01 20:47:23'>2023-01-28 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -950,26 +950,20 @@ void app_main(void)
 <h2 id="传入一个数组"><a href="#传入一个数组" class="headerlink" title="传入一个数组"></a>传入一个数组</h2><pre><code class="c">#include “FreeRTOS.h”
 #include “task.h”
 
-//申请一个结构体
-typedef struct  A_STRUCT
-&#123;
-    int iMenu1;
-    int iMenu2;
-&#125;xStruct;
 
-//定义一个结构体变量
-xStruct xStrTest = &#123;6,9&#125;;
+
+//定义一个数组
+int testNum[] = &#123;6,7,8&#125;;
 
 //-----------------------------------
 void myTask(void *pvParam)
 &#123;
-    xStruct *pStrTest;  //定义一个中间变量
+    int *pArrayAddr;		//定义一个中间变量
+    pArrayAddr = (int *)pvParam;	//统一类型
 
-    pStrTest = (xStruct *)pvParam;  //统一类型
-
-    printf(&quot;I got struct iMenu1 = %d\n&quot;,pStrTest-&gt;iMenu1);
-
-    printf(&quot;I got struct iMenu2 = %d\n&quot;,pStrTest-&gt;iMenu2);
+    printf(&quot;I got num1 = %d\n&quot;,*pArrayAddr);
+    printf(&quot;I got num1 = %d\n&quot;,*(pArrayAddr+1);
+    printf(&quot;I got num1 = %d\n&quot;,*(pArrayAddr+2));
 
     vTaskDelay(1000 / portTICK_PERIOD_MS);
 
@@ -978,7 +972,7 @@ void myTask(void *pvParam)
 
 void app_main(void)
 &#123;
-    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, (void *)&amp;xStrTest, 1, NULL);
+    xTaskCreate(myTask, &quot;myTask1&quot;, 1024, (void *)testNum, 1, NULL);
 &#125;
 </code></pre>
 <h2 id="传入结构体"><a href="#传入结构体" class="headerlink" title="传入结构体"></a>传入结构体</h2><pre><code class="c">#include “FreeRTOS.h”
