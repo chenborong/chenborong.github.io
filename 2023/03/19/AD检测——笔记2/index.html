@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>斩波与丢波 | Rainjai Blog</title>
+  <title>AD检测——笔记2 | Rainjai Blog</title>
   <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="斩波与丢波 | Rainjai Blog">
+  <meta name="description" content="AD检测——笔记2 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -988,9 +988,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-斩波与丢波" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-AD检测——笔记2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">斩波与丢波</h1>
+        <h1 class="article-title">AD检测——笔记2</h1>
     
     <div class="article-meta">
         
@@ -1000,7 +1000,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="电陶炉相关">电陶炉相关</a>
+            <a  data-rel="单片机函数">单片机函数</a>
             
         </span>
         
@@ -1015,7 +1015,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-07-13 20:29:29'>2022-07-13 10:23</time>
+            Created At : <time class="date" title='Updated At: 2023-03-19 15:06:51'>2023-03-19 11:08</time>
         
     </div>
     <div class="article-meta">
@@ -1037,7 +1037,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%A9%E6%B3%A2%E4%B8%8E%E4%B8%A2%E6%B3%A2"><span class="toc-text">斩波与丢波</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%A9%E6%B3%A2"><span class="toc-text">1.斩波</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%A2%E6%B3%A2"><span class="toc-text">2.丢波</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AD%E6%A3%80%E6%B5%8B%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B02"><span class="toc-text">AD检测——笔记2</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1053,346 +1053,218 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="斩波与丢波"><a href="#斩波与丢波" class="headerlink" title="斩波与丢波"></a>斩波与丢波</h1><p>在阅读此MD之前，先阅读完 “AD过零检测”后，在这基础上，再进行拓展。</p>
-<h2 id="1-斩波"><a href="#1-斩波" class="headerlink" title="1.斩波"></a>1.斩波</h2><p>在function.c中</p>
-<pre><code class="c">void work_function()
+        <h1 id="AD检测——笔记2"><a href="#AD检测——笔记2" class="headerlink" title="AD检测——笔记2"></a>AD检测——笔记2</h1><p>1.衔接上笔记1,通常情况下，在2ms处，使用AD检测函数，但是AD检测函数一般是需要等待的，为了消除这个等待时间，这里利用定时器125us的空挡，来代替这个等待时间。相当于优化了这个AD检测。</p>
+<p>框架如下：</p>
+<pre><code class="c">
+Init_Ad();	//AD初始化
+
+main()
 &#123;
-    ...
-    ChopWaveProcess(_ht_270c,HEATHUOLI,6);  //斩波控温
-    ...
-&#125;
-</code></pre>
-<p>功率表格,在50Hz与60Hz的电压段中，各电压段的功率值</p>
-<pre><code class="c">    #ifdef __Voltage_230V__
-        const uchar VolageChopWave[]=&#123;
-        _vol_235,_vol_240,_vol_245,_vol_250,_vol_255,
-        _vol_260,_vol_265,_vol_270,_vol_275,_vol_280
-        &#125;;
-        const uchar VolageChopWave_60hz[]=&#123;
-        _vol60hz_235,_vol60hz_240,_vol60hz_245,_vol60hz_250,_vol60hz_255,
-        _vol60hz_260,_vol60hz_265,_vol60hz_270,_vol60hz_275,_vol60hz_275
-        &#125;;
-    #else 
-        const uchar VolageChopWave[]=&#123;
-        _vol_225,_vol_230,_vol_235,_vol_240,_vol_245,
-        _vol_250,_vol_255,_vol_260,_vol_265,_vol_270
-        &#125;;
-        const uchar VolageChopWave_60hz[]=&#123;
-        _vol60hz_225,_vol60hz_230,_vol60hz_235,_vol60hz_240,_vol60hz_245,
-        _vol60hz_250,_vol60hz_255,_vol60hz_260,_vol60hz_265,_vol60hz_270
-        &#125;;
-    #endif
-</code></pre>
-<pre><code class="c">static const uchar Tab_Chop220V_1800W[10][22]=&#123;
-    &#123;60,  55, 51, 48, 46, 45, 44, 42,40,  38, 35,  33,  30,  28,  25,23,  22,  20,  18,  16,  13,    0&#125;,//220V_50HZ_1800W_
-    &#123;60,  55, 51, 49, 46, 45, 44, 42,40,  38, 36,  34,  32,  29,  27,25,  24,  22,  20,  18,  17,   15&#125;,//225V_50HZ_1800W_
-    &#123;60,  56, 52, 49, 47, 46, 44, 42,40,  39, 37,  35,  32,  30,  29,26,  25,  24,  22,  21,  19,   17&#125;,//230V_50HZ_1800W_
-    &#123;61,  56, 53, 50, 47, 46, 45, 43,41,  39, 37,  35,  33,  32,  29,27,  26,  25,  24,  23,  21,   20&#125;,//235V_50HZ_1800W_
-    &#123;61,  57, 54, 50, 48, 47, 45, 43,42,  40, 38,  36,  35,  33,  31,29,  28,  27,  26,  24,  23,   22&#125;,//240V_50HZ_1800W_
-    &#123;62,  56, 53, 50, 48, 47, 46, 44,42,  40, 38,  37,  35,  33,  32,30,  29,  28,  27,  26,  25,   24&#125;,//245V_50HZ_1800W_
-    &#123;62,  56, 53, 51, 48, 47, 46, 44,43,  40, 39,  38,  36,  34,  33,31,  30,  29,  28,  27,  26,   25&#125;,//250V_50HZ_1800W_
-    &#123;62,  57, 53, 51, 48, 47, 46, 44,43,  41, 39,  38,  36,  35,  33,32,  31,  30,  29,  28,  27,   26&#125;, //260V_50HZ_1800W_
-    &#123;62,  57, 53, 51, 48, 47, 46, 44,43,  41, 39,  38,  36,  35,  34,33,  32,  31,  30,  29,  28,   27&#125;, //265V_50HZ_1800W_
-    &#123;62,  57, 54, 51, 49, 48, 47, 45,43,  42, 40,  39,  38,  37,  36,35,  34,  33,  32,  31,  30,   29&#125; //270V_50HZ_1800W_
-&#125;;
-
-static const uchar Tab_Chop220V60hz_1800W[10][22]=&#123;
-    &#123;48,  43, 41, 38, 36, 35, 34, 32,30,  28, 27,  25,  23,  21,  19,17,  15,  13,  12,  9,  6,   0&#125;,//220V_60HZ_1800W_
-    &#123;48,  44, 41, 39, 37, 36, 34, 33,31,  29, 27,  25,  24,  22,  20,18,  17,  16,  15,  13,  11,   9&#125;,//225V_60HZ_1800W_
-    &#123;48,  44, 41, 39, 37, 36, 35, 33,32,  30, 28,  26,  25,  23,  21,19,  18,  17,  16,  15,  14,   11&#125;,//230V_60HZ_1800W_
-    &#123;48,  45, 42, 40, 37, 36, 35, 34,32,  30, 29,  27,  25,  24,  22,21,  20,  19,  18,  17,  16,   14&#125;,//235V_60HZ_1800W_
-    &#123;49,  45, 42, 40, 37, 36, 35, 34,32,  30, 29,  27,  25,  24,  22,21,  20,  19,  18,  17,  16,   14&#125;,//240V_60HZ_1800W_
-    &#123;49,  45, 42, 40, 38, 37, 36, 34,33,  31, 29,  28,  26,  25,  23,22,  21,  20,  19,  18,  17,   16&#125;,//245V_60HZ_1800W_
-    &#123;49,  45, 42, 40, 39, 38, 37, 35,33,  32, 31,  29,  28,  27,  26,25,  24,  23,  22,  21,  20,   19&#125;,//250V_60HZ_1800W_
-    &#123;49,  46, 43, 41, 40, 39, 37, 36,34,  33,  32, 31,  30,  29,  28,27,  26,  25,  24,  23,  22,   21&#125;, //260V_60HZ_1800W_
-    &#123;49,  46, 43, 41, 40, 39, 37, 36,34,  33,  32, 31,  30,  29,  29,28,  27,  26,  25,  24,  23,   22&#125;, //265V_60HZ_1800W_
-    &#123;50,  46, 44, 42, 40, 39, 38, 37,36,  35,  34,  33,  32, 31,  30,29,  28,  27,  26,  25,  24,   23&#125; //270V_60HZ_1800W_
-&#125;;
-</code></pre>
-<pre><code class="c">/********************************************
-functio:void ChopWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
-input: 
-output:
-********************************************/
-
-void ChopWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
-&#123;
-    uchar i,gvt_temp;
-    uchar tci = 22;
-
-    while((ad_main &gt;= MainMax) &amp;&amp; ( TarGear &gt; MinPower))
-    &#123;
-        if( TarGear &gt;= tci)  TarGear--;
-        tci--;
-        MainMax++;
-    &#125;
-
-    if((TarGear==0) || (TarGear&gt;22)) &#123;tiao_on = 0;&#125;  //超出范围
-
-    else
-    &#123;
-        TarGear--;
-        //60Hz范围内
-        if(B_AC_60HZ)
-        &#123;
-            for(i = 0;i &lt; 10;i++)
-            &#123;
-                if(ad_vol &lt; VolageChopWave_60hz[i]) 
-                &#123;
-                  gvt_temp = Tab_Chop220V60hz_1800W[i][TarGear];
-                  break;
-                &#125;
-            &#125;
-        &#125;
-        //50Hz范围内
-        else 
-        &#123;
-            for(i = 0;i &lt; 10;i++)
-            &#123;
-                if(ad_vol &lt; VolageChopWave[i]) 
-                &#123;
-                  gvt_temp = Tab_Chop220V_1800W[i][TarGear];
-                  break;
-                &#125;
-            &#125;
-        &#125;
-        tiao_on = gvt_temp;
-    &#125;
-&#125;
-</code></pre>
-<h2 id="2-丢波"><a href="#2-丢波" class="headerlink" title="2.丢波"></a>2.丢波</h2><pre><code class="c">void main()
-&#123;
-    ...
+    
     if(b_sys_2ms)
     &#123;
         b_sys_2ms = 0;
-    #ifdef __JUMPWAVE_H__
-        JumpWave_Ctrl(HEATHUOLI);	
-    #endif
-    &#125;
-    ...
+        Ad_Waitting();	//AD等待函数
+    &#125;    
 &#125;
 
-
-void work_function()
+//125us中断函数
+DEFINE_ISR (Interrupt_Extemal, 0x14) //CTM0 A
 &#123;
     ...
-           JumpWaveProcess(_ht_270c,HEATHUOLI,6);  //丢波控温
+     Ad_Read();	//AD读取
     ...
 &#125;
 </code></pre>
-<pre><code class="c">/********************************************
-functio:void JumpWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
+<p>AD等待函数</p>
+<pre><code class="c">#ifndef __ADC_H__
+#define __ADC_H__
+
+uint Loop_Arr,
+Temp_main2,
+Ad_data,
+Loop_Arr,
+Temper
+;
+
+bit b_CanRead_AD,
+b_Adc
+;
+
+void Ad_Waiting();
+void Ad_Readd();
+void Get_Temper();
+#endif
+</code></pre>
+<pre><code class="c">#include &quot;def.h&quot;
+#include &quot;Adc.h&quot;
+
+const unsigned int Tab_temp_array[]=&#123;
+    13,13,14,15,15,15,16,16,17,17,	//0~9F
+    18,18,19,19,20,20,21,21,22,22,	//10~19F
+    23,24,25,26,27,28,29,29,30,31,	//20F~29F	
+    32,32,33,34,35,36,37,38,39,40,	//30~39F
+    42,43,44,45,46,47,48,50,52,53,	//40~49F
+    55,56,57,59,61,63,65,67,69,71,	//50F~59F
+    72,73,74,76,78,81,83,85,87,89,	//60~69F
+    92,95,97,99,101,103,105,108,111,114,	//70~79F
+    117,119,122,125,127,130,135,138,141,144,	//80~89F
+    147,150,153,156,160,163,166,170,173,179,	//90~99F
+    181,183,190,195,198,201,206,210,214,222,	//100~109F
+    227,230,234,239,244,248,252,257,267,271,	//110~119F
+    276,280,287,292,297,303,308,318,324,330,	//120~129F
+    336,341,347,353,358,365,377,387,390,397,	//130~139F
+    403,410,417,423,430,444,451,459,463,473,	//140~149F
+    480,488,495,504,519,527,535,542,552,560,	//150~159F
+    568,576,585,603,614,620,629,638,648,656,	//160~169F
+    675,685,694,703,713,723,733,743,753,763,	//170~179F
+    773,794,805,815,825,836,846,858,868,879,	//180~189F
+    901,912,924,936,947,960,970,984,994,1016,	//190~199F
+    1028,1040,1052,1064,1075,1088,1004,1020,1137,1150,	//200~209F
+    1162,1173,1188,1199,1214,1238,1249,1264,1277,1290,	//210~219F
+    1298,1316,1342,1356,1369,1381,1395,1410,1422,1432,	//220~229F
+    1449,1476,1489,1500,1515,1530,1445,1557,1468,1584,	//230~239F
+    1611,1625,1638,1651,1666,1679,1693,1704,1720,1735,	//240~249F
+    1748,1765,1778,1802,1817,1830,1845,1857,1868,1886,	//250~259F
+    1911,1925,1938,1950,1965,1977,1992,2010,2019,2038,	//260~269F
+    2048,2072,2084,2099,2110,2125,2140,2151,2163,2178,	//270~279F
+    2203,2216,2229,2242,2255,2279,2280,2295,2310,2330,	//280~289F
+    2345,2356,2369,2380,2397,2405,2419,2433,2450,2468, 	//290~299F
+    2477,2489,2501,2513,2524,2435,2547,2570,2482,2593, 	//300~309F
+    2506,2615,2627,2638,2649,2660,2682,2693,2703,2713,	//310~319F
+    2724,2735,2746,2756,2766,2787,2797,2807,2817,2827,	//320~329F
+    2837,2847,2857,2867,2886,2897,2905,2914,2924,2933,	//330~339F
+    2942,2951,2961,2979,2988,2997,3002,3014,3022,3032,	//340~349F	
+    3040,3049,3065,3073,3082,3090,3098,3007,3114,3125,	//350~359F
+    3130,3146,3154,3161,3168,3176,3184,3191,3198,3206,	//360~369F	
+    3220,3228,3235,3241,3249,3256,3262,3269,3276,3289,	//370~379F	
+    3296,3303,3309,3315,3322,3328,3336,3341,3353,3359,	//380~389F
+    3365,3371,3377,3382,3389,3395,3400,3412,3417,3423,	//390~399F
+    3429,3434,3439,3444,3449,3455,3466,3471,3476,3481,	//400~409F
+    3486,3491,3496,3500,3505,3515,3520,3524,3529,3534,	//410~419F
+    3539,3543,3548,3551,3560,3564,3569,3574,3577,3582,	//420~429F
+    3586,3590,3594,3602,3606,3610,3614,3617,3621,3625,	//430~439F
+    3629,3633,3640,3644,3647,3650,3654,3658,3661,3665,	//440~449F
+    3668,3675,3678,3681,3685,3688,3691,3694,3698,3701,	//450~459F
+    3707,3707,
+    &#125;;	//460F
+
+
+/********************************************
+functio:ADC等待
 input: 
 output:
 ********************************************/
-void JumpWaveProcess(uchar MainMax,uchar  TarGear,uchar MinPower)
+void Ad_Waiting()
 &#123;
-    uchar tci = 22;
-
-    //每超过MainMax 1个值, 档位TarGear则自减1个值,
-    while((ad_main &gt;= MainMax) &amp;&amp; ( TarGear &gt; MinPower))
+    static uint mainh,main_temp0;
+    static uint TEMP_BK,Temp_delay;
+    static uchar Ad_cnt,maincnt;
+    
+    if(b_CanRead_AD) return;		//没有读完
+    
+    //读取AD温度
+    mainh += Ad_data;
+    if(++maincnt &gt;= 16)
     &#123;
-        if( TarGear &gt;= tci)  TarGear--;
-        tci--;
-        MainMax++;
-    &#125;
-</code></pre>
-<pre><code class="c">/********************************************
-functio:void JumpWave_Ctrl(uchar  TarGear)
-input: TarGear(火力)
-output: b_jump_on(丢波标志位)
-********************************************/
-void JumpWave_Ctrl(uchar  TarGear)
-&#123;
-    // uchar i;
-    if((b_Scr_On || b_Scr1_On)&amp;&amp;(TarGear &gt; 0))
-    &#123;    
-        switch (TarGear)
+        maincnt = 0;
+        mainh &gt;&gt;= 4;
+        main_temp0 = 0x0fff - mainh;
+        mainh = 0;
+
+        //取值范围
+        if(main_temp0 &gt;= 0x0ff0) main_temp0 = 0x0ff0;
+        if(main_temp0 &lt; 32) main_temp0 = 32;
+            
+        //消抖
+        if(main_temp0 &lt; 150)  Temp_delay = 2;
+        else if(main_temp0 &lt; 318) Temp_delay = 5;
+        else if(main_temp0 &lt; 773) Temp_delay = 9;	
+        else if(main_temp0 &lt; 2827) Temp_delay = 15;
+        else if(main_temp0 &lt; 3486) Temp_delay = 8;
+        else Temp_delay = 3;
+            
+        if((main_temp0 &gt;= TEMP_BK + Temp_delay) || (main_temp0 &lt;= TEMP_BK - Temp_delay))
         &#123;
-            case 1:
+            if(++Ad_cnt &gt;= 8)	//消抖次数
             &#123;
-                Jump_cycle = 11;
-                if(0 == Jump_Cnt) b_jump_on = 1;
-                else b_jump_on = 0;
-                
-                break;
+                    Ad_cnt = 0;
+                    TEMP_BK = main_temp0;
+                    Temp_main2 = main_temp0;		//获取AD值
+                    b_Adc = 1;		//
+                    Loop_Arr = 0;
             &#125;
-            case 2:
-            &#123;
-                Jump_cycle = 21;
-                if((0 == Jump_Cnt)||(8 == Jump_Cnt)||(16 == Jump_Cnt)) b_jump_on = 1;
-                else b_jump_on = 0;
-                
-                break;
-            &#125;
-            case 3:
-            &#123;
-                Jump_cycle = 11;
-                if((0 == Jump_Cnt)||(5 == Jump_Cnt)) b_jump_on = 1;
-                else b_jump_on = 0;
-                
-                break;
-            &#125;
-            case 4:
-            &#123;
-                Jump_cycle = 21;
-                if(0 == Jump_Cnt%5) b_jump_on = 1;
-                else b_jump_on = 0;
-            &#125;
-            case 5:
-            &#123;
-                Jump_cycle = 11;
-                if(0 == Jump_Cnt%4) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 6:
-            &#123;
-                Jump_cycle = 21;
-                if(0 == Jump_Cnt%3) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 7:
-            &#123;
-                Jump_cycle = 11;
-                if(0 == Jump_Cnt%3) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 8:
-            &#123;
-                Jump_cycle = 21;
-                if(0 == Jump_Cnt) b_jump_on = 1;
-                else if((3 == Jump_Cnt)||(4 == Jump_Cnt)) b_jump_on = 1;
-                else if((8 == Jump_Cnt)||(9 == Jump_Cnt)) b_jump_on = 1;
-                else if((13 == Jump_Cnt)||(14 == Jump_Cnt)) b_jump_on = 1;
-                else if((17 == Jump_Cnt)||(18 == Jump_Cnt)) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 9:
-            &#123;
-                Jump_cycle = 11;
-                if((0 == Jump_Cnt%2)&amp;&amp;(Jump_Cnt &lt; 10)) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 10:
-            &#123;
-                Jump_cycle = 21;
-                if((0 == Jump_Cnt%4)||(1 == Jump_Cnt%4)) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 11:
-            &#123;
-                Jump_cycle = 21;
-                if(0 == Jump_Cnt%2) b_jump_on = 1;
-                else b_jump_on = 0;
-                break;
-            &#125;
-            case 12:
-            &#123;
-                Jump_cycle = 21;
-                if(Jump_Cnt &gt; 7)
-                &#123;
-                  if(2 == Jump_Cnt%3)   b_jump_on = 0;
-                  else if((3 == Jump_Cnt)||(4 == Jump_Cnt)||(7 == Jump_Cnt)) b_jump_on = 0;
-                  else b_jump_on = 1;
-                &#125;
-                break;
-            &#125;
-            case 13:
-            &#123;
-                Jump_cycle = 21;
-                if(Jump_Cnt &gt; 7)
-                &#123;
-                  if(2 == Jump_Cnt%3)   b_jump_on = 0;
-                  else if((4 == Jump_Cnt)||(7 == Jump_Cnt)) b_jump_on = 0;
-                  else b_jump_on = 1;
-                &#125;
-                break;               
-            &#125;
-            case 14:
-            &#123;
-                Jump_cycle = 21;
-                if(Jump_Cnt &gt; 7)
-                &#123;
-                  if(2 == Jump_Cnt%3)   b_jump_on = 0;
-                  else if(4 == Jump_Cnt) b_jump_on = 0;
-                  else b_jump_on = 1;
-                &#125;
-                break;               
-            &#125; 
-            case 15:
-            &#123;
-                Jump_cycle = 21;
-                if(0 == Jump_Cnt%4) b_jump_on = 0;
-                else b_jump_on = 1;
-                break;
-            &#125;        
-            case 16:
-            &#123;
-                Jump_cycle = 22;
-                if((Jump_Cnt &gt; 0)&amp;&amp;(Jump_Cnt &lt; 21))
-                &#123;
-                    if(0 == Jump_Cnt%3) &#123;b_jump_on = 0;break;&#125;
-                &#125;
-                b_jump_on = 1;
-                break;
-            &#125;
-            case 17:
-            &#123;
-                Jump_cycle = 22;
-                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%4)) b_jump_on = 0;
-                else b_jump_on = 1;
-                break;
-            &#125; 
-            case 18:
-            &#123;
-                Jump_cycle = 22;
-                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%5)) b_jump_on = 0;
-                else b_jump_on = 1;
-                break;
-            &#125; 
-            case 19:
-            &#123;
-                Jump_cycle = 22;
-                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%6)) b_jump_on = 0;
-                else b_jump_on = 1;
-                break;
-            &#125;           
-            case 20:
-            &#123;
-                Jump_cycle = 22;
-                if((1 &lt; Jump_Cnt)&amp;&amp;(0 == Jump_Cnt%8)) b_jump_on = 0;
-                else b_jump_on = 1;
-                break;
-            &#125;
-            case 21:
-            &#123;
-                Jump_cycle = 22;
-                if(10 == Jump_Cnt) b_jump_on = 0;
-                else b_jump_on = 1;
-                break;
-            &#125;
-            case 22:
-            &#123;
-                Jump_cycle = 22;
-                b_jump_on = 1;
-                break;
-            &#125;
-            default:&#123;;&#125;
         &#125;
-        // if(Jump_Cnt &lt; TarGear) b_jump_on = 1;
-        // else b_jump_on = 0;
+        else &#123;Ad_cnt = 0;&#125;
+    &#125;
+
+    //启动AD检测
+    _adcr0 = _ADC_CH1;
+    _start = 0;
+    GCC_NOP();
+    _start = 1;
+    GCC_NOP();
+    _start = 0;
+    
+    
+    b_CanRead_AD = 1;
+&#125;
+
+
+/********************************************
+functio:ADC读取
+input: 
+output:
+********************************************/
+void Ad_Readd()
+&#123;
+    uint main_12 = 0;
+    
+    if(b_CanRead_AD)
+    &#123;
+        if(!_adbz)
+        &#123;
+            main_12 = _adrh;	//00000000 0000xxxx
+            main_12 &lt;&lt;= 8;		//0000xxxx 00000000
+            main_12 &amp;= 0xff00;
+            main_12 |= _adrl;	//0000xxxx xxxxxxxx
+            Ad_data = main_12;	
+            b_CanRead_AD = 0;
+        &#125;
     &#125;
 &#125;
 
-// __DRIVE_JUMPWAVE_SELECT__
-/*丢波控温*************************************************/
+/****************************************
+函数名称:void Get_Temper()
+输入:
+输出:Temper
+函数功能：将12位AD值，转化成华氏度(F)
+*****************************************/
+void Get_Temper()
+&#123;
+    uchar i;
+    //获取AD完毕
+    if(b_Adc)
+    &#123;
+        if(Temp_main2 &gt;= 3707) &#123;Temper = 460;b_Adc = 0;&#125;		//短路,显示460F
+        else if(Temp_main2 &lt;= 20) &#123;Temper = 20;b_Adc = 0;&#125;	//开路,显示20F
+        else 
+        &#123;
+            for(i = 0;i &lt;= 20;i++)
+            &#123;
+                if(Temp_main2 &lt;= Tab_temp_array[Loop_Arr])	
+                &#123;
+                        Temper = Loop_Arr;
+                        Loop_Arr = 460;
+                        break;
+                &#125;
+                if(++Loop_Arr &gt;= 461)	//超过表格
+                    break;
+            &#125;
+            if(Loop_Arr &gt;= 460) &#123;b_Adc = 0;&#125;
+        &#125;	
+    &#125;
+&#125;
 </code></pre>
 
       
