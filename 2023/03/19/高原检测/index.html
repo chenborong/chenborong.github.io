@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>关于Type-C的接线设计 | Rainjai Blog</title>
-  <meta name="keywords" content=" PCB ">
-  <meta name="description" content="关于Type-C的接线设计 | Rainjai Blog">
+  <title>高原检测 | Rainjai Blog</title>
+  <meta name="keywords" content=" C语言 ">
+  <meta name="description" content="高原检测 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -996,9 +996,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-关于Type-C的接线设计" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-高原检测" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">关于Type-C的接线设计</h1>
+        <h1 class="article-title">高原检测</h1>
     
     <div class="article-meta">
         
@@ -1008,7 +1008,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="PCB相关">PCB相关</a>
+            <a  data-rel="单片机函数">单片机函数</a>
             
         </span>
         
@@ -1016,14 +1016,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color4">PCB</a>
+            <a class="color4">C语言</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-08-12 14:13:56'>2022-08-12 14:05</time>
+            Created At : <time class="date" title='Updated At: 2023-03-19 22:51:45'>2023-03-19 11:08</time>
         
     </div>
     <div class="article-meta">
@@ -1045,7 +1045,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EType-C%E7%9A%84%E6%8E%A5%E7%BA%BF%E8%AE%BE%E8%AE%A1"><span class="toc-text">关于Type-C的接线设计</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%AB%98%E5%8E%9F%E6%A3%80%E6%B5%8B"><span class="toc-text">高原检测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HW%E9%AB%98%E5%8E%9F%E6%A3%80%E6%B5%8B"><span class="toc-text">HW高原检测</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1061,129 +1061,155 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="关于Type-C的接线设计"><a href="#关于Type-C的接线设计" class="headerlink" title="关于Type-C的接线设计"></a>关于Type-C的接线设计</h1><p>在常规的硬件设计中，经常需要用到USB线下载和供电，但是随着Type-C的普及，我们也应该升级我们的硬件设计，使用Type-C的公头和母座来烧录程序和供电。</p>
-<p>以下是关于Type-C的设计相关事项，主要是对USB的D- D+脚，以及芯片的TXD RXD脚进行规划。</p>
-<p>1.串口工具</p>
-<p>在串口工具中，有两处注意事项。</p>
-<p>1.1Type-C的公头接入电脑处</p>
-<p>此处连接的是</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Tyep-C-Pin</td>
-<td>Tyep-C</td>
-<td>CH340G-Pin</td>
-<td>CH340G</td>
-</tr>
-<tr>
-<td>A7</td>
-<td>D-</td>
-<td>6</td>
-<td>UD-</td>
-</tr>
-<tr>
-<td>B7</td>
-<td>D-</td>
-<td>6</td>
-<td>UD-</td>
-</tr>
-<tr>
-<td>A6</td>
-<td>D+</td>
-<td>5</td>
-<td>UD+</td>
-</tr>
-<tr>
-<td>B6</td>
-<td>D+</td>
-<td>5</td>
-<td>UD+</td>
-</tr>
-</tbody></table>
-<p>1.2 Type-C的母座接入芯片IC</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CH340G-Pin</td>
-<td>CH340G</td>
-<td>Tyep-C-Pin</td>
-<td>Tyep-C</td>
-</tr>
-<tr>
-<td>2</td>
-<td>TXD</td>
-<td>A7</td>
-<td>D-</td>
-</tr>
-<tr>
-<td>2</td>
-<td>TXD</td>
-<td>A7</td>
-<td>D-</td>
-</tr>
-<tr>
-<td>3</td>
-<td>RXD</td>
-<td>A6</td>
-<td>D+</td>
-</tr>
-<tr>
-<td>3</td>
-<td>RXD</td>
-<td>A6</td>
-<td>D+</td>
-</tr>
-</tbody></table>
-<p>2.硬件设计中</p>
-<p>2.1 Type-C母座与被烧录IC</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Tyep-C-Pin</td>
-<td>Tyep-C</td>
-<td>IC</td>
-</tr>
-<tr>
-<td>A7</td>
-<td>D-</td>
-<td>RXD</td>
-</tr>
-<tr>
-<td>A7</td>
-<td>D-</td>
-<td>RXD</td>
-</tr>
-<tr>
-<td>A6</td>
-<td>D+</td>
-<td>TXD</td>
-</tr>
-<tr>
-<td>A6</td>
-<td>D+</td>
-<td>TXD</td>
-</tr>
-</tbody></table>
+        <h1 id="高原检测"><a href="#高原检测" class="headerlink" title="高原检测"></a>高原检测</h1><h2 id="HW高原检测"><a href="#HW高原检测" class="headerlink" title="HW高原检测"></a>HW高原检测</h2><pre><code class="c">#ifndef _ChkPlateau_
+#define _ChkPlateau_
+
+#define b_Chk_on 	p_heat_rly
+
+#define AD_cp_min 		0xab		//171--80C
+#define AD_cp_start 	0xb2		//178--85C
+
+#define CP_tim_S 	15			//--n*S
+#define CP_tim_M 	25			//-n*S
+#define CP_tim_L 	30			//--n*S
+
+#endif
+</code></pre>
+<pre><code class="c">#include &quot;..\SourceFile\ChkPlateau.h&quot;
+/**********************************
+************检测高原**************
+***************500MS************/
+//CP_AD:实际AD   CP_temp:实际温度
+//high_temp:得出的高原温度
+void ChkPlateau(uchar CP_AD,uchar CP_temp)
+&#123;
+    static uchar up_temp,AD_last,h_tjs;
+    //
+    if(b_Chk_on &amp;&amp; (CP_AD &gt; AD_cp_min) &amp;&amp; !high_temp)	//加热中 &amp;&amp; AD&gt;Min &amp;&amp; 未进高原
+    &#123;
+        if(CP_AD &lt; AD_cp_start) &#123;h_tjs = 0;&#125;		//低于85度,重新计算
+        
+        if(CP_AD &gt;= (AD_last + 2))		//上升2个AD
+        &#123;
+            up_temp++;
+            AD_last = CP_AD;	//刷新AD
+            h_tjs = 0;
+        &#125;
+        else if(CP_AD &lt;= (AD_last - 2))	//下降2个AD
+        &#123;
+            up_temp = 0;
+            AD_last = CP_AD;	//刷新AD
+            h_tjs = 0;
+        &#125;
+        else	//变化2个AD以内的
+        &#123;
+          h_tjs++;
+          if(up_temp &gt;= 4)	//上升超过4次
+          &#123;
+              if(h_tjs &gt;= CP_tim_S*2) &#123;high_temp = CP_temp;&#125;
+          &#125;
+          else if(up_temp &gt;= 2)	//上升超过2次
+          &#123;
+              if(h_tjs &gt;= CP_tim_M*2) &#123;high_temp = CP_temp;&#125;
+          &#125;
+          else 
+          &#123;
+              if(h_tjs &gt;= CP_tim_L*2) &#123;high_temp = CP_temp;&#125;
+          &#125;
+        &#125;
+    &#125;
+    else 
+    &#123;
+        h_tjs = 0;
+        up_temp = 0;
+    &#125;
+&#125;
+</code></pre>
+<p>凯翔的高原检测</p>
+<pre><code class="c">xdata   u16     Boiling_Time;
+xdata   u16     Del_24S_Judg;
+xdata   u8      Last_Heat_Water_Temp;
+//============================================
+//高原检测
+//返回1:高原或者水已开
+//返回0:没有水开
+//============================================
+u8 Judg_Boilling(void)
+&#123;
+    static u16 Base = 0;
+    u16 Set_Adc = 0;
+    
+    //小于85度,使用600W
+    if(Temper &lt; 85)
+    &#123;
+        Set_Power = Power_600W;
+        Last_Heat_Water_Temp = Temper;		//刷新温度
+        return 0 ;
+    &#125;
+    else 
+        Set_Power = Set_Judg_Power;			//85度后的加热功率	
+    
+    //Fun_Res = 1的时候,加热中
+    if(1 == Fun_Res)
+    &#123;
+        if(Temper &lt;= Last_Heat_Water_Temp - 5)	//下降5度,中途加水
+        &#123;
+            Last_Heat_Water_Temp = Temper;
+            Del_24S_Judg=0;//高原计数清0
+        &#125;
+        if(Temper &gt; Last_Heat_Water_Temp)		//温度上升
+            &#123;Last_Heat_Water_Temp = Temper;&#125;
+    &#125;
+    
+    //2400秒后开始检测高原
+    if(Del_24S_Judg &lt; 2400)
+    &#123;
+        ++Del_24S_Judg;
+        Boilling_Time = 0;
+        LastJudgAdc = Save_Adc;		//记录24秒后的AD
+        return 0;
+    &#125;
+    
+    //温度大于97度,水开,不需要检测高原
+    if(Temper &gt;= 97)	return 1;	
+    
+    //AD下降或不变
+    if(Save_Adc &lt;= LastJudgAdc)
+        &#123;Base = LastJudgAdc - Save_Adc;&#125;
+    else 
+    &#123;
+        LastJudgAdc = Save_Adc;
+        Boiling_Time = 0;
+        Base = 0;
+    &#125;
+    
+    //Set_Judg_Adc = 20, 温度保持在0~20个AD以内
+    if(Base &lt;= Set_Judg_Adc)
+    &#123;
+        if(++Boilling_Time &gt;= Set_Judg_Time)	//12s - 30s
+        &#123;
+            Boilling_Time = 0;
+            return 1;
+        &#125;
+    &#125;
+    
+    //温度上升期间
+    else
+    &#123;
+        if(1 == Fun_Res)
+        &#123;
+            if(Boilling_Time &gt;= 1200)	//上升缓慢
+                Boilling_Time &gt;&gt;= 1;	//考虑见减少6秒时间判断高原
+            else
+                Boilling_Time = 0;
+        &#125;
+        else 
+            Boilling_Time = 0;
+        LastJudgAdc = Save_Adc;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
