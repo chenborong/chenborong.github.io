@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>FreeRTOS_Task的任务挂起,恢复,任务调度 | Rainjai Blog</title>
-  <meta name="keywords" content=" ESP32 , FreeRTOS ">
-  <meta name="description" content="FreeRTOS_Task的任务挂起,恢复,任务调度 | Rainjai Blog">
+  <title>CRC校验 | Rainjai Blog</title>
+  <meta name="keywords" content=" 算法 ">
+  <meta name="description" content="CRC校验 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -1008,9 +1008,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-FreeRTOS_Task的任务挂起" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-CRC校验" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">FreeRTOS_Task的任务挂起,恢复,任务调度</h1>
+        <h1 class="article-title">CRC校验</h1>
     
     <div class="article-meta">
         
@@ -1020,7 +1020,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="FreeRTOS">FreeRTOS</a>
+            <a  data-rel="单片机函数">单片机函数</a>
             
         </span>
         
@@ -1028,16 +1028,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color1">ESP32</a>
-            
-            <a class="color4">FreeRTOS</a>
+            <a class="color3">算法</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-01-28 20:08:39'>2023-01-28 00:00</time>
+            Created At : <time class="date" title='Updated At: 2023-03-20 08:34:05'>2022-12-28 11:08</time>
         
     </div>
     <div class="article-meta">
@@ -1059,7 +1057,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FreeRTOS-Task%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%8C%82%E8%B5%B7-%E6%81%A2%E5%A4%8D-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-text">FreeRTOS_Task的任务挂起,恢复,任务调度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8main%E5%87%BD%E6%95%B0%E6%8C%82%E8%B5%B7%E4%BB%BB%E5%8A%A1"><span class="toc-text">在main函数挂起任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E4%BB%BB%E5%8A%A1%E5%86%85%E9%83%A8%E6%8C%82%E8%B5%B7"><span class="toc-text">在任务内部挂起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%82%E8%B5%B7%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%81%A2%E5%A4%8D"><span class="toc-text">挂起的任务恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-text">任务调度</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CRC%E6%A0%A1%E9%AA%8C"><span class="toc-text">CRC校验</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1075,111 +1073,179 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="FreeRTOS-Task的任务挂起-恢复-任务调度"><a href="#FreeRTOS-Task的任务挂起-恢复-任务调度" class="headerlink" title="FreeRTOS_Task的任务挂起,恢复,任务调度"></a>FreeRTOS_Task的任务挂起,恢复,任务调度</h1><h2 id="在main函数挂起任务"><a href="#在main函数挂起任务" class="headerlink" title="在main函数挂起任务"></a>在main函数挂起任务</h2><pre><code class="c">void myTask1(void *pvParam)
-&#123;
-    while(1)
-    &#123;
-        printf(&quot;task1-111\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    &#125;
-&#125;
-
-void myTask2(void *pvParam)
-&#123;
-    while(1)
-    &#123;
-        printf(&quot;task2-222\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    &#125;
-&#125;
-
-void app_main(void)
-&#123;
-    TaskHandle_t pxTask1;
-    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
-    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);
-
-    vTaskDelay(3000 / portTICK_PERIOD_MS);		//延时3sec后
-    vTaskSuspend(pxTask1);						//挂起任务1
-&#125;		
+        <h1 id="CRC校验"><a href="#CRC校验" class="headerlink" title="CRC校验"></a>CRC校验</h1><p>type.h</p>
+<pre><code class="c">#ifndef __TYPE_H__
+#define __TYPE_H__
+#include &lt;stdio.h&gt;
+ 
+typedef unsigned char        u8;
+typedef unsigned short       u16;
+typedef unsigned int         u32;
+typedef unsigned long long   u64;
+ 
+typedef unsigned char        BOOL;
+#define FALSE                0
+#define TRUE                 1
+ 
+#endif
 </code></pre>
-<h2 id="在任务内部挂起"><a href="#在任务内部挂起" class="headerlink" title="在任务内部挂起"></a>在任务内部挂起</h2><pre><code class="c">//-----------------------------------
-void myTask1(void *pvParam)
-&#123;
-    while(1)
-    &#123;
-        printf(&quot;task1-111\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+<p>crc.h</p>
+<pre><code class="c">#ifndef __CRC_H__
+#define __CRC_H__
 
-        vTaskSuspend(NULL);		//任务挂起
-    &#125;
-&#125;
-
-void myTask2(void *pvParam)
+#include &quot;type.h&quot;
+typedef struct
 &#123;
-    while(1)
-    &#123;
-        printf(&quot;task2-222\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    &#125;
-&#125;
+    u8	poly;	//多项式
+    u8	InitValue;	//初始值
+    u8	xor;	//结果异或值
+    BOOL	InputReverse;
+    BOOL	OutputReverse;
+&#125;CRC_8;
 
-void app_main(void)
+typedef struct
 &#123;
-    TaskHandle_t pxTask1;
-    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
-    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);
-&#125;
+    u16	poly;	//多项式
+    u16	InitValue;	//初始值
+    u16	xor;	//结果异或值
+    BOOL	InputReverse;
+    BOOL	OutputReverse;
+&#125;CRC_16;
+
+typedef struct
+&#123;
+    u32	poly;	//多项式
+    u32	InitValue;	//初始值
+    u32	xor;	//结果异或值
+    BOOL	InputReverse;
+    BOOL	OutputReverse;
+&#125;CRC_32;
+
+const	CRC_8	crc_8;
+const	CRC_8	crc_8_ITU;
+const	CRC_8	crc_8_ROHC;
+const	CRC_8	crc_8_MAXIM;
+
+const CRC_16 crc_16_IBM;
+const CRC_16 crc_16_MAXIM;
+const CRC_16 crc_16_USB;
+const CRC_16 crc_16_MODBUS;
+const CRC_16 crc_16_CCITT;
+const CRC_16 crc_16_CCITT_FALSE;
+const CRC_16 crc_16_X5;
+const CRC_16 crc_16_XMODEM;
+const CRC_16 crc_16_DNP;
+
+const CRC_32 crc_32;
+const CRC_32 crc_32_MPEG2;
+
+u8 crc8(u8 *addr, int num,CRC_8 type) ;
+u16 crc16(u8 *addr, int num,CRC_16 type) ;
+u32 crc32(u8 *addr, int num,CRC_32 type) ;
+
+#endif	//__CRC_H__
 </code></pre>
-<h2 id="挂起的任务恢复"><a href="#挂起的任务恢复" class="headerlink" title="挂起的任务恢复"></a>挂起的任务恢复</h2><pre><code class="c">//-----------------------------------
-void myTask1(void *pvParam)
+<p>crc.c文件</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+#include &quot;type.h&quot;
+#include &quot;CRC.h&quot;
+
+const CRC_8 crc_8 = &#123;0x07,0x00,0x00,FALSE,FALSE&#125;;
+const CRC_8 crc_8_ITU = &#123;0x07,0x00,0x55,FALSE,FALSE&#125;;
+const CRC_8 crc_8_ROHC = &#123;0x07,0xff,0x00,TRUE,TRUE&#125;;
+const CRC_8 crc_8_MAXIM = &#123;0x31,0x00,0x00,TRUE,TRUE&#125;;
+ 
+const CRC_16 crc_16_IBM = &#123;0x8005,0x0000,0x0000,TRUE,TRUE&#125;;
+const CRC_16 crc_16_MAXIM = &#123;0x8005,0x0000,0xffff,TRUE,TRUE&#125;;
+const CRC_16 crc_16_USB = &#123;0x8005,0xffff,0xffff,TRUE,TRUE&#125;;
+const CRC_16 crc_16_MODBUS = &#123;0x8005,0xffff,0x0000,TRUE,TRUE&#125;;
+const CRC_16 crc_16_CCITT = &#123;0x1021,0x0000,0x0000,TRUE,TRUE&#125;;
+const CRC_16 crc_16_CCITT_FALSE = &#123;0x1021,0xffff,0x0000,FALSE,FALSE&#125;;
+const CRC_16 crc_16_X5 = &#123;0x1021,0xffff,0xffff,TRUE,TRUE&#125;;
+const CRC_16 crc_16_XMODEM = &#123;0x1021,0x0000,0x0000,FALSE,FALSE&#125;;
+const CRC_16 crc_16_DNP = &#123;0x3d65,0x0000,0xffff,TRUE,TRUE&#125;;
+ 
+const CRC_32 crc_32 = &#123;0x04c11db7,0xffffffff,0xffffffff,TRUE,TRUE&#125;;
+const CRC_32 crc_32_MPEG2 = &#123;0x04c11db7,0xffffffff,0x00000000,FALSE,FALSE&#125;;
+
+/*****************************************************************************
+*function name:reverse8
+*function: 字节反转,比如1100 0101 反转后 1010 0011
+*input: 1字节
+*output: 反转后字节
+******************************************************************************/
+u8 reverse8(u8 data)
 &#123;
-    while(1)
-    &#123;
-        printf(&quot;task1-111\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    &#125;
+    u8 i;
+    u8 temp = 0;
+    for(i = 0; i &lt; 8; i++)
+        temp |= ((data &gt;&gt; i) &amp; 0x01) &lt;&lt; (7-i);
+       return temp;
 &#125;
 
-void myTask2(void *pvParam)
+
+/*****************************************************************************
+*function name:reverse16
+*function: 双字节反转，如1100 0101 1110 0101反转后为1010 0111 1010 0011
+*input：双字节
+*output:反转后双字节
+******************************************************************************/
+u16 reverse16 (u16 data)
 &#123;
-    while(1)
-    &#123;
-        printf(&quot;task2-222\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    &#125;
+    u8 i;
+    u16 temp = 0;
+    for(i = 0; i  &lt; 16; i++)
+        temp |= ((data &gt;&gt; i) &amp; 0x0001) &lt;&lt; (15 - i);
+    return temp;
 &#125;
 
-void app_main(void)
+/*****************************************************************************
+*function name:reverse32
+*function: 32bit字节反转
+*input：32bit字
+*output:反转后的32bit字
+******************************************************************************/
+u32 reverse16 (u32 data)
 &#123;
-    TaskHandle_t pxTask1;
-    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
-    xTaskCreate(myTask2, &quot;myTask2&quot;, 1024, NULL, 2, NULL);
-    
-    vTaskSuspend(pxTask1);		//挂起任务
-
-    vTaskDelay(5000 / portTICK_PERIOD_MS);	//延时5sec
-    vTaskResume(pxTask1);					//恢复任务
+    u8 i;
+    u32 temp = 0;
+    for(i = 0; i  &lt; 32; i++)
+        temp |= ((data &gt;&gt; i) &amp; 0x0001) &lt;&lt; (31 - i);
+    return temp;
 &#125;
-</code></pre>
-<h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><pre><code class="c">void myTask1(void *pvParam)
+
+/*****************************************************************************
+*function name:crc8
+*function: CRC校验,校验值为8位
+*input：addr-数据首地址;num-数据长度(字节);type-CRC8的算法类型
+*output:8位校验值
+******************************************************************************/
+u8 crc8(u8 *addr,int num,CRC_8 tpye)
 &#123;
-    printf(&quot;Test begin\n&quot;);
-    vTaskSuspendAll();		//全部挂起
-    
-    //此处函数不得使用FreeRTOS API的函数,且挂起后均不受其它Task影响
-    for(int i = 0;i &lt; 999; i++)
+    u8 data;
+    u8 crc = type.InitValue;		//初始值
+    int i;
+    for(; num &gt; 0; num--)
     &#123;
-        for(int j = 0; j &lt; 999; j++)
+        data = *addr++;
+        if(type.InputReverse == TRUE)
+            data = reverse8(data);		//字节反转
+        crc = crc ^ data;				//与crc初始值异或
+           for(i = 0; i &lt; 8; i++)
         &#123;
-            ;
+            if(crc &amp; 0x80)				//左移移出的位为1,左移后与多项式异或
+                crc = (crc &lt;&lt; 1) ^ type.poly;
+            else 						//否则直接左移
+                crc &lt;&lt;= 1;
         &#125;
     &#125;
-    
-    xTaskResumeAll();		//恢复
-    printf(&quot;Test end\n&quot;);
-    vTaskDelete(NULL);
+    if(type.OutputReverse == TRUE)		//满足条件,反转
+        crc = reverse8(crc);			
+    crc = crc ^ type.xor;				//最后返与结果异或值异或
+    return (crc);
 &#125;
+
+
 </code></pre>
 
       
