@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>高原检测 | Rainjai Blog</title>
-  <meta name="keywords" content=" C语言 ">
-  <meta name="description" content="高原检测 | Rainjai Blog">
+  <title>C#_类型转换 | Rainjai Blog</title>
+  <meta name="keywords" content=" 类型转换 , C#语言 ">
+  <meta name="description" content="C#_类型转换 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -1068,9 +1068,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-高原检测" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-C#_类型转换" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">高原检测</h1>
+        <h1 class="article-title">C#_类型转换</h1>
     
     <div class="article-meta">
         
@@ -1080,7 +1080,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="单片机函数">单片机函数</a>
+            <a  data-rel="C#">C#</a>
             
         </span>
         
@@ -1088,14 +1088,16 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color4">C语言</a>
+            <a class="color5">类型转换</a>
+            
+            <a class="color5">C#语言</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-19 22:51:45'>2023-03-19 11:08</time>
+            发布时间 : <time class="date" title='最后更新: 2023-07-09 17:55:18'>2023-07-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -1117,7 +1119,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%AB%98%E5%8E%9F%E6%A3%80%E6%B5%8B"><span class="toc-text">高原检测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HW%E9%AB%98%E5%8E%9F%E6%A3%80%E6%B5%8B"><span class="toc-text">HW高原检测</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">C#_类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">隐式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">显式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95"><span class="toc-text">C# 类型转换方法</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1133,154 +1135,112 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="高原检测"><a href="#高原检测" class="headerlink" title="高原检测"></a>高原检测</h1><h2 id="HW高原检测"><a href="#HW高原检测" class="headerlink" title="HW高原检测"></a>HW高原检测</h2><pre><code class="c">#ifndef _ChkPlateau_
-#define _ChkPlateau_
-
-#define b_Chk_on 	p_heat_rly
-
-#define AD_cp_min 		0xab		//171--80C
-#define AD_cp_start 	0xb2		//178--85C
-
-#define CP_tim_S 	15			//--n*S
-#define CP_tim_M 	25			//-n*S
-#define CP_tim_L 	30			//--n*S
-
-#endif
+        <h1 id="C-类型转换"><a href="#C-类型转换" class="headerlink" title="C#_类型转换"></a>C#_类型转换</h1><p>类型转换从根本上说就是类型铸造,或者说把数据从一种类型转换为另一种类型。</p>
+<p>C#中的类型转换可以分为2种：<strong>隐式转换</strong>	<strong>显式转换</strong></p>
+<h2 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h2><p>将一个较小范围的数据类型转换为较大的数据类型时，编译器会自动完成类型转换,不会导致数据丢失。</p>
+<pre><code class="c#">byte b = 10;
+int i = b;		//隐式转换,不需要显示转换
 </code></pre>
-<pre><code class="c">#include &quot;..\SourceFile\ChkPlateau.h&quot;
-/**********************************
-************检测高原**************
-***************500MS************/
-//CP_AD:实际AD   CP_temp:实际温度
-//high_temp:得出的高原温度
-void ChkPlateau(uchar CP_AD,uchar CP_temp)
+<h2 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h2><p>将一个较大范围的数据类型转换为较小范围的数据类型时,或者将一个对象类型转换为另一个对象类型时，需要使用强制类型转换符号进行显示转换，强制转换会造成数据丢失。</p>
+<pre><code class="c#">int i = 10;
+byte b = (byte)i;	//显式转换，需要使用强制类型转换符号
+</code></pre>
+<h2 id="C-类型转换方法"><a href="#C-类型转换方法" class="headerlink" title="C# 类型转换方法"></a>C# 类型转换方法</h2><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="left">方法&amp;描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left"><strong>ToBoolean</strong>：如果可能的话,把类型转换为布尔型。</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left"><strong>ToByte</strong>: 把类型转换为字节类型。</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left"><strong>ToChar</strong>：如果可能的话，把类型转换为单个Unicode字节类型。</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left"><strong>ToDate Time</strong>：把类型(整数或字符串类型)转换为日期-时间 结构</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left"><strong>ToDecimal</strong>：把浮点型或整数类型转换为十进制类型。</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left"><strong>ToDouble</strong>：把类型转换为双精度浮点型。</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="left"><strong>ToInt16</strong>：把类型转换为16位整数类型。</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="left"><strong>ToInt32</strong>：把类型转换为32为整数类型。</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="left"><strong>ToInt64</strong>：把类型转换为64位整数类型。</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="left"><strong>ToSbyte</strong>：把类型转换为有符号字节类型。</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="left"><strong>ToSingle</strong>：把类型转换为小浮点数类型。</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="left"><strong>ToString</strong>：把类型转换为字符串类型。</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="left"><strong>To Type</strong>：把类型转换为制定类型。</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="left"><strong>ToUint16</strong>：把类型转换为16位无符号整数类型。</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="left"><strong>ToUint32</strong>：把类型转换为32位无符号整数类型。</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="left"><strong>ToUint64</strong>：把类型转换为64位无符号整数类型。</td>
+</tr>
+</tbody></table>
+<p>举个栗子</p>
+<pre><code class="c#">namespace TypeConversionApplication
 &#123;
-    static uchar up_temp,AD_last,h_tjs;
-    //
-    if(b_Chk_on &amp;&amp; (CP_AD &gt; AD_cp_min) &amp;&amp; !high_temp)	//加热中 &amp;&amp; AD&gt;Min &amp;&amp; 未进高原
+    class StringConversion
     &#123;
-        if(CP_AD &lt; AD_cp_start) &#123;h_tjs = 0;&#125;		//低于85度,重新计算
+        int i = 75;
+        float f = 53.0057f;
+        double d = 2345.7652;
+        bool b = ture;
         
-        if(CP_AD &gt;= (AD_last + 2))		//上升2个AD
-        &#123;
-            up_temp++;
-            AD_last = CP_AD;	//刷新AD
-            h_tjs = 0;
-        &#125;
-        else if(CP_AD &lt;= (AD_last - 2))	//下降2个AD
-        &#123;
-            up_temp = 0;
-            AD_last = CP_AD;	//刷新AD
-            h_tjs = 0;
-        &#125;
-        else	//变化2个AD以内的
-        &#123;
-          h_tjs++;
-          if(up_temp &gt;= 4)	//上升超过4次
-          &#123;
-              if(h_tjs &gt;= CP_tim_S*2) &#123;high_temp = CP_temp;&#125;
-          &#125;
-          else if(up_temp &gt;= 2)	//上升超过2次
-          &#123;
-              if(h_tjs &gt;= CP_tim_M*2) &#123;high_temp = CP_temp;&#125;
-          &#125;
-          else 
-          &#123;
-              if(h_tjs &gt;= CP_tim_L*2) &#123;high_temp = CP_temp;&#125;
-          &#125;
-        &#125;
-    &#125;
-    else 
-    &#123;
-        h_tjs = 0;
-        up_temp = 0;
+        Console.WriteLine(i.ToString());
+        Console.WriteLine(f.ToString());
+        Console.WriteLine(d.ToString());
+        Console.WriteLine(b.ToString());
+        Console.ReadKey();
     &#125;
 &#125;
-</code></pre>
-<p>凯翔的高原检测</p>
-<pre><code class="c">xdata   u16     Boiling_Time;
-xdata   u16     Del_24S_Judg;
-xdata   u8      Last_Heat_Water_Temp;
-//============================================
-//高原检测
-//返回1:高原或者水已开
-//返回0:没有水开
-//============================================
-u8 Judg_Boilling(void)
-&#123;
-    static u16 Base = 0;
-    u16 Set_Adc = 0;
-    
-    //小于85度,使用600W
-    if(Temper &lt; 85)
-    &#123;
-        Set_Power = Power_600W;
-        Last_Heat_Water_Temp = Temper;		//刷新温度
-        return 0 ;
-    &#125;
-    else 
-        Set_Power = Set_Judg_Power;			//85度后的加热功率	
-    
-    //Fun_Res = 1的时候,加热中
-    if(1 == Fun_Res)
-    &#123;
-        if(Temper &lt;= Last_Heat_Water_Temp - 5)	//下降5度,中途加水
-        &#123;
-            Last_Heat_Water_Temp = Temper;
-            Del_24S_Judg=0;//高原计数清0
-        &#125;
-        if(Temper &gt; Last_Heat_Water_Temp)		//温度上升
-            &#123;Last_Heat_Water_Temp = Temper;&#125;
-    &#125;
-    
-    //2400秒后开始检测高原
-    if(Del_24S_Judg &lt; 2400)
-    &#123;
-        ++Del_24S_Judg;
-        Boilling_Time = 0;
-        LastJudgAdc = Save_Adc;		//记录24秒后的AD
-        return 0;
-    &#125;
-    
-    //温度大于97度,水开,不需要检测高原
-    if(Temper &gt;= 97)	return 1;	
-    
-    //AD下降或不变
-    if(Save_Adc &lt;= LastJudgAdc)
-        &#123;Base = LastJudgAdc - Save_Adc;&#125;
-    else 
-    &#123;
-        LastJudgAdc = Save_Adc;
-        Boiling_Time = 0;
-        Base = 0;
-    &#125;
-    
-    //Set_Judg_Adc = 20, 温度保持在0~20个AD以内
-    if(Base &lt;= Set_Judg_Adc)
-    &#123;
-        if(++Boilling_Time &gt;= Set_Judg_Time)	//12s - 30s
-        &#123;
-            Boilling_Time = 0;
-            return 1;
-        &#125;
-    &#125;
-    
-    //温度上升期间
-    else
-    &#123;
-        if(1 == Fun_Res)
-        &#123;
-            if(Boilling_Time &gt;= 1200)	//上升缓慢
-                Boilling_Time &gt;&gt;= 1;	//考虑见减少6秒时间判断高原
-            else
-                Boilling_Time = 0;
-        &#125;
-        else 
-            Boilling_Time = 0;
-        LastJudgAdc = Save_Adc;
-    &#125;
-    return 0;
-&#125;
+
+
+//输出结果：
+// 75
+// 53.005
+// 2345.7652
+// True
 </code></pre>
 
       
