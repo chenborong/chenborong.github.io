@@ -240,7 +240,7 @@
     <li>
         <div class="all active" data-rel="全部文章">全部文章
             
-                <small>(51)</small>
+                <small>(52)</small>
             
         </div>
     </li>
@@ -447,7 +447,7 @@
                     <div data-rel="C#">
                         
                         C#
-                        <small>(1)</small>
+                        <small>(2)</small>
                         
                     </div>
                     
@@ -489,7 +489,7 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="51">
+<input type="hidden" id="yelog_site_posts_number" value="52">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -641,6 +641,14 @@
 
     
     <nav id="title-list-nav">
+        
+        <a  class="全部文章 C# "
+           href="/2023/07/30/C#%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+           data-tag="C#语言"
+           data-author="" >
+            <span class="post-title" title="C#_学习笔记">C#_学习笔记</span>
+            <span class="post-date" title="2023-07-30 22:08:00">2023/07/30</span>
+        </a>
         
         <a  class="全部文章 C# "
            href="/2023/07/09/C#_%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
@@ -1097,7 +1105,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-07-09 17:55:18'>2023-07-09 17:18</time>
+            发布时间 : <time class="date" title='最后更新: 2023-07-16 17:38:47'>2023-07-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -1119,7 +1127,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">C#_类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">隐式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">显式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95"><span class="toc-text">C# 类型转换方法</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">C#_类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">隐式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-text">显式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95"><span class="toc-text">C# 类型转换方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ToString"><span class="toc-text">ToString()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ToByte"><span class="toc-text">ToByte()</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1241,6 +1249,16 @@ byte b = (byte)i;	//显式转换，需要使用强制类型转换符号
 // 53.005
 // 2345.7652
 // True
+</code></pre>
+<h3 id="ToString"><a href="#ToString" class="headerlink" title="ToString()"></a>ToString()</h3><pre><code class="c">int i = 20;
+string str;
+str = i.ToString();		//str为10进制的字符串  20
+str = i.ToString(&quot;x&quot;);	//str为16进制的字符串  0x14
+</code></pre>
+<h2 id="ToByte"><a href="#ToByte" class="headerlink" title="ToByte()"></a>ToByte()</h2><pre><code class="c#">string data = &quot;0A&quot;;	//字符串
+byte i;
+i = Convert.ToByte(data,16);	//将“0A” 转换成 0A, 16表示16进制
+i = Convert.ToByte(data,10);	//将“0A” 转换成 10, 10表示10进制
 </code></pre>
 
       

@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>FreeRTOS_Task的堆栈 | Rainjai Blog</title>
-  <meta name="keywords" content=" ESP32 , FreeRTOS ">
-  <meta name="description" content="FreeRTOS_Task的堆栈 | Rainjai Blog">
+  <title>C#_学习笔记 | Rainjai Blog</title>
+  <meta name="keywords" content=" C#语言 ">
+  <meta name="description" content="C#_学习笔记 | Rainjai Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -1076,9 +1076,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-FreeRTOS_Task的堆栈" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-C#学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">FreeRTOS_Task的堆栈</h1>
+        <h1 class="article-title">C#_学习笔记</h1>
     
     <div class="article-meta">
         
@@ -1088,7 +1088,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="FreeRTOS">FreeRTOS</a>
+            <a  data-rel="C#">C#</a>
             
         </span>
         
@@ -1096,16 +1096,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color1">ESP32</a>
-            
-            <a class="color4">FreeRTOS</a>
+            <a class="color5">C#语言</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-01-28 21:29:31'>2023-01-28 00:00</time>
+            发布时间 : <time class="date" title='最后更新: 2023-08-06 15:39:13'>2023-07-30 22:08</time>
         
     </div>
     <div class="article-meta">
@@ -1127,7 +1125,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FreeRTOS-Task%E7%9A%84%E5%A0%86%E6%A0%88"><span class="toc-text">FreeRTOS_Task的堆栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#uxTaskGetStackHighWaterMark-%E5%87%BD%E6%95%B0"><span class="toc-text">uxTaskGetStackHighWaterMark()  函数</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">C#_学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-ComboBox-%E6%8E%A7%E4%BB%B6"><span class="toc-text">1.ComboBox 控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Timer-%E5%AE%9A%E6%97%B6%E5%99%A8%E6%8E%A7%E4%BB%B6"><span class="toc-text">2.Timer 定时器控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-RadioButton%E6%8E%A7%E4%BB%B6"><span class="toc-text">3.RadioButton控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Panel%E6%8E%A7%E4%BB%B6"><span class="toc-text">4.Panel控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-TextBox%E6%8E%A7%E4%BB%B6"><span class="toc-text">5.TextBox控件</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1143,30 +1141,93 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="FreeRTOS-Task的堆栈"><a href="#FreeRTOS-Task的堆栈" class="headerlink" title="FreeRTOS_Task的堆栈"></a>FreeRTOS_Task的堆栈</h1><h2 id="uxTaskGetStackHighWaterMark-函数"><a href="#uxTaskGetStackHighWaterMark-函数" class="headerlink" title="uxTaskGetStackHighWaterMark()  函数"></a>uxTaskGetStackHighWaterMark()  函数</h2><pre><code class="c">void myTask1(void *pvParam)
-&#123;
-    while(1)
-    &#123;
-        printf(&quot;task1-111\n&quot;);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    &#125;
-&#125;
+        <h1 id="C-学习笔记"><a href="#C-学习笔记" class="headerlink" title="C#_学习笔记"></a>C#_学习笔记</h1><h2 id="1-ComboBox-控件"><a href="#1-ComboBox-控件" class="headerlink" title="1.ComboBox 控件"></a>1.ComboBox 控件</h2><img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_ComboBox/C#_ComboBox.png" style="zoom:100%;" />
 
-void app_main(void)
-&#123;
-    TaskHandle_t pxTask1;
-    UBaseType_t iStack;		//定义变量表示剩余堆栈
+<p>该控件展开如下，</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_ComboBox/C#_ComboBox_1.png" style="zoom:60%;" />
 
-    xTaskCreate(myTask1, &quot;myTask1&quot;, 1024, NULL, 1, &amp;pxTask1);
-    while (1)
-    &#123;
-       iStack = uxTaskGetStackHighWaterMark(pxTask1);	//iStack 剩余堆栈
-       printf(&quot;task1 iStack = %d\n&quot;,iStack);			//打印myTask1的剩余堆栈
+<p>需要修改此处属性:</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_ComboBox/C#_ComboBox_2.png" style="zoom:0%;" />
 
-       vTaskDelay(3000 / portTICK_PERIOD_MS);
-    &#125;
-&#125;
+
+
+<p>如需要增加下来列表，则需要在框架Form1_Load处增加如下代码：</p>
+<pre><code class="c#">        private void Form1_Load(object sender, EventArgs e)
+        &#123;
+            int i;
+            //下拉数量为：100, 下拉内容是：“i 秒”
+            for (i = 1; i &lt; 100; i++)
+            &#123;
+                comboBox1.Items.Add(i.ToString() + &quot; 秒&quot;);
+            &#125;
+        &#125;
 </code></pre>
+<h2 id="2-Timer-定时器控件"><a href="#2-Timer-定时器控件" class="headerlink" title="2.Timer 定时器控件"></a>2.Timer 定时器控件</h2><p>在工具栏搜索：</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_Timer/C#_Timer_1.png" style="zoom:100%;" />
+
+
+
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_Timer/C#_Timer.png" style="zoom:100%;" />
+
+<p>并设置属性，1000ms进来一次定时器:</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_Timer/C#_Timer_3.png" style="zoom:100%;" />
+
+<p>如需要在按键处开始定时器，则如下代码所示:</p>
+<pre><code class="c#">     /*************************************************************************/
+        /*********************************按钮事件*********************************/
+        /*************************************************************************/
+        private void button1_Click(object sender, EventArgs e)  //开始计时按钮事件
+        &#123;
+            string str = comboBox1.Text;                    //将下来框内容添加到一个变量中
+            string data = str.Substring(0, 2);
+            count = 0;                                      //初始化为0
+            time = Convert.ToInt16(data);                   //得到设定定时值(整形) (从0位开始查,查2位)
+            progressBar1.Maximum = time;                    //进度调最大数值
+            
+            timer1.Start();                                 //开始计时
+        &#125;
+</code></pre>
+<p>定时器事件中,判断时间是否到达，然后停止定时器，播放声音，弹窗：</p>
+<pre><code class="c#">          /*************************************************************************/
+        /**********************************定时器**********************************/
+        /*************************************************************************/
+        //定时器中断,每1000ms进入1次(时间可设置)
+        private void timer1_Tick(object sender, EventArgs e)
+        &#123;
+            count++;    //记当前秒
+            label3.Text = (time - count).ToString() + &quot;秒&quot;;     //显示剩余时间
+            progressBar1.Value = count;                         //设置进度条
+            if (count == time)
+            &#123;
+                timer1.Stop();                                  //时间到,停止计时
+                count = 0;
+                SystemSounds.Asterisk.Play();                   //提示音
+                MessageBox.Show(&quot;时间到了！&quot;, &quot;提示&quot;);            //系统的提示框
+            &#125;
+        &#125;
+</code></pre>
+<h2 id="3-RadioButton控件"><a href="#3-RadioButton控件" class="headerlink" title="3.RadioButton控件"></a>3.RadioButton控件</h2><p>RadioButton是一个单选控件,理论上在一个区域中，只能选择其中一处。</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_RadioButton/C#_RadioButton.png" style="zoom:100%;" />
+
+
+
+<h2 id="4-Panel控件"><a href="#4-Panel控件" class="headerlink" title="4.Panel控件"></a>4.Panel控件</h2><p>可以将上面的RadioButton处，用框框 框起来，这样框里的RadioButton可以实现区域里的只选1处</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_Panel/C#_Panel.png" style="zoom:100%;" />
+
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_Panel/C#_Panel_1.png" style="zoom:100%;" />
+
+
+
+<h2 id="5-TextBox控件"><a href="#5-TextBox控件" class="headerlink" title="5.TextBox控件"></a>5.TextBox控件</h2><p>TextBox控件主要是用来显示文字</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_C#_TextBox/C#_C#_TextBox.png" style="zoom:100%;" />
+
+<p>如需要显示多行文字，或者需要修改显示框的大小，则需要MultiLine为真</p>
+<img src="https://raw.githubusercontent.com/chenborong/image/master/img/C#_img/C#_C#_TextBox/C#_C#_TextBox_1.png" style="zoom:100%;" />
+
+
+
+
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 rainjai94@outlook.com </span>
